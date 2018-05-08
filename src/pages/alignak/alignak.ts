@@ -10,6 +10,7 @@ export class AlignakHome {
   token: string;
   url: string;
   http: HttpClient;
+  data = [];
 
   constructor(
     public navCtrl: NavController, public navParams: NavParams
@@ -17,18 +18,27 @@ export class AlignakHome {
     this.token = navParams.get('data').token;
     this.http = navParams.get('http');
     this.url = navParams.get('url');
+    // this.data = [];
 
-    let req = this.get('host');
-    console.log(req);
+    this.get('host');
+
   }
 
-  get(endpoint: string){
+  get(endpoint: string) {
     let headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
     headers.append('Token', this.token);
 
-    return this.http.get(
+    this.http.get(
       this.url + '/' + endpoint, {headers}
-    ).subscribe(data => console.log(data), err => console.log(err));
+    ).subscribe(
+        data => this.display_data(data),
+        err => console.log(err)
+      )
+  }
+
+  display_data(data: {}){
+    this.data = data['_items'];
+    console.log(this.data);
   }
 }

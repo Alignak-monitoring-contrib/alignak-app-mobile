@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <img width="25" height="25" src="../assets/icon/icon.svg" style="display:inline-block">
+    <ion-title style="display:inline-block">
       Alignak Android
     </ion-title>
   </ion-navbar>
@@ -8,4 +9,9 @@
 
 <ion-content padding>
   <p>You're connected !</p>
+  <ion-list>
+    <ion-item ion-item *ngFor="let item of data;">
+    <p> {{item.name}} : {{item.ls_state}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

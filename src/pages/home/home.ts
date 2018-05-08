@@ -31,14 +31,11 @@ export class HomePage {
         this.backend+'/login',
         body)
         .subscribe(
-          function(data) {
-            this.navCtrl.push(AlignakHome, {data: data, http: this.http, url: this.backend})
-          }.bind(this),
-          function(err){
-            console.log((err.statusText || "Can't join the server."));
-            this.navCtrl.push(WrongLogin)
-          }.bind(this)
-
+          data => this.navCtrl.push(
+            AlignakHome, {data: data, http: this.http, url: this.backend}),
+          err =>
+            this.navCtrl.push(
+              WrongLogin, {error: err.message || "Can't join the server."})
         );
     }
 }

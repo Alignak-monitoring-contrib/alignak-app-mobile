@@ -8,7 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { BackendClient } from "../backend/client";
-import {WrongLogin} from "../pages/badlogin/wrong";
+import { WrongLogin } from "../pages/badlogin/wrong";
 
 @NgModule({
   declarations: [

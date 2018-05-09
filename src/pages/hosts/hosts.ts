@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 
 @IonicPage()
@@ -10,8 +10,8 @@ import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 export class HostsPage {
   public data: {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
-    this.navParams.get('data');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = this.navParams.get('data');
   }
 
   openPage(page: string, data: {}){

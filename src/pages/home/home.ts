@@ -3,8 +3,9 @@ import { NavController } from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import "rxjs/add/operator/map";
 
-import { AlignakHome} from "../alignak/alignak";
+import { BackendClient} from "../../backend/client";
 import { WrongLogin} from "../badlogin/wrong";
+import {Dashboard} from "../dashboard/dashboard";
 
 @Component({
   selector: 'page-home',
@@ -31,11 +32,15 @@ export class HomePage {
         this.backend+'/login',
         body)
         .subscribe(
-          data => this.navCtrl.push(
-            AlignakHome, {data: data, http: this.http, url: this.backend}),
-          err =>
+          function(data) {
+            let client = new BackendClient(
+              data['token'], this.http, this.backend);
             this.navCtrl.push(
-              WrongLogin, {error: err.message || "Can't join the server."})
+              Dashboard, {data: client.nb_items})
+          }.bind(this),
+              err =>
+                this.navCtrl.push(
+                  WrongLogin, {error: err.message || "Can't join the server."})
         );
     }
 }

@@ -7,15 +7,17 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AlignakHome } from "../pages/alignak/alignak";
+import { BackendClient } from "../backend/client";
 import {WrongLogin} from "../pages/badlogin/wrong";
+import {Dashboard} from "../pages/dashboard/dashboard";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    AlignakHome,
-    WrongLogin
+    BackendClient,
+    WrongLogin,
+    Dashboard
   ],
   imports: [
     BrowserModule,
@@ -26,8 +28,9 @@ import {WrongLogin} from "../pages/badlogin/wrong";
   entryComponents: [
     MyApp,
     HomePage,
-    AlignakHome,
-    WrongLogin
+    BackendClient,
+    WrongLogin,
+    Dashboard
   ],
   providers: [
     StatusBar,

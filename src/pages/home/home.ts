@@ -4,8 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import "rxjs/add/operator/map";
 
 import { BackendClient} from "../../backend/client";
-import { WrongLogin} from "../badlogin/wrong";
-import {Dashboard} from "../dashboard/dashboard";
+import { WrongLogin } from "../badlogin/wrong";
 
 @Component({
   selector: 'page-home',
@@ -35,8 +34,7 @@ export class HomePage {
           function(data) {
             let client = new BackendClient(
               data['token'], this.http, this.backend);
-            this.navCtrl.push(
-              Dashboard, {data: client.nb_items})
+            this.navCtrl.setRoot('Dashboard', {data: client});
           }.bind(this),
               err =>
                 this.navCtrl.push(

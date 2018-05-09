@@ -9,15 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { BackendClient } from "../backend/client";
 import {WrongLogin} from "../pages/badlogin/wrong";
-import {Dashboard} from "../pages/dashboard/dashboard";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     BackendClient,
+    // Dashboard,
     WrongLogin,
-    Dashboard
   ],
   imports: [
     BrowserModule,
@@ -28,9 +27,9 @@ import {Dashboard} from "../pages/dashboard/dashboard";
   entryComponents: [
     MyApp,
     HomePage,
+    // Dashboard,
     BackendClient,
     WrongLogin,
-    Dashboard
   ],
   providers: [
     StatusBar,

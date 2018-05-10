@@ -8,15 +8,7 @@ import {BackendClient} from "./client.service";
 })
 
 export class BackendComponent {
-  public getData: string;
 
-  constructor(private client: BackendClient) {}
+  constructor() {}
 
-  // public onHostGet() {
-  //   this.httpService.getAll("Computer")
-  //     .subscribe(function(data) {
-  //         this.getData = data;
-  //       }.bind(this),
-  //     );
-  // }
 }

@@ -8,9 +8,9 @@ import { WrongLogin } from "../badlogin/wrong";
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'login.html'
 })
-export class HomePage {
+export class LoginPage {
   private backend: string;
   private username: string;
   private password: string;

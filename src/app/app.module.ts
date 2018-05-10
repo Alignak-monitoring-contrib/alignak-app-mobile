@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
@@ -14,7 +14,7 @@ import { WrongLogin } from "../pages/badlogin/wrong";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    LoginPage,
     WrongLogin,
     BackendComponent
   ],
@@ -26,7 +26,7 @@ import { WrongLogin } from "../pages/badlogin/wrong";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
+    LoginPage,
     WrongLogin,
   ],
   providers: [

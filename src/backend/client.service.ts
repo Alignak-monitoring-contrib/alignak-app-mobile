@@ -13,6 +13,7 @@ export class BackendClient {
     this.http = http;
     this.token = localStorage.getItem('token');
     this.url = localStorage.getItem('url');
+    this.get_livesynthesis()
 
   }
 
@@ -44,6 +45,28 @@ export class BackendClient {
       )
     );
 
+  }
+
+  public get_livesynthesis() {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.token);
+
+    return this.http.get(
+      this.url + '/livesynthesis', {headers}
+    )
+  }
+
+  public get_hosts() {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.token);
+    let params = new HttpParams()
+      .set('where', JSON.stringify({'_is_template': false}));
+
+    return this.http.get(
+      this.url + '/host', {headers, params}
+    )
   }
 
 }

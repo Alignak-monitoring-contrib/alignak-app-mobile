@@ -3,7 +3,6 @@
     <ion-navbar>
       <ion-buttons start>
         <button ion-button>
-          <!--<ion-icon name="menu"></ion-icon>-->
           <img src="assets/imgs/icon.svg">
         </button>
       </ion-buttons>
@@ -20,6 +19,10 @@
       <button ion-item menuClose (click)="openPage('HostsPage', data)">
         <ion-icon item-start name="list-box"></ion-icon>
         Hosts
+      </button>
+      <button ion-item menuClose (click)="openPage(rootPage)">
+        <ion-icon item-start name="exit"></ion-icon>
+        Log out
       </button>
     </ion-list>
   </ion-content>

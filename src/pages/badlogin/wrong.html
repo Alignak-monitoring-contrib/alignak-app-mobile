@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <img width="25" height="25" src="../assets/icon/icon.svg" style="display:inline-block">
+    <img width="25" height="25" src="assets/imgs/icon.svg" style="display:inline-block">
     <ion-title style="display:inline-block">
       Alignak Android
     </ion-title>
@@ -8,7 +8,10 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-icon name="alert" color="danger" style="display:inline-block"></ion-icon>
-  <p style="display:inline-block">Access denied! Check your configuration and your credentials.</p>
-  <p>Error: {{error}}</p>
+  <ion-item ion-item>
+    <ion-icon item-start name="alert" color="danger"></ion-icon>
+    <ion-label>Access denied!</ion-label>
+  </ion-item>
+  <p>Check your configuration and your credentials.</p>
+  <p>Err: {{error}}</p>
 </ion-content>

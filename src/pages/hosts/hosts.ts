@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage} from 'ionic-angular';
-import {BackendClient} from "../../backend/client.service";
 
+import {BackendClient} from "../../backend/client.service";
 
 @IonicPage()
 @Component({

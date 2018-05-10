@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
-import "rxjs/add/operator/map";
 
 import { BackendClient} from "../../backend/client.service";
 import { WrongLogin } from "../badlogin/wrong";
@@ -11,9 +10,9 @@ import { WrongLogin } from "../badlogin/wrong";
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  private backend_url: string;
-  private username: string;
-  private password: string;
+  private readonly backend_url: string;
+  private readonly username: string;
+  private readonly password: string;
 
   constructor(public navCtrl: NavController, private http: HttpClient
   ) {
@@ -35,19 +34,14 @@ export class LoginPage {
         .subscribe(
           function(data) {
             localStorage.setItem("token", data['token']);
-            this.setRoot()
+            this.navCtrl.setRoot(LoginPage);
+            this.navCtrl.setRoot('Dashboard');
           }.bind(this),
             err => this.navCtrl.push(
               WrongLogin, {error: err.message || "Can't join the server."}
               )
         );
     }
-
-  public setRoot(){
-    // Set root pages
-      this.navCtrl.setRoot(LoginPage);
-      this.navCtrl.setRoot('Dashboard');
-  }
 
   eventHandler(keyCode) {
     // Catch when user type ENTER in "this.password"

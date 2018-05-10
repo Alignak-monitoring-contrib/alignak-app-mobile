@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
+
 import { BackendClient } from "../../backend/client.service";
 
 @IonicPage()
@@ -22,7 +23,7 @@ export class Dashboard {
   constructor(public client: BackendClient) {
     this.client.get_livesynthesis().subscribe(
       function (data) {
-        this.manageData(data);
+          this.manageData(data);
         }.bind(this),
           err => console.log('Synth err', err)
     )

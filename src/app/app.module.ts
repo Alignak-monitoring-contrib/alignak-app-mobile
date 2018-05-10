@@ -7,16 +7,16 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { BackendClient } from "../backend/client";
+import { BackendComponent } from "../backend/client.component";
+import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    BackendClient,
-    // Dashboard,
     WrongLogin,
+    BackendComponent
   ],
   imports: [
     BrowserModule,
@@ -27,13 +27,12 @@ import { WrongLogin } from "../pages/badlogin/wrong";
   entryComponents: [
     MyApp,
     HomePage,
-    // Dashboard,
-    BackendClient,
     WrongLogin,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    BackendClient,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

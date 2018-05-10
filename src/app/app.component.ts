@@ -4,23 +4,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import {BackendClient} from "../backend/client.service";
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [BackendClient]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = HomePage;
-  pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public backend: BackendClient) {
     this.initializeApp()
 
-    // used for an example of ngFor and navigation
-    // this.pages = [
-    //   { title: 'Home', component: HomePage },
-    //   { title: 'List', component: ListPage }
-    // ];
   }
 
   initializeApp() {

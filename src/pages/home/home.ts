@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import "rxjs/add/operator/map";
 
-import { BackendClient} from "../../backend/client";
+import { BackendClient} from "../../backend/client.service";
 import { WrongLogin } from "../badlogin/wrong";
 
 @Component({
@@ -15,7 +15,6 @@ export class HomePage {
   private username: string;
   private password: string;
 
-
   constructor(
     public navCtrl: NavController,
     private http: HttpClient
@@ -23,22 +22,17 @@ export class HomePage {
 
     login()
     {
-      let body = {
-        username: this.username,
-        password: this.password
-      };
-      this.http.post(
-        this.backend+'/login',
-        body)
+      let client = new BackendClient(this.http);
+      localStorage.setItem("url", this.backend);
+      client.login(this.username, this.password)
         .subscribe(
           function(data) {
-            let client = new BackendClient(
-              data['token'], this.http, this.backend);
-            this.navCtrl.setRoot('Dashboard', {data: client});
+            localStorage.setItem("token", data['token']);
+              this.navCtrl.setRoot('Dashboard');
           }.bind(this),
-              err =>
-                this.navCtrl.push(
-                  WrongLogin, {error: err.message || "Can't join the server."})
+            err => this.navCtrl.push(
+              WrongLogin, {error: err.message || "Can't join the server."}
+              )
         );
     }
 }

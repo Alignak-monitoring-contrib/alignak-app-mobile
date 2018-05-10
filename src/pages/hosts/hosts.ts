@@ -12,7 +12,6 @@ export class HostsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = this.navParams.get('data');
-    console.log('construct Hosts', this.data);
   }
 
 }

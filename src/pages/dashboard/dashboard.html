@@ -12,16 +12,19 @@
 <ion-content padding>
   <ion-list>
     <ion-item ion-item>
-      <ion-icon name="list-box" item-start color="danger"></ion-icon>
-      <ion-label>Hosts: 0 problems / {{livesynthesis.monitored.host}} monitored</ion-label>
+      <ion-icon name="list-box" item-start color="{{icon_colors.host}}"></ion-icon>
+      <ion-label>Hosts:</ion-label>
+      <ion-label>{{livesynthesis.problems.host}} problems / {{livesynthesis.monitored.host}} monitored</ion-label>
     </ion-item>
     <ion-item ion-item>
-      <ion-icon name="cube" item-start color="danger"></ion-icon>
-      <ion-label>Services: 0 problems / {{livesynthesis.monitored.service}} monitored</ion-label>
+      <ion-icon name="cube" item-start color="{{icon_colors.service}}"></ion-icon>
+      <ion-label>Services:</ion-label>
+      <ion-label>{{livesynthesis.problems.service }} problems / {{livesynthesis.monitored.service}} monitored</ion-label>
     </ion-item>
     <ion-item ion-item>
-      <ion-icon name="warning" item-start color="danger"></ion-icon>
-      <ion-label>Total: 0 problems / {{livesynthesis.monitored.total}} monitored</ion-label>
+      <ion-icon name="warning" item-start color="{{icon_colors.total}}"></ion-icon>
+      <ion-label>Total:</ion-label>
+      <ion-label>{{livesynthesis.problems.total}} problems / {{livesynthesis.monitored.total}} monitored</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -11,28 +11,41 @@ import { WrongLogin } from "../badlogin/wrong";
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  private backend: string;
+  private backend_url: string;
   private username: string;
   private password: string;
 
-  constructor(
-    public navCtrl: NavController,
-    private http: HttpClient
-  ) {}
+  constructor(public navCtrl: NavController, private http: HttpClient
+  ) {
+    if (localStorage.getItem('url')) {
+      this.backend_url = localStorage.getItem('url')
+    }
+    if (localStorage.getItem('username')) {
+      this.username = localStorage.getItem('username')
+    }
+  }
 
-    login()
+    doLogin()
     {
       let client = new BackendClient(this.http);
-      localStorage.setItem("url", this.backend);
+      localStorage.setItem("url", this.backend_url);
+      localStorage.setItem('username', this.username);
+
       client.login(this.username, this.password)
         .subscribe(
           function(data) {
             localStorage.setItem("token", data['token']);
-              this.navCtrl.setRoot('Dashboard');
+            this.setRoot()
           }.bind(this),
             err => this.navCtrl.push(
               WrongLogin, {error: err.message || "Can't join the server."}
               )
         );
     }
+
+  public setRoot(){
+    // Set root pages
+      this.navCtrl.setRoot(LoginPage);
+      this.navCtrl.setRoot('Dashboard');
+  }
 }

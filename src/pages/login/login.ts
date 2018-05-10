@@ -48,4 +48,11 @@ export class LoginPage {
       this.navCtrl.setRoot(LoginPage);
       this.navCtrl.setRoot('Dashboard');
   }
+
+  eventHandler(keyCode) {
+    // Catch when user type ENTER in "this.password"
+    if (keyCode === 13){
+      this.doLogin()
+    }
+  }
 }

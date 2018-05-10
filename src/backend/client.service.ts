@@ -11,7 +11,6 @@ export class BackendClient {
     this.http = http;
     this.token = localStorage.getItem('token');
     this.url = localStorage.getItem('url');
-    this.get_livesynthesis()
 
   }
 

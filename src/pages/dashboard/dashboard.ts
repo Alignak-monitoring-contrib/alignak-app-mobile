@@ -13,10 +13,10 @@ export class Dashboard {
     monitored: {host: 0, service: 0, total: 0},
     problems: {host: 0, service: 0, total: 0},
   };
-  private icon_colors = {
-    host: 'secondary',
-    service: 'secondary',
-    total: 'secondary',
+  private colors = {
+    host: 'ok',
+    service: 'ok',
+    total: 'total',
   };
 
   constructor(public client: BackendClient) {
@@ -58,21 +58,21 @@ export class Dashboard {
 
   private update_colors(){
     if (this.livesynthesis.problems.host > 0) {
-      this.icon_colors.host = 'danger'
+      this.colors.host = 'ko'
     } else {
-      this.icon_colors.host = 'secondary'
+      this.colors.host = 'ok'
     }
 
     if (this.livesynthesis.problems.service > 0) {
-      this.icon_colors.service = 'danger'
+      this.colors.service = 'ko'
     } else {
-      this.icon_colors.service = 'secondary'
+      this.colors.service = 'ok'
     }
 
-    if (this.livesynthesis.problems.total> 0) {
-      this.icon_colors.total = 'danger'
+    if (this.livesynthesis.problems.total > 0) {
+      this.colors.total = 'ko'
     } else {
-      this.icon_colors.total = 'secondary'
+      this.colors.total = 'total'
     }
   }
 

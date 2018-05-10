@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 
 
@@ -11,14 +11,12 @@ import {BackendClient} from "../../backend/client.service";
 
 export class HostsPage {
   public hosts: {};
-  public colors = { up: '' };
+  public colors = {up: 'up', unreachable: 'unreachable', down: 'down' };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-  this.colors.up = 'secondary';
+  constructor(public client: BackendClient) {
     this.client.get_hosts().subscribe(
       function(data) {
         this.hosts = data['_items'];
-        console.log('Hosts ', this.hosts)
       }.bind(this)
 
     )

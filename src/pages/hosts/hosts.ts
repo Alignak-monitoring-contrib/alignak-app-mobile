@@ -12,11 +12,7 @@ export class HostsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = this.navParams.get('data');
+    console.log('construct Hosts', this.data);
   }
 
-  openPage(page: string, data: {}){
-    this.navCtrl.push(page, data);
-    this.navCtrl.setRoot(page, data);
-    this.data = data;
-  }
 }

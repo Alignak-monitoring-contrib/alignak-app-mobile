@@ -1,40 +1,12 @@
-<ion-menu [content]="content" [persistent]="true">
-  <ion-header>
-    <ion-navbar>
-      <ion-buttons start>
-        <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title>Menu</ion-title>
-    </ion-navbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <button ion-item menuClose (click)="openPage('Dashboard', data)">
-        <ion-icon item-start name="star"></ion-icon>
-        Dashboard
-      </button>
-      <button ion-item menuClose (click)="openPage('HostsPage', data)">
-        <ion-icon item-start name="star"></ion-icon>
-        Hosts
-      </button>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 <ion-header>
   <ion-navbar>
-    <ion-buttons start>
     <button ion-button menuToggle>
-    <ion-icon name="menu"></ion-icon>
+      <!--<ion-icon name="speedometer"></ion-icon>-->
+      <img src="assets/imgs/icon.svg">
     </button>
-    </ion-buttons>
-  <ion-title>Dashboard</ion-title>
-</ion-navbar>
+    <ion-title>Livestate</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -42,17 +14,17 @@
     <ion-item ion-item>
       <ion-icon name="list-box" item-start color="danger"></ion-icon>
       <!--<ion-label>Hosts: {{data.host}} </ion-label>-->
-      <ion-label>Hosts: </ion-label>
+      <ion-label>Hosts:    0 (0 problems / 0 monitored)</ion-label>
     </ion-item>
     <ion-item ion-item>
       <ion-icon name="cube" item-start color="danger"></ion-icon>
       <!--<ion-label>Services: {{data.service}} </ion-label>-->
-      <ion-label>Services: </ion-label>
+      <ion-label>Services: 0 (0 problems / 0 monitored)</ion-label>
     </ion-item>
     <ion-item ion-item>
       <ion-icon name="warning" item-start color="danger"></ion-icon>
       <!--<ion-label>Total: {{data.total}} </ion-label>-->
-      <ion-label>Total: {{data}}</ion-label>
+      <ion-label>Total:   0 (0 problems / 0 monitored)</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

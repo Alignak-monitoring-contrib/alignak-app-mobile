@@ -1,0 +1,15 @@
+page-host {
+  .up{
+    color: #27ae60;
+  },
+  .unreachable {
+    color: #9b59b6;
+  },
+  .down {
+    color: #e74c3c;
+  }
+}
+
+ion-list-header {
+  background-color: #ccc;
+}

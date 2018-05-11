@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar color="mycolor">
+    <ion-title>Host Synthesis</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-title>{{getHostName()}}
+    <ion-icon padding item-start class="up" name="list-box" *ngIf="host['ls_state'] === 'UP'"></ion-icon>
+    <ion-icon padding item-end class="unreachable" name="list-box" *ngIf="host['ls_state'] === 'UNREACHABLE'"></ion-icon>
+    <ion-icon padding item-end class="down" name="list-box" *ngIf="host['ls_state'] === 'DOWN'"></ion-icon>
+  </ion-title>
+
+  <ion-list>
+    <ion-list-header color="light">
+      <ion-icon item-start name="information-circle" color="primary"></ion-icon>
+      Global informations
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col><b>State</b></ion-col>
+        <ion-col>{{host['ls_state']}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>Output</b></ion-col>
+        <ion-col>{{host['ls_output']}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>When</b></ion-col>
+        <ion-col>{{getCheckDate()}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>Address</b></ion-col>
+        <ion-col>{{host['address']}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header color="light">
+      <ion-icon item-start name="options" color="primary"></ion-icon>
+      Options
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Active Checks</ion-label>
+      <ion-toggle color="primary"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Passive Checks</ion-label>
+      <ion-toggle color="primary"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header color="light">
+      <ion-icon name="cube" item-start color="primary"></ion-icon>
+      Services
+    </ion-list-header>
+    <ion-item>
+      <ion-label>0 services</ion-label>
+      <button ion-button outline item-end>View</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
+
+const BACKEND_PAGINATION_LIMIT = 10000;
+
 @Injectable()
 export class BackendClient {
   token: string;
@@ -39,7 +42,9 @@ export class BackendClient {
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
     let params = new HttpParams()
-      .set('where', JSON.stringify({'_is_template': false}));
+      .set('where', JSON.stringify({'_is_template': false}))
+      .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
+    ));
 
     return this.http.get(
       this.url + '/host', {headers, params}

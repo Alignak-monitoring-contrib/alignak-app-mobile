@@ -30,26 +30,31 @@ export class Dashboard {
   }
 
   protected manageData(data: {}){
-    let livesynth = data['_items'][0];
-    // Define totals
-    this.livesynthesis.monitored.host = livesynth['hosts_total'];
-    this.livesynthesis.monitored.service = livesynth['services_total'];
-    this.livesynthesis.monitored.total = livesynth['hosts_total'] + livesynth['services_total'];
+    for (let i = 0; i < data['_items'].length; i++) {
+      // Current synth
+      let livesynth = data['_items'][i];
 
-    // Define problems
-    let hosts_problem_keys = ['hosts_down_hard', 'hosts_down_soft', 'hosts_unreachable_hard', 'hosts_unreachable_soft'];
-    livesynth[hosts_problem_keys[2]] += 1;
-    for (let hostKey in hosts_problem_keys) {
-      if (!Object.prototype.hasOwnProperty.call(livesynth, hostKey)) {
-        this.livesynthesis.problems.host += livesynth[hosts_problem_keys[hostKey]];
+      // Define totals
+      this.livesynthesis.monitored.host += livesynth['hosts_total'];
+      this.livesynthesis.monitored.service += livesynth['services_total'];
+      this.livesynthesis.monitored.total += livesynth['hosts_total'] + livesynth['services_total'];
+
+      // Define problems
+      let hosts_problem_keys = [
+        'hosts_down_hard', 'hosts_down_soft', 'hosts_unreachable_hard', 'hosts_unreachable_soft'];
+      for (let hostKey in hosts_problem_keys) {
+        if (!Object.prototype.hasOwnProperty.call(livesynth, hostKey)) {
+          this.livesynthesis.problems.host += livesynth[hosts_problem_keys[hostKey]];
+        }
       }
-    }
 
-    let services_problem_keys = ['services_critical_hard', 'services_critical_soft','services_warning_hard',
-      'services_warning_soft', 'services_unreachable_hard', 'services_unreachable_soft'];
-    for (let serviceKey in services_problem_keys) {
-      if (!Object.prototype.hasOwnProperty.call(livesynth, serviceKey)) {
-        this.livesynthesis.problems.service += livesynth[services_problem_keys[serviceKey]];
+      let services_problem_keys = [
+        'services_critical_hard', 'services_critical_soft', 'services_warning_hard',
+        'services_warning_soft', 'services_unreachable_hard', 'services_unreachable_soft'];
+      for (let serviceKey in services_problem_keys) {
+        if (!Object.prototype.hasOwnProperty.call(livesynth, serviceKey)) {
+          this.livesynthesis.problems.service += livesynth[services_problem_keys[serviceKey]];
+        }
       }
     }
 

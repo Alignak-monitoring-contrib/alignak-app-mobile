@@ -12,6 +12,12 @@ before_install:
 android:
     components:
       - tools
+
+licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+
 install:
     - npm install
     - npm install -g ionic cordova

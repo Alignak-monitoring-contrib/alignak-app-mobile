@@ -10,25 +10,58 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <span padding>Number of items:</span>
-      <i> problems / monitored</i>
-    </ion-item>
-    <ion-item ion-item>
-      <ion-icon name="list-box" item-start [ngClass]="colors.host"></ion-icon>
-      <ion-label>Hosts:</ion-label>
-      <ion-label>{{livesynthesis.problems.host}} / {{livesynthesis.monitored.host}}</ion-label>
-    </ion-item>
-    <ion-item ion-item>
-      <ion-icon name="cube" item-start [ngClass]="colors.service"></ion-icon>
-      <ion-label>Services:</ion-label>
-      <ion-label>{{livesynthesis.problems.service }} / {{livesynthesis.monitored.service}} </ion-label>
-    </ion-item>
-    <ion-item ion-item>
-      <ion-icon name="warning" item-start [ngClass]="colors.total"></ion-icon>
-      <ion-label>Total:</ion-label>
-      <ion-label>{{livesynthesis.problems.total}} / {{livesynthesis.monitored.total}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-title>Total items in problem</ion-title>
+        <circle-progress
+          title="Total {{livestate.percent.total}}"
+          subtitle="{{livestate.problems.total}} / {{livestate.monitored.total}}"
+          [percent]="livestate.percent.total"
+          [radius]="100"
+          [outerStrokeWidth]="16"
+          [innerStrokeWidth]="8"
+          [subtitleFontSize]="16"
+          [outerStrokeColor]="colors.total.outerStrokeColor"
+          [innerStrokeColor]="colors.total.innerStrokeColor"
+          [animation]="true"
+          [animationDuration]="300"
+        ></circle-progress>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-top: 1px solid #cccccc">
+      <ion-col>
+        <ion-label>Hosts managed</ion-label>
+        <circle-progress
+          subtitle="{{livestate.problems.host}} / {{livestate.monitored.host}}"
+          [percent]="livestate.percent.host"
+          [radius]="50"
+          [outerStrokeWidth]="8"
+          [innerStrokeWidth]="4"
+          [subtitleFontSize]="12"
+          [outerStrokeColor]="colors.host.outerStrokeColor"
+          [innerStrokeColor]="colors.host.innerStrokeColor"
+          [animation]="true"
+          [animationDuration]="300"
+        ></circle-progress>
+      </ion-col>
+      <ion-col>
+        <ion-label>Services Managed</ion-label>
+        <circle-progress
+          subtitle="{{livestate.problems.service}} / {{livestate.monitored.service}}"
+          [percent]="livestate.percent.service"
+          [radius]="50"
+          [outerStrokeWidth]="8"
+          [innerStrokeWidth]="4"
+          [subtitleFontSize]="12"
+          [outerStrokeColor]="colors.service.outerStrokeColor"
+          [innerStrokeColor]="colors.service.innerStrokeColor"
+          [animation]="true"
+          [animationDuration]="300"
+        ></circle-progress>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>Test</ion-footer>

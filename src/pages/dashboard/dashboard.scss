@@ -1,11 +1,9 @@
 page-dashboard {
-  .ok{
-    color: #27ae60;
+  .circle-title {
+    font-size: 1.5rem;
   },
-  .ko {
-    color: #e74c3c;
-  },
-  .total {
-    color: #3b4155;
+
+  ion-row {
+    text-align: center;
   }
 }

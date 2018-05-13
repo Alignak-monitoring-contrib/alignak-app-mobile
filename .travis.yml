@@ -1,25 +1,38 @@
-language: android
+sudo: false
 
-android:
-  components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    - tools
-    - platform-tools
+language: node_js
+node_js:
+  - "7"
 
-    # The BuildTools version used by your project
-    - build-tools-26.0.2
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    # - g++-4.8
+    # - openjdk-7-jdk
+    # - lib32stdc++6
+    # - lib32z1
+env:
+  # CXX=g++-4.8
 
-    # The SDK version used to compile your project
-    - android-26
+install:
+  - npm install -g bower cordova ionic
+  - npm install
+  - bower update
 
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-26
+before_script:
+  # - wget http://dl.google.com/android/android-sdk_r24.4-linux.tgz
+  # - tar -xvf android-sdk_r24.4-linux.tgz
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter platform-tools
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter build-tools-23.0.2
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter android-23
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-support
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-android-m2repository
+  # - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-google-m2repository
+  # - export ANDROID_HOME=$PWD/android-sdk-linux
+  # - export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-26
-    # - sys-img-armeabi-v7a-android-17
+script:
+  - npm run lint
+  - npm run build

@@ -36,3 +36,7 @@ before_script:
 script:
   - npm run lint
   - npm run build
+  - ionic cordova platform add android
+  - ionic cordova build android
+  - grep -r -i --include \*.apk .
+

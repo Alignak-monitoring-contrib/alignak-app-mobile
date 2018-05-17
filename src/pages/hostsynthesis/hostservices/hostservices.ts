@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ServicesPage page.
+ * Generated class for the HostServicesPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,10 +10,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-services',
-  templateUrl: 'services.html',
+  selector: 'page-hostservices',
+  templateUrl: 'hostservices.html',
 })
-export class ServicesPage {
+export class HostServicesPage {
   private readonly services: {};
   private readonly hostname;
 

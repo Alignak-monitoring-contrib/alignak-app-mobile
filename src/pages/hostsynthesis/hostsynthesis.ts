@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
-import {ServicesPage} from "../services/services";
+import {HostServicesPage} from "./hostservices/hostservices";
 
 
 @IonicPage()
 @Component({
-  selector: 'page-host',
-  templateUrl: 'host.html',
+  selector: 'page-hostsynthesis',
+  templateUrl: 'hostsynthesis.html',
 })
-export class HostPage {
+export class HostSynthesisPage {
   private readonly host: {};
   private readonly services: {};
 
@@ -37,7 +37,7 @@ export class HostPage {
   }
 
   public openServicesPage(){
-    this.navCtrl.push(ServicesPage, {hostname: this.getHostName(), services: this.services})
+    this.navCtrl.push(HostServicesPage, {hostname: this.getHostName(), services: this.services})
   }
 
 }

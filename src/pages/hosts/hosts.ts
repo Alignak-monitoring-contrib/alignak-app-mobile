@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
 
 import {BackendClient} from "../../backend/client.service";
-import {HostPage} from "../host/host";
+import {HostSynthesisPage} from "../hostsynthesis/hostsynthesis";
 
 @IonicPage()
 @Component({
@@ -24,7 +24,7 @@ export class HostsPage {
   }
 
   public displayHost(host){
-    this.navCtrl.push(HostPage, {host: host})
+    this.navCtrl.push(HostSynthesisPage, {host: host})
   }
 
 }

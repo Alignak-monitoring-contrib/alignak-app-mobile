@@ -10,8 +10,8 @@ import { LoginPage } from '../pages/login/login';
 import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
-import {HostPage} from "../pages/host/host";
-import {ServicesPage} from "../pages/services/services";
+import {HostSynthesisPage} from "../pages/hostsynthesis/hostsynthesis";
+import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
 
 @NgModule({
   declarations: [
@@ -19,8 +19,8 @@ import {ServicesPage} from "../pages/services/services";
     LoginPage,
     WrongLogin,
     BackendComponent,
-    HostPage,
-    ServicesPage
+    HostSynthesisPage,
+    HostServicesPage
   ],
   imports: [
     BrowserModule,
@@ -31,8 +31,8 @@ import {ServicesPage} from "../pages/services/services";
   entryComponents: [
     MyApp,
     LoginPage,
-    HostPage,
-    ServicesPage,
+    HostSynthesisPage,
+    HostServicesPage,
     WrongLogin,
   ],
   providers: [

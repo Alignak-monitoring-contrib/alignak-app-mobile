@@ -9,9 +9,7 @@
 
 <ion-content padding>
   <ion-title>{{getHostName()}}
-    <ion-icon padding item-start class="up" name="list-box" *ngIf="host['ls_state'] === 'UP'"></ion-icon>
-    <ion-icon padding item-end class="unreachable" name="list-box" *ngIf="host['ls_state'] === 'UNREACHABLE'"></ion-icon>
-    <ion-icon padding item-end class="down" name="list-box" *ngIf="host['ls_state'] === 'DOWN'"></ion-icon>
+    <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
   </ion-title>
 
   <ion-list>
@@ -46,11 +44,11 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Active Checks</ion-label>
-      <ion-toggle color="primary"></ion-toggle>
+      <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']">essai</ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>Passive Checks</ion-label>
-      <ion-toggle color="primary"></ion-toggle>
+      <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']"></ion-radio>
     </ion-item>
   </ion-list>
 
@@ -60,8 +58,8 @@
       Services
     </ion-list-header>
     <ion-item>
-      <ion-label>0 services</ion-label>
-      <button ion-button outline item-end>View</button>
+      <ion-label>{{services.length}} service(s)</ion-label>
+      <button ion-button outline item-end (click)="openServicesPage(services)">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

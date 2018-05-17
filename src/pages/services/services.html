@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <img src="assets/imgs/icon.svg">
+    </button>
+    <ion-title>Services of {{hostname}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list *ngFor="let service of services;">
+    <button ion-item>
+      <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
+      <ion-label>Service {{service['name']}}: {{service['ls_state']}}</ion-label>
+    </button>
+  </ion-list>
+</ion-content>

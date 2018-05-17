@@ -10,12 +10,10 @@
 
 
 <ion-content padding>
-  <ion-list *ngFor="let item of hosts;">
-    <button ion-item (click)="displayHost(item)">
-      <ion-icon item-start [ngClass]="colors.up" name="list-box" *ngIf="item['ls_state'] === 'UP'"></ion-icon>
-      <ion-icon item-start [ngClass]="colors.unreachable" name="list-box" *ngIf="item['ls_state'] === 'UNREACHABLE'"></ion-icon>
-      <ion-icon item-start [ngClass]="colors.down" name="list-box" *ngIf="item['ls_state'] === 'DOWN'"></ion-icon>
-      <ion-label>Host {{item['name']}}: {{item['ls_state']}}</ion-label>
+  <ion-list *ngFor="let host of hosts;">
+    <button ion-item (click)="displayHost(host)">
+      <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+      <ion-label>Host {{host['name']}}: {{host['ls_state']}}</ion-label>
     </button>
   </ion-list>
 </ion-content>

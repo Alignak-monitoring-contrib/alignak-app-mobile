@@ -1,0 +1,17 @@
+page-services {
+  .OK{
+    color: #27ae60;
+  },
+  .UNREACHABLE {
+    color: #9b59b6;
+  },
+  .WARNING {
+    color: #e67e22;
+  },
+  .UNKNOWN {
+    color: #2a80b9;
+  },
+  .CRITICAL {
+    color: #e74c3c;
+  }
+}

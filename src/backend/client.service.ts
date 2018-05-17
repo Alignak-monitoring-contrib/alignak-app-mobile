@@ -51,4 +51,18 @@ export class BackendClient {
     )
   }
 
+  public get_host_services(host) {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.token);
+    let params = new HttpParams()
+      .set('where', JSON.stringify({'_is_template': false, 'host': host['_id']}))
+      .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
+      ));
+
+    return this.http.get(
+      this.url + '/service', {headers, params}
+    )
+  }
+
 }

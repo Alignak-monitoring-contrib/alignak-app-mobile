@@ -11,6 +11,7 @@ import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
 import {HostPage} from "../pages/host/host";
+import {ServicesPage} from "../pages/services/services";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HostPage} from "../pages/host/host";
     LoginPage,
     WrongLogin,
     BackendComponent,
-    HostPage
+    HostPage,
+    ServicesPage
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import {HostPage} from "../pages/host/host";
     MyApp,
     LoginPage,
     HostPage,
+    ServicesPage,
     WrongLogin,
   ],
   providers: [

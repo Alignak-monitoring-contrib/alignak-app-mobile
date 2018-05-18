@@ -13,7 +13,7 @@
 
 <ion-content padding>
   <ion-list-header>Services Problems</ion-list-header>
-  <ion-list *ngFor="let service of servicesProblems;">
+  <ion-list *ngFor="let service of servicesProblems;" >
     <button ion-item>
       <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
       <ion-label>Host {{service['name']}}: {{service['ls_state']}}</ion-label>

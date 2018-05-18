@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage} from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 
 
@@ -12,7 +12,7 @@ export class ProblemsPage {
   servicesProblems = [];
   hostsProblems = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
+  constructor(public client: BackendClient) {
     let problemServiceStates = ['CRITICAL', 'WARNING'];
     let problemHostStates = ['DOWN'];
     for (let problemService in problemServiceStates){
@@ -28,8 +28,8 @@ export class ProblemsPage {
       this.client.getProblems('host', problemHostStates[problemHost])
         .subscribe(
           function(data) {
-            this.servicesProblems = this.servicesProblems.concat(data['_items']);
-            console.log('Host Problems', this.servicesProblems)
+            this.hostsProblems = this.hostsProblems.concat(data['_items']);
+            console.log('Host Problems', this.hostsProblems)
           }.bind(this)
         );
     }

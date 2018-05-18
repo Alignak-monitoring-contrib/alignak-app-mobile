@@ -70,9 +70,8 @@ export class BackendClient {
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
     let params = new HttpParams()
-      .set('where', JSON.stringify({'_is_template': false, 'ls_state': state}))
-      .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
-      ));
+      .set('where', JSON.stringify({'_is_template': false, 'ls_state': state, 'ls_acknowledged': false, 'ls_downtimed': false}))
+      // .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT));
     return this.http.get(
       this.url + '/' + endpoint, {headers, params}
     )

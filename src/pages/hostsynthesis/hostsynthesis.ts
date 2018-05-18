@@ -15,7 +15,7 @@ export class HostSynthesisPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     this.host = this.navParams.get('host');
-    this.services = this.client.get_host_services(this.navParams.get('host'))
+    this.services = this.client.getHostServices(this.navParams.get('host'))
       .subscribe(
       function(data) {
         this.services = data['_items']

@@ -27,7 +27,7 @@ export class Dashboard {
   };
 
   constructor(public client: BackendClient) {
-    this.client.get_livesynthesis().subscribe(
+    this.client.getLivesynthesis().subscribe(
       function (data) {
           this.manageData(data);
         }.bind(this),

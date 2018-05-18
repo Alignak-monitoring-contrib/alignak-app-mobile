@@ -15,7 +15,7 @@ export class HostsPage {
   public colors = {up: 'up', unreachable: 'unreachable', down: 'down' };
 
   constructor(public navCtrl: NavController, public client: BackendClient) {
-    this.client.get_hosts().subscribe(
+    this.client.getHosts().subscribe(
       function(data) {
         this.hosts = data['_items'];
       }.bind(this)

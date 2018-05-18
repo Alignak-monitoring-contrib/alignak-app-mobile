@@ -27,7 +27,7 @@ export class BackendClient {
       body)
   }
 
-  public get_livesynthesis() {
+  public getLivesynthesis() {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -37,7 +37,7 @@ export class BackendClient {
     )
   }
 
-  public get_hosts() {
+  public getHosts() {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -51,7 +51,7 @@ export class BackendClient {
     )
   }
 
-  public get_host_services(host) {
+  public getHostServices(host: {}) {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -65,4 +65,16 @@ export class BackendClient {
     )
   }
 
+  public getProblems(endpoint: string, state: string) {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.token);
+    let params = new HttpParams()
+      .set('where', JSON.stringify({'_is_template': false, 'ls_state': state}))
+      .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
+      ));
+    return this.http.get(
+      this.url + '/' + endpoint, {headers, params}
+    )
+  }
 }

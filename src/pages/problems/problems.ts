@@ -13,6 +13,10 @@ export class ProblemsPage {
   hostsProblems = [];
 
   constructor(public client: BackendClient) {
+    this.collectProblems()
+  }
+
+  collectProblems(): void {
     let problemServiceStates = ['CRITICAL', 'WARNING'];
     let problemHostStates = ['DOWN'];
     for (let problemService in problemServiceStates){
@@ -33,7 +37,6 @@ export class ProblemsPage {
           }.bind(this)
         );
     }
-
   }
 
 

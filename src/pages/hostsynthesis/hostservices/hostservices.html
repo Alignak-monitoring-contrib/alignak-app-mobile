@@ -8,10 +8,26 @@
 
 
 <ion-content padding>
+  <ion-label></ion-label>
   <ion-list *ngFor="let service of services;">
-    <button ion-item>
-      <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
-      <ion-label>Service {{service['name']}}: {{service['ls_state']}}</ion-label>
-    </button>
+    <ion-item-sliding #item>
+      <ion-item>
+        <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
+        <ion-label>{{service['name']}}: {{service['ls_state']}}</ion-label>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button style="background-color: #f39c12;" (click)="addAction()">
+          <ion-icon name="checkbox"></ion-icon>
+        </button>
+        <button ion-button style="background-color: #f1c40f;" (click)="addAction()">
+          <ion-icon name="medkit"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button expandable (click)="displayInfo(service)">
+          <ion-icon name="eye"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

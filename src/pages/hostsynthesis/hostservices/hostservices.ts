@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the HostServicesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavParams, AlertController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -17,10 +10,38 @@ export class HostServicesPage {
   private readonly services: {};
   private readonly hostname;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, public navParams: NavParams) {
     this.services = navParams.get('services');
     this.hostname = navParams.get('hostname');
     console.log('Services: ', this.services)
+  }
+
+  public displayInfo(service: {}): void {
+    let alert = this.alertCtrl.create({
+      title: 'Service ' + service['name'],
+      subTitle: 'My output',
+      message: service['ls_output'] + ' (' + HostServicesPage.getCheckDate(service) + ')',
+      buttons: ['OK'],
+    });
+    alert.present();
+  }
+
+  public addAction(): void {
+    let alert = this.alertCtrl.create({
+      title: 'Please be patient :)',
+      message: 'Not yet implemented',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  private static getCheckDate(service: {}): string {
+    if (!service['ls_last_check']){
+      return 'Not yet checked'
+    }else
+    {
+      return new Date(service['ls_last_check'] * 1000).toLocaleString() || 'Error';
+    }
   }
 
 }

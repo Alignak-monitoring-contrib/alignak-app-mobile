@@ -14,7 +14,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = LoginPage;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public backend: BackendClient) {
+  constructor(public platform: Platform, public statusBar: StatusBar,
+              public splashScreen: SplashScreen, public backend: BackendClient) {
     this.initializeApp()
 
   }
@@ -32,6 +33,11 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page);
+  }
+
+  logOut(): void {
+    this.backend.token = '';
+    this.nav.setRoot(this.rootPage);
   }
 
 }

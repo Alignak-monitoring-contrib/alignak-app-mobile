@@ -14,9 +14,13 @@ export class BackendClient {
     this.http = http;
     this.token = localStorage.getItem('token');
     this.url = localStorage.getItem('url');
-
+    this.updateData()
   }
 
+  private updateData(){
+    this.token = localStorage.getItem('token');
+    this.url = localStorage.getItem('url');
+  }
   public login(username: string, password: string){
     let body = {
       username: username,
@@ -28,6 +32,7 @@ export class BackendClient {
   }
 
   public getLivesynthesis() {
+    this.updateData();
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -38,6 +43,7 @@ export class BackendClient {
   }
 
   public getHosts() {
+    this.updateData()
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -52,6 +58,7 @@ export class BackendClient {
   }
 
   public getHostServices(host: {}) {
+    this.updateData();
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);
@@ -66,6 +73,7 @@ export class BackendClient {
   }
 
   public getProblems(endpoint: string, state: string) {
+    this.updateData();
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.token);

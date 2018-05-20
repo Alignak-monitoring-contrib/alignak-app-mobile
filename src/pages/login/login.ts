@@ -26,14 +26,15 @@ export class LoginPage {
 
     doLogin()
     {
-      let client = new BackendClient(this.http);
       localStorage.setItem("url", this.backend_url);
       localStorage.setItem('username', this.username);
 
+      let client = new BackendClient(this.http);
       client.login(this.username, this.password)
         .subscribe(
           function(data) {
             localStorage.setItem("token", data['token']);
+
             this.navCtrl.setRoot(LoginPage);
             this.navCtrl.setRoot('Dashboard');
           }.bind(this),

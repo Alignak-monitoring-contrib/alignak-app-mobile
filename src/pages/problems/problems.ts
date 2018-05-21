@@ -23,6 +23,7 @@ export class ProblemsPage {
         .subscribe(
           function(data) {
             this.servicesProblems = this.servicesProblems.concat(data['_items']);
+            console.log('Services Problems: ', this.servicesProblems)
           }.bind(this)
         );
     }
@@ -32,6 +33,7 @@ export class ProblemsPage {
         .subscribe(
           function(data) {
             this.hostsProblems = this.hostsProblems.concat(data['_items']);
+            console.log('Hosts Problems: ', this.hostsProblems)
           }.bind(this)
         );
     }

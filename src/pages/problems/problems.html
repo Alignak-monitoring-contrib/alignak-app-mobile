@@ -12,19 +12,31 @@
 
 
 <ion-content padding>
-  <ion-list-header>Services Problems</ion-list-header>
-  <ion-list *ngFor="let service of servicesProblems;" >
-    <button ion-item>
-      <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
-      <ion-label>Host {{service['name']}}: {{service['ls_state']}}</ion-label>
-    </button>
-  </ion-list>
+  <ion-slides>
+    <ion-slide style="align-items: flex-start;">
+      <ion-list-header>Services Problems</ion-list-header>
+      <div *ngIf = "servicesProblems">
+        <ion-list *ngFor="let service of servicesProblems;" >
+          <button ion-item>
+            <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
+            <ion-label>Host {{service['name']}}: {{service['ls_state']}}</ion-label>
+          </button>
+        </ion-list>
+      </div>
+      <ion-label *ngIf = "servicesProblems.length == 0">There is no problem for services</ion-label>
+    </ion-slide>
+    <ion-slide style="align-items: flex-start;">
+      <ion-list-header>Hosts Problems</ion-list-header>
+      <div *ngIf = "servicesProblems">
+        <ion-list *ngFor="let host of hostsProblems;">
+          <button ion-item>
+            <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+            <ion-label>Host {{host['name']}}: {{host['ls_state']}}</ion-label>
+          </button>
+        </ion-list>
+      </div>
+      <ion-label *ngIf = "hostsProblems.length == 0">There is no problem for hosts</ion-label>
+    </ion-slide>
+  </ion-slides>
 
-  <ion-list-header>Hosts Problems</ion-list-header>
-  <ion-list *ngFor="let host of hostsProblems;">
-    <button ion-item>
-      <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      <ion-label>Host {{host['name']}}: {{host['ls_state']}}</ion-label>
-    </button>
-  </ion-list>
 </ion-content>

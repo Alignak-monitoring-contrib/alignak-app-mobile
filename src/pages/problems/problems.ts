@@ -18,22 +18,20 @@ export class ProblemsPage {
 
   collectProblems(): void {
     let problemServiceStates = ['CRITICAL', 'WARNING'];
-    let problemHostStates = ['DOWN'];
     for (let problemService in problemServiceStates){
       this.client.getProblems('service', problemServiceStates[problemService])
         .subscribe(
           function(data) {
             this.servicesProblems = this.servicesProblems.concat(data['_items']);
-            console.log('Service Problems:', this.servicesProblems)
           }.bind(this)
         );
     }
+    let problemHostStates = ['DOWN'];
     for (let problemHost in problemHostStates){
       this.client.getProblems('host', problemHostStates[problemHost])
         .subscribe(
           function(data) {
             this.hostsProblems = this.hostsProblems.concat(data['_items']);
-            console.log('Host Problems', this.hostsProblems)
           }.bind(this)
         );
     }

@@ -69,7 +69,7 @@ export class BackendClient {
     return this.get('service', params)
   }
 
-  public getProblems(endpoint: string, state: string) {
+  public getProblems(endpoint: string, state: string): Observable<any> {
     // Return observable with problemms for given endpoint and state
     let params = new HttpParams()
       .set('where', JSON.stringify({

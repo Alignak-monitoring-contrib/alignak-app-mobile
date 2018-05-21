@@ -12,6 +12,7 @@ const UNKNOWN = '#2a80b9';
 const ACKNOWLEDGED = '#f39c12';
 const IN_DOWNTIME = '#f1c40f';
 const FLAPPING = '#f1b3f0';
+const NOT_MONITORED = '#cccccc';
 const TOTAL = '#1fb4e4';
 
 @IonicPage()
@@ -175,7 +176,7 @@ export class Dashboard {
   }
 
   public getColorFromKey(key: string, value: 0): string {
-    let color = '#f4f4f4';
+    let color = '#000000';
     if (value == 0)
       return '#f4f4f4';
 
@@ -195,6 +196,8 @@ export class Dashboard {
       color = IN_DOWNTIME;
     else if (key == 'flapping')
       color = FLAPPING;
+    else if (key == 'not_monitored')
+      color = NOT_MONITORED;
     else if (key == 'total')
       color = TOTAL;
 

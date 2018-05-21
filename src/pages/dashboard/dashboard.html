@@ -62,11 +62,13 @@
     <ion-slide style="align-items: flex-start;">
       <ion-title>Hosts Dashboard</ion-title>
       <ion-grid>
-        <ion-row *ngFor="let hKey of hostKeys">
-          <ion-col>
+        <ion-row>
+          <ion-col *ngFor="let hKey of hostKeys" col-6>
             <ion-label style="font-size: 16px">{{hKey}}</ion-label>
             <circle-progress
+              [titleColor]="getColorFromKey(hKey, hostSynthesis[hKey])"
               subtitle="{{hostSynthesis[hKey]}} / {{hostSynthesis['total']}}"
+              subtitleColor="#00000"
               [percent]="getPercent(hostSynthesis[hKey], hostSynthesis['total'])"
               [radius]="40"
               [outerStrokeWidth]="6"
@@ -83,11 +85,13 @@
     <ion-slide style="align-items: flex-start;">
       <ion-title>Services Dashboard</ion-title>
       <ion-grid>
-        <ion-row *ngFor="let sKey of serviceKeys">
-          <ion-col>
+        <ion-row>
+          <ion-col *ngFor="let sKey of serviceKeys" col-6>
+            <ion-label style="font-size: 16px">{{sKey}}</ion-label>
             <circle-progress
-              title="{{sKey}}"
+              [titleColor]="getColorFromKey(sKey, serviceSynthesis[sKey])"
               subtitle="{{serviceSynthesis[sKey]}} / {{serviceSynthesis['total']}}"
+              subtitleColor="#00000"
               [percent]="getPercent(serviceSynthesis[sKey], serviceSynthesis['total'])"
               [radius]="40"
               [outerStrokeWidth]="6"

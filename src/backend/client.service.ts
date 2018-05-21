@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs/Observable";
 
 
 const BACKEND_PAGINATION_LIMIT = 10000;
@@ -31,57 +32,52 @@ export class BackendClient {
       body)
   }
 
-  public getLivesynthesis() {
+  private get(endpoint: string, params?: HttpParams, headers?: HttpHeaders): Observable<any> {
     this.updateData();
-    let headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Authorization', this.token);
-
+    if (headers == null){
+      headers = new HttpHeaders()
+        .set('Accept', 'application/json')
+        .set('Authorization', this.token);
+    }
     return this.http.get(
-      this.url + '/livesynthesis', {headers}
+      this.url + '/' + endpoint, {headers, params}
     )
   }
 
-  public getHosts() {
-    this.updateData()
-    let headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Authorization', this.token);
+  public getLivesynthesis(): Observable<any> {
+    // Return observable with livesynthesis data
+    return this.get('livesynthesis')
+  }
+
+  public getHosts(): Observable<any> {
+    // Return observable with list of all Hosts
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
     ));
 
-    return this.http.get(
-      this.url + '/host', {headers, params}
-    )
+    return this.get('host', params)
   }
 
-  public getHostServices(host: {}) {
-    this.updateData();
-    let headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Authorization', this.token);
+  public getHostServices(host: {}): Observable<any> {
+    // Return observable with services of given host
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false, 'host': host['_id']}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
       ));
 
-    return this.http.get(
-      this.url + '/service', {headers, params}
-    )
+    return this.get('service', params)
   }
 
   public getProblems(endpoint: string, state: string) {
-    this.updateData();
-    let headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Authorization', this.token);
+    // Return observable with problemms for given endpoint and state
     let params = new HttpParams()
-      .set('where', JSON.stringify({'_is_template': false, 'ls_state': state, 'ls_acknowledged': false, 'ls_downtimed': false}))
-      // .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT));
-    return this.http.get(
-      this.url + '/' + endpoint, {headers, params}
-    )
+      .set('where', JSON.stringify({
+        '_is_template': false,
+        'ls_state': state,
+        'ls_acknowledged': false,
+        'ls_downtimed': false
+      }));
+    return this.get(endpoint, params)
   }
 }

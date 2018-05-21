@@ -8,7 +8,7 @@ import { IonicPage, NavParams, AlertController} from 'ionic-angular';
 })
 export class HostServicesPage {
   private readonly services: {};
-  private readonly hostname;
+  public readonly hostname;
 
   constructor(public alertCtrl: AlertController, public navParams: NavParams) {
     this.services = navParams.get('services');

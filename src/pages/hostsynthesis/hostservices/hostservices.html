@@ -1,14 +1,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Services of {{hostname}}</ion-title>
+    <ion-title>{{hostname}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-label></ion-label>
+  <ion-label>My Services:</ion-label>
   <ion-list *ngFor="let service of services;">
     <ion-item-sliding #item>
       <ion-item>

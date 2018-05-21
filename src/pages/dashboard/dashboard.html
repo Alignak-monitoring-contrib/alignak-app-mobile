@@ -9,52 +9,99 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-title>Total items in problem</ion-title>
-        <circle-progress
-          title="Total {{livestate.percent.total}}"
-          subtitle="{{livestate.problems.total}} / {{livestate.monitored.total}}"
-          [percent]="livestate.percent.total"
-          [radius]="100"
-          [outerStrokeWidth]="16"
-          [innerStrokeWidth]="8"
-          [subtitleFontSize]="16"
-          [outerStrokeColor]="colors.total.outerStrokeColor"
-          [innerStrokeColor]="colors.total.innerStrokeColor"
-        ></circle-progress>
-      </ion-col>
-    </ion-row>
-    <ion-row style="border-top: 1px solid #cccccc">
-      <ion-col>
-        <ion-label>Hosts managed</ion-label>
-        <circle-progress
-          subtitle="{{livestate.problems.host}} / {{livestate.monitored.host}}"
-          [percent]="livestate.percent.host"
-          [radius]="50"
-          [outerStrokeWidth]="8"
-          [innerStrokeWidth]="4"
-          [subtitleFontSize]="12"
-          [outerStrokeColor]="colors.host.outerStrokeColor"
-          [innerStrokeColor]="colors.host.innerStrokeColor"
-        ></circle-progress>
-      </ion-col>
-      <ion-col>
-        <ion-label>Services Managed</ion-label>
-        <circle-progress
-          subtitle="{{livestate.problems.service}} / {{livestate.monitored.service}}"
-          [percent]="livestate.percent.service"
-          [radius]="50"
-          [outerStrokeWidth]="8"
-          [innerStrokeWidth]="4"
-          [subtitleFontSize]="12"
-          [outerStrokeColor]="colors.service.outerStrokeColor"
-          [innerStrokeColor]="colors.service.innerStrokeColor"
-        ></circle-progress>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-slides>
+    <ion-slide style="align-items: flex-start;">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-title>Total items in problem</ion-title>
+            <circle-progress
+              title="Total {{livestate.percent.total}}"
+              subtitle="{{livestate.problems.total}} / {{livestate.total}}"
+              [percent]="livestate.percent.total"
+              [radius]="100"
+              [outerStrokeWidth]="16"
+              [innerStrokeWidth]="8"
+              [subtitleFontSize]="16"
+              [outerStrokeColor]="colors.total.outerStrokeColor"
+              [innerStrokeColor]="colors.total.innerStrokeColor"
+            ></circle-progress>
+          </ion-col>
+        </ion-row>
+        <ion-row style="border-top: 1px solid #cccccc">
+          <ion-col>
+            <ion-label style="font-size: 16px">Hosts managed</ion-label>
+            <circle-progress
+              subtitle="{{livestate.problems.host}} / {{hostSynthesis.total}}"
+              [percent]="livestate.percent.host"
+              [radius]="44"
+              [outerStrokeWidth]="8"
+              [innerStrokeWidth]="4"
+              [subtitleFontSize]="12"
+              [outerStrokeColor]="colors.host.outerStrokeColor"
+              [innerStrokeColor]="colors.host.innerStrokeColor"
+            ></circle-progress>
+          </ion-col>
+          <ion-col>
+            <ion-label style="font-size: 16px">Services Managed</ion-label>
+            <circle-progress
+              subtitle="{{livestate.problems.service}} / {{serviceSynthesis.total}}"
+              [percent]="livestate.percent.service"
+              [radius]="44"
+              [outerStrokeWidth]="6"
+              [innerStrokeWidth]="3"
+              [titleFontSize]="15"
+              [subtitleFontSize]="12"
+              [outerStrokeColor]="colors.service.outerStrokeColor"
+              [innerStrokeColor]="colors.service.innerStrokeColor"
+            ></circle-progress>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide style="align-items: flex-start;">
+      <ion-title>Hosts Dashboard</ion-title>
+      <ion-grid>
+        <ion-row *ngFor="let hKey of hostKeys">
+          <ion-col>
+            <ion-label style="font-size: 16px">{{hKey}}</ion-label>
+            <circle-progress
+              subtitle="{{hostSynthesis[hKey]}} / {{hostSynthesis['total']}}"
+              [percent]="getPercent(hostSynthesis[hKey], hostSynthesis['total'])"
+              [radius]="40"
+              [outerStrokeWidth]="6"
+              [innerStrokeWidth]="3"
+              [titleFontSize]="15"
+              [subtitleFontSize]="12"
+              [outerStrokeColor]="getColorFromKey(hKey, hostSynthesis[hKey])"
+              [innerStrokeColor]="getColorFromKey(hKey, hostSynthesis[hKey])"
+            ></circle-progress>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide style="align-items: flex-start;">
+      <ion-title>Services Dashboard</ion-title>
+      <ion-grid>
+        <ion-row *ngFor="let sKey of serviceKeys">
+          <ion-col>
+            <circle-progress
+              title="{{sKey}}"
+              subtitle="{{serviceSynthesis[sKey]}} / {{serviceSynthesis['total']}}"
+              [percent]="getPercent(serviceSynthesis[sKey], serviceSynthesis['total'])"
+              [radius]="40"
+              [outerStrokeWidth]="6"
+              [innerStrokeWidth]="3"
+              [titleFontSize]="15"
+              [subtitleFontSize]="12"
+              [outerStrokeColor]="getColorFromKey(sKey, serviceSynthesis[sKey])"
+              [innerStrokeColor]="getColorFromKey(sKey, serviceSynthesis[sKey])"
+            ></circle-progress>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
 
 <ion-footer>Test</ion-footer>

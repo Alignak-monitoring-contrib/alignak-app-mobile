@@ -18,3 +18,29 @@
 ion-title {
   text-align: center;
 }
+// Hosts state css
+.UP{
+  color: #27ae60;
+},
+.UNREACHABLE {
+  color: #9b59b6;
+},
+.DOWN {
+  color: #e74c3c;
+}
+// Services state css
+.OK{
+  color: #27ae60;
+}
+.UNREACHABLE {
+  color: #9b59b6;
+}
+.WARNING {
+  color: #e67e22;
+}
+.UNKNOWN {
+  color: #2a80b9;
+}
+.CRITICAL {
+  color: #e74c3c;
+}

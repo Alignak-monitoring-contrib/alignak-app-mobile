@@ -22,15 +22,6 @@ export class BackendClient {
     this.token = localStorage.getItem('token');
     this.url = localStorage.getItem('url');
   }
-  public login(username: string, password: string){
-    let body = {
-      username: username,
-      password: password
-    };
-    return this.http.post(
-      this.url +'/login',
-      body)
-  }
 
   private get(endpoint: string, params?: HttpParams, headers?: HttpHeaders): Observable<any> {
     this.updateData();
@@ -42,6 +33,18 @@ export class BackendClient {
     return this.http.get(
       this.url + '/' + endpoint, {headers, params}
     )
+  }
+
+  private post(endpoint: string, body: Object): Observable<any> {
+    return this.http.post(this.url + '/' + endpoint, body)
+  }
+
+  public login(username: string, password: string): Observable<any> {
+    let body = {
+      username: username,
+      password: password
+    };
+    return this.post('login', body)
   }
 
   public getLivesynthesis(): Observable<any> {

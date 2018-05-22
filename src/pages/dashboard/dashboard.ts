@@ -166,13 +166,11 @@ export class Dashboard {
     defineColor(+this.livestate.percent.service, this.colors.service);
   }
 
-  public getPercent(value, total, fractionDigits = 2) {
+  public getPercent(value, total): string {
     // Return percentage for given value and total
-    let percent = ((value / total) * 100).toFixed(fractionDigits);
 
-    if (percent)
-      return percent;
-    else return '0.0';
+    return ((value / total | 0) * 100).toFixed(2);
+
   }
 
   public getColorFromKey(key: string, value: 0): string {

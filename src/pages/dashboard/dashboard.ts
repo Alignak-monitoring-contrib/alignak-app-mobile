@@ -12,8 +12,6 @@ const UNKNOWN = '#2a80b9';
 const ACKNOWLEDGED = '#f39c12';
 const IN_DOWNTIME = '#f1c40f';
 const FLAPPING = '#f1b3f0';
-const NOT_MONITORED = '#cccccc';
-const TOTAL = '#1fb4e4';
 
 @IonicPage()
 @Component({
@@ -25,7 +23,7 @@ export class Dashboard {
   private livestate = {
     total: 0,
     problems: {host: 0, service: 0, total: 0},
-    percent: {host: '0.0', service: '0.0', total: '0.0'}
+    percent: {host: 0.0, service: 0.0, total: 0.0}
   };
   private colors = {
     host: {outerStrokeColor: OK, innerStrokeColor: OK},
@@ -54,19 +52,21 @@ export class Dashboard {
       not_monitored: 0,
       total: 0,
     };
-  hostKeys = Object.keys(this.hostSynthesis);
-  serviceKeys = Object.keys(this.serviceSynthesis);
+  public hostKeys = Object.keys(this.hostSynthesis);
+  public serviceKeys = Object.keys(this.serviceSynthesis);
 
   constructor(public client: BackendClient) {
     this.client.getLivesynthesis().subscribe(
       function (data) {
           this.manageData(data);
+          this.updatePercentAndColors();
         }.bind(this),
           err => console.log('Synth err', err)
     )
   }
 
-  protected manageData(data: {}){
+  protected manageData(data: {}): void {
+    // Manage data from backend request
     for (let i = 0; i < data['_items'].length; i++) {
       // Current synthesis data
       let livesynth = data['_items'][i];
@@ -92,10 +92,10 @@ export class Dashboard {
       this.serviceSynthesis.not_monitored += livesynth['services_not_monitored'];
       this.serviceSynthesis.total += livesynth['services_total'];
 
-      // Update global total
+      // Define global total
       this.livestate.total += livesynth['hosts_total'] + livesynth['services_total'];
 
-      // Update global problems
+      // Define host problems
       let hosts_problem_keys = [
         'hosts_down_hard', 'hosts_down_soft', 'hosts_unreachable_hard', 'hosts_unreachable_soft'];
       for (let hostKey in hosts_problem_keys) {
@@ -104,6 +104,7 @@ export class Dashboard {
         }
       }
 
+      // Define services problems
       let services_problem_keys = [
         'services_critical_hard', 'services_critical_soft', 'services_warning_hard',
         'services_warning_soft', 'services_unreachable_hard', 'services_unreachable_soft'];
@@ -113,68 +114,78 @@ export class Dashboard {
         }
       }
 
+      // Define total problems
       this.livestate.problems.total = this.livestate.problems.host + this.livestate.problems.service;
     }
 
-    // Update display
-    this.updateDashboard();
   }
 
-  private updateDashboard() {
+  protected updatePercentAndColors(): void {
+    // Set percentages and colors
     this.livestate.percent.host =
-      (100 - (this.livestate.problems.host / this.hostSynthesis.total) * 100).toFixed(2);
+      Dashboard.getPercent(this.livestate.problems.host, this.hostSynthesis.total);
     this.livestate.percent.service =
-      (100 - (this.livestate.problems.service / this.serviceSynthesis.total) * 100).toFixed(2);
-    this.livestate.percent.total = this.getPercent(this.livestate.problems.total, this.livestate.total);
+      Dashboard.getPercent(this.livestate.problems.service, this.serviceSynthesis.total);
+    this.livestate.percent.total =
+      Dashboard.getPercent(this.livestate.problems.total, this.livestate.total);
 
-    this.updateColors()
+    Dashboard.defineColor(this.livestate.percent.total, this.colors.total);
+    Dashboard.defineColor(this.livestate.percent.host, this.colors.host);
+    Dashboard.defineColor(this.livestate.percent.service, this.colors.service);
   }
 
-  private updateColors() {
-    // Total colors
-    if(+this.livestate.percent.total != 0) {
-      this.colors.total.outerStrokeColor = CRITICAL
-    } else {
-      this.colors.total.outerStrokeColor = OK
-    }
-
-    if (+this.livestate.percent.total == 0) {
-      this.colors.total.innerStrokeColor = OK
-    } else if (+this.livestate.percent.total < 50) {
-      this.colors.total.innerStrokeColor = WARN
-    } else {
-      this.colors.total.innerStrokeColor = CRITICAL
-    }
-
-    // Host / Service colors
-    function defineColor(percent, color){
-      if (percent == 100) {
-        color.outerStrokeColor = OK
-      } else {
+  private static defineColor(percent, color): void {
+    // Help function to define colors
+    if (percent == 100) {
         color.outerStrokeColor = CRITICAL
+      } else {
+        color.outerStrokeColor = WARN
       }
       if (percent == 100) {
-        color.innerStrokeColor = OK
-      } else if (percent >= 50) {
+        color.innerStrokeColor = CRITICAL
+      } else if (percent < 50) {
         color.innerStrokeColor = WARN
       } else {
-        color.innerStrokeColor = CRITICAL
+        color.innerStrokeColor = OK
       }
-    }
 
-    defineColor(+this.livestate.percent.host, this.colors.host);
-    defineColor(+this.livestate.percent.service, this.colors.service);
   }
 
-  public getPercent(value, total): string {
+  private static getPercent(value, total): number {
+    // Return percentage for value and total
+    return +((value / total) * 100).toFixed(2)
+  }
+
+  public getPercentFromItemType(value: number, itemType: string): number {
     // Return percentage for given value and total
+    let total = 0;
+    if(!value)
+      value = 0;
 
-    return ((value / total | 0) * 100).toFixed(2);
+    if (itemType == 'host')
+      total = this.hostSynthesis['total'] - this.hostSynthesis['not_monitored'];
+    else if (itemType == 'service')
+      total = this.serviceSynthesis['total'] - this.serviceSynthesis['not_monitored'];
 
+    return Dashboard.getPercent(value, total);
+
+  }
+
+  public getSubtitleFromItem(itemKey, itemType): string {
+    // Return subtitle for given key for item type
+    let data = {};
+    if (itemType == 'host')
+      data = this.hostSynthesis;
+    else if (itemType == 'service')
+      data = this.serviceSynthesis;
+
+    return data[itemKey] + ' / ' + (data['total'] - data['not_monitored'])
   }
 
   public getColorFromKey(key: string, value: 0): string {
+    // Return color from key and value
     let color = '#000000';
+
     if (value == 0)
       return '#f4f4f4';
 
@@ -194,11 +205,12 @@ export class Dashboard {
       color = IN_DOWNTIME;
     else if (key == 'flapping')
       color = FLAPPING;
-    else if (key == 'not_monitored')
-      color = NOT_MONITORED;
-    else if (key == 'total')
-      color = TOTAL;
 
     return color
+  }
+
+  public doCircle(key: string): boolean {
+    // Define if circle should be added or not
+    return key != 'not_monitored' && key != 'total';
   }
 }

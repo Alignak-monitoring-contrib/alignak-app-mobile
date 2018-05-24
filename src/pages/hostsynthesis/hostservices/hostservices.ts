@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, AlertController} from 'ionic-angular';
+import {IonicPage, NavParams, AlertController, InfiniteScroll} from 'ionic-angular';
+import {BackendClient} from "../../../backend/client.service";
 
 @IonicPage()
 @Component({
@@ -7,13 +8,38 @@ import { IonicPage, NavParams, AlertController} from 'ionic-angular';
   templateUrl: 'hostservices.html',
 })
 export class HostServicesPage {
-  private readonly services: {};
-  public readonly hostname;
+  private nextPage = 'service';
+  public readonly services = [];
+  public readonly host = {};
 
-  constructor(public alertCtrl: AlertController, public navParams: NavParams) {
-    this.services = navParams.get('services');
-    this.hostname = navParams.get('hostname');
-    console.log('Services: ', this.services)
+  constructor(public alertCtrl: AlertController, public navParams: NavParams, public client: BackendClient) {
+    this.host = navParams.get('host');
+    this.addServices('service');
+  }
+
+  public addServices(endpoint){
+    this.client.getHostServices(endpoint, this.host)
+      .subscribe(
+        function(data) {
+          this.services = this.services.concat(data['_items']);
+          if (data['_links']['next'] != undefined)
+            this.nextPage = data['_links']['next']['href'];
+          else
+            this.nextPage = undefined;
+        }.bind(this)
+      );
+  }
+
+  public doInfinite(infiniteScroll: InfiniteScroll): void {
+    // Add host when trigger infiniteScroll event
+
+    setTimeout(() => {
+      if (this.nextPage) {
+        this.addServices(this.nextPage);
+      }
+
+      infiniteScroll.complete();
+    }, 500);
   }
 
   public displayInfo(service: {}): void {

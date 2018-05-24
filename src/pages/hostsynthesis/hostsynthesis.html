@@ -58,8 +58,10 @@
       Services
     </ion-list-header>
     <ion-item>
-      <ion-label>{{services.length}} service(s)</ion-label>
-      <button ion-button outline item-end (click)="openServicesPage(services)">View</button>
+      <ion-label *ngIf="services.length != 0">This host have service(s)</ion-label>
+      <ion-label *ngIf="services.length == 0">This host have no service</ion-label>
+      <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
     </ion-item>
+
   </ion-list>
 </ion-content>

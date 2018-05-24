@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 
 
-const BACKEND_PAGINATION_LIMIT = 10000;
+const BACKEND_PAGINATION_LIMIT = 25;
 
 @Injectable()
 export class BackendClient {
@@ -52,24 +52,24 @@ export class BackendClient {
     return this.get('livesynthesis')
   }
 
-  public getHosts(): Observable<any> {
-    // Return observable with list of all Hosts
+  public getHosts(endpoint = 'host'): Observable<any> {
+    // Return observable with list of Hosts
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
     ));
 
-    return this.get('host', params)
+    return this.get(endpoint, params)
   }
 
-  public getHostServices(host: {}): Observable<any> {
+  public getHostServices(endpoint, host: {}): Observable<any> {
     // Return observable with services of given host
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false, 'host': host['_id']}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
       ));
 
-    return this.get('service', params)
+    return this.get(endpoint, params)
   }
 
   public getProblems(endpoint: string, state: string): Observable<any> {

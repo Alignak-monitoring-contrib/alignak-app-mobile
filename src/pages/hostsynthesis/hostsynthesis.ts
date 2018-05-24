@@ -11,23 +11,22 @@ import {HostServicesPage} from "./hostservices/hostservices";
 })
 export class HostSynthesisPage {
   private readonly host: {};
-  private readonly services: {};
+  public services = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     this.host = this.navParams.get('host');
-    this.services = this.client.getHostServices(this.navParams.get('host'))
+    this.client.getHostServices('service', this.navParams.get('host'))
       .subscribe(
-      function(data) {
-        this.services = data['_items']
-      }.bind(this)
-    );
+        function(data) {
+          this.services = data['_items'];
+        }.bind(this)
+      );
   }
 
   public getCheckDate(){
     if (!this.host['ls_last_check']){
       return 'Not yet checked'
-    }else
-    {
+    } else {
       return new Date(this.host['ls_last_check'] * 1000).toLocaleString() || 'Error';
     }
   }
@@ -37,7 +36,8 @@ export class HostSynthesisPage {
   }
 
   public openServicesPage(){
-    this.navCtrl.push(HostServicesPage, {hostname: this.getHostName(), services: this.services})
+    console.log('InSynth Host: ', this.host)
+    this.navCtrl.push(HostServicesPage, {host: this.host})
   }
 
 }

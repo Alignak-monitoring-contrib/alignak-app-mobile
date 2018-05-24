@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{hostname}}</ion-title>
+    <ion-title>{{host['name']}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -30,4 +30,8 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

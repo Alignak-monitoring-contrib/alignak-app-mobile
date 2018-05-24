@@ -137,17 +137,15 @@ export class Dashboard {
 
   private static defineColor(percent, color): void {
     // Help function to define colors
-    if (percent == 100) {
-        color.outerStrokeColor = CRITICAL
-      } else {
-        color.outerStrokeColor = WARN
-      }
-      if (percent == 100) {
-        color.innerStrokeColor = CRITICAL
+    if (percent == 0) {
+        color.outerStrokeColor = OK;
+        color.innerStrokeColor = OK;
       } else if (percent <= 50) {
-        color.innerStrokeColor = WARNING
+        color.outerStrokeColor = WARN;
+        color.innerStrokeColor = WARNING;
       } else {
-        color.innerStrokeColor = OK
+        color.innerStrokeColor = CRITICAL;
+        color.innerStrokeColor = CRITICAL;
       }
 
   }

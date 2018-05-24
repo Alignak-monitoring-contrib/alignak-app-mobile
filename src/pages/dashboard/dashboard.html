@@ -12,9 +12,12 @@
   <ion-slides>
     <ion-slide style="align-items: flex-start;">
       <ion-grid>
+        <ion-title style="border-bottom: 1px solid #cccccc">
+          <ion-icon item-start style="color: #2a80b9;" name="speedometer" padding></ion-icon>
+          Total items in problem
+        </ion-title>
         <ion-row>
           <ion-col>
-            <ion-title>Total items in problem</ion-title>
             <circle-progress
               title="Total {{livestate.percent.total}}"
               subtitle="{{livestate.problems.total}} / {{livestate.total}}"

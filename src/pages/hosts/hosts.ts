@@ -33,26 +33,28 @@ export class HostsPage {
     )
   }
 
-  public compare = (d, b)=>  {
+  public compare = (item): number =>  {
+    // Compare item criteria for a given value or not
     let field = 'ls_state';
-    if (this.criteria.includes(':'))
+    let criteria = this.criteria;
+    if (this.criteria.includes(':')) {
       field = this.criteria.split(':', 2)[0];
-    let criteria = this.criteria.split(':', 2)[1];
-    console.log('Field ', field);
-    console.log('Criter ', criteria);
+      criteria = this.criteria.split(':', 2)[1];
+    }
+    // To prevent wrong input field
+    if (item[field] == undefined)
+      field = 'ls_state';
 
-    if (d[field] != criteria || !d[field].includes(criteria))
-      return 1;
-    if (d[field] == criteria || d[field].includes(criteria))
+    if (item[field] == criteria || item[field].includes(criteria))
       return -1;
+    if (!item[field].includes(criteria))
+      return 1;
+
     return 0;
   };
 
-  eventHandler(keyCode) {
-    // Catch when user type ENTER in "this.password"
-    // if (keyCode === 13){
-    //   this.hosts = this.hosts.sort(this.compare)
-    // }
+  eventHandler() {
+    // Catch when user type in input
     this.hosts = this.hosts.sort(this.compare)
   }
 

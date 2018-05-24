@@ -6,6 +6,7 @@ import { BackendClient } from "../../backend/client.service";
 
 const OK   = '#27ae60';
 const UNREACHABLE= '#9b59b6';
+const WARNING = '#fdb83a';
 const WARN = '#e67e22';
 const CRITICAL = '#e74c3c';
 const UNKNOWN = '#2a80b9';
@@ -143,8 +144,8 @@ export class Dashboard {
       }
       if (percent == 100) {
         color.innerStrokeColor = CRITICAL
-      } else if (percent < 50) {
-        color.innerStrokeColor = WARN
+      } else if (percent <= 50) {
+        color.innerStrokeColor = WARNING
       } else {
         color.innerStrokeColor = OK
       }

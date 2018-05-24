@@ -8,12 +8,15 @@
 
 
 <ion-content padding>
-  <ion-label>My Services:</ion-label>
+  <ion-title>
+    <ion-icon item-start style="color: #2a80b9;" name="cube" padding></ion-icon>
+    My Services:
+  </ion-title>
   <ion-list *ngFor="let service of services;">
     <ion-item-sliding #item>
       <ion-item>
-        <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
-        <ion-label>{{service['name']}}: {{service['ls_state']}}</ion-label>
+        <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
+        <ion-label>{{service['name']}}<br> {{service['ls_state']}}</ion-label>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button style="background-color: #f39c12;" (click)="addAction()">
@@ -24,7 +27,7 @@
         </button>
       </ion-item-options>
       <ion-item-options side="right">
-        <button ion-button expandable (click)="displayInfo(service)">
+        <button ion-button (click)="displayInfo(service)">
           <ion-icon name="eye"></ion-icon>
         </button>
       </ion-item-options>

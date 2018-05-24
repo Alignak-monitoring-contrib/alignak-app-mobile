@@ -152,7 +152,7 @@ export class Dashboard {
 
   private static getPercent(value, total): number {
     // Return percentage for value and total
-    return +((value / total) * 100).toFixed(2)
+    return +((value / total) * 100).toFixed(2) | 0
   }
 
   public getPercentFromItemType(value: number, itemType: string): number {

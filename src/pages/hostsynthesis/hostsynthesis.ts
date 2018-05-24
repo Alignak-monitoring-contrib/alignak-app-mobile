@@ -23,7 +23,7 @@ export class HostSynthesisPage {
       );
   }
 
-  public getCheckDate(){
+  public getCheckDate(): string {
     if (!this.host['ls_last_check']){
       return 'Not yet checked'
     } else {
@@ -31,12 +31,11 @@ export class HostSynthesisPage {
     }
   }
 
-  public getHostName(){
+  public getHostName(): string {
     return this.host['name'].charAt(0).toUpperCase() + this.host['name'].slice(1)
   }
 
-  public openServicesPage(){
-    console.log('InSynth Host: ', this.host)
+  public openServicesPage(): void {
     this.navCtrl.push(HostServicesPage, {host: this.host})
   }
 

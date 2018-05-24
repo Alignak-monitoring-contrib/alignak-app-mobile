@@ -17,7 +17,7 @@ export class HostServicesPage {
     this.addServices('service');
   }
 
-  public addServices(endpoint){
+  public addServices(endpoint: string): void{
     this.client.getHostServices(endpoint, this.host)
       .subscribe(
         function(data) {
@@ -31,7 +31,7 @@ export class HostServicesPage {
   }
 
   public doInfinite(infiniteScroll: InfiniteScroll): void {
-    // Add host when trigger infiniteScroll event
+    // Add services when trigger infiniteScroll event
 
     setTimeout(() => {
       if (this.nextPage) {
@@ -43,6 +43,7 @@ export class HostServicesPage {
   }
 
   public displayInfo(service: {}): void {
+    // Display output of given service
     let alert = this.alertCtrl.create({
       title: 'Service ' + service['name'],
       subTitle: 'My output',

@@ -6,17 +6,26 @@
     </button>
     <ion-title>Hosts</ion-title>
   </ion-navbar>
+  <ion-item>
+    <ion-label item-start color="primary">Filter</ion-label>
+    <ion-input type="text" placeholder="filter items..." [(ngModel)]="criteria" (keypress)="eventHandler($event.keyCode)"></ion-input>
+  </ion-item>
 </ion-header>
 
 
+
+
 <ion-content padding>
-  <ion-list *ngFor="let host of hosts;">
-    <button ion-item (click)="displayHost(host)">
-      <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      <ion-label>{{host['name']}}<br> {{host['ls_state']}}</ion-label>
-    </button>
-  </ion-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+
+  <ion-content>
+    <ion-list *ngFor="let host of hosts;">
+      <button ion-item (click)="displayHost(host)">
+        <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+        <ion-label>{{host['name']}}<br> {{host['ls_state']}}</ion-label>
+      </button>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
 </ion-content>

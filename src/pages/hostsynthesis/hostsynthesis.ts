@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, Pipe, PipeTransform} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 import {HostServicesPage} from "./hostservices/hostservices";
 
+@Pipe({name: 'getKeys'})
+export class KeysPipe implements PipeTransform {
+  transform(value, args:string[]) : any {
+    let keys = [];
+    for (let key in value) {
+      keys.push(key);
+    }
+    return keys;
+  }
+}
 
 @IonicPage()
 @Component({
@@ -24,6 +34,7 @@ export class HostSynthesisPage {
   }
 
   public getCheckDate(): string {
+    // Return check date
     if (!this.host['ls_last_check']){
       return 'Not yet checked'
     } else {
@@ -32,10 +43,21 @@ export class HostSynthesisPage {
   }
 
   public getHostName(): string {
-    return this.host['name'].charAt(0).toUpperCase() + this.host['name'].slice(1)
+    // Return formatted host name
+    let name = this.host['name'];
+    if (this.host['alias'])
+      name = this.host['alias'];
+
+    if (name.includes('_')) {
+      let splitname = name.split('_');
+      name = splitname.join(' ');
+    }
+
+    return name.charAt(0).toUpperCase() + name.slice(1)
   }
 
   public openServicesPage(): void {
+    // Push to HostServices page
     this.navCtrl.push(HostServicesPage, {host: this.host})
   }
 

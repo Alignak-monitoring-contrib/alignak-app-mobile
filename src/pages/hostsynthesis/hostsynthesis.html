@@ -1,67 +1,76 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Host Synthesis</ion-title>
+    <ion-title>
+      <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+      {{getHostName()}}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-title>{{getHostName()}}
-    <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-  </ion-title>
+      <ion-title padding>Synthesis view</ion-title>
+      <ion-list>
+        <ion-list-header color="light">
+          <ion-icon item-start name="information-circle" style="color: #2a80b9;"></ion-icon>
+          Global informations
+        </ion-list-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col><b>State</b></ion-col>
+            <ion-col>{{host['ls_state']}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><b>Output</b></ion-col>
+            <ion-col>{{host['ls_output']}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><b>When</b></ion-col>
+            <ion-col>{{getCheckDate()}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col><b>Address</b></ion-col>
+            <ion-col>{{host['address']}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
 
-  <ion-list>
-    <ion-list-header color="light">
-      <ion-icon item-start name="information-circle" style="color: #2a80b9;"></ion-icon>
-      Global informations
-    </ion-list-header>
-    <ion-grid>
-      <ion-row>
-        <ion-col><b>State</b></ion-col>
-        <ion-col>{{host['ls_state']}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col><b>Output</b></ion-col>
-        <ion-col>{{host['ls_output']}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col><b>When</b></ion-col>
-        <ion-col>{{getCheckDate()}}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col><b>Address</b></ion-col>
-        <ion-col>{{host['address']}}</ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-list>
+      <ion-list>
+        <ion-list-header color="light">
+          <ion-icon item-start name="switch" style="color: #2a80b9;"></ion-icon>
+          Options
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Active Checks</ion-label>
+          <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']">essai</ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Passive Checks</ion-label>
+          <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']"></ion-radio>
+        </ion-item>
+      </ion-list>
 
-  <ion-list>
-    <ion-list-header color="light">
-      <ion-icon item-start name="switch" style="color: #2a80b9;"></ion-icon>
-      Options
-    </ion-list-header>
-    <ion-item>
-      <ion-label>Active Checks</ion-label>
-      <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']">essai</ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Passive Checks</ion-label>
-      <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']"></ion-radio>
-    </ion-item>
-  </ion-list>
+      <ion-list>
+        <ion-list-header color="light" *ngIf="services.length != 0">
+          <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
+          Services
+          <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
+        </ion-list-header>
+        <ion-list-header color="light" *ngIf="services.length == 0">
+          <ion-icon name="cube" item-start style="color: #cccccc;"></ion-icon>
+          No services
+          <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
+        </ion-list-header>
+      </ion-list>
+      <ion-list *ngFor="let key of host | getKeys">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="option" item-start style="color: #2a80b9;"></ion-icon>
+            {{key}}: {{host[key]}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
-  <ion-list>
-    <ion-list-header color="light">
-      <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
-      Services
-    </ion-list-header>
-    <ion-item>
-      <ion-label *ngIf="services.length != 0">This host have service(s)</ion-label>
-      <ion-label *ngIf="services.length == 0">This host have no service</ion-label>
-      <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
-    </ion-item>
-
-  </ion-list>
 </ion-content>

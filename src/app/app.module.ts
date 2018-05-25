@@ -10,7 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
-import {HostSynthesisPage} from "../pages/hostsynthesis/hostsynthesis";
+import {HostSynthesisPage, KeysPipe} from "../pages/hostsynthesis/hostsynthesis";
 import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
 
 @NgModule({
@@ -20,7 +20,8 @@ import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices
     WrongLogin,
     BackendComponent,
     HostSynthesisPage,
-    HostServicesPage
+    HostServicesPage,
+    KeysPipe
   ],
   imports: [
     BrowserModule,

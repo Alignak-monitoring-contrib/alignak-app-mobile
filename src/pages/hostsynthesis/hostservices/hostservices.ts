@@ -17,7 +17,8 @@ export class HostServicesPage {
     this.addServices('service');
   }
 
-  public addServices(endpoint: string): void{
+  private addServices(endpoint: string): void {
+    // Add services to list (next page)
     this.client.getHostServices(endpoint, this.host)
       .subscribe(
         function(data) {
@@ -30,9 +31,18 @@ export class HostServicesPage {
       );
   }
 
+  private static getCheckDate(service: {}): string {
+    // Return formatted date
+    if (!service['ls_last_check']){
+      return 'Not yet checked'
+    }else
+    {
+      return new Date(service['ls_last_check'] * 1000).toLocaleString() || 'Error';
+    }
+  }
+
   public doInfinite(infiniteScroll: InfiniteScroll): void {
     // Add services when trigger infiniteScroll event
-
     setTimeout(() => {
       if (this.nextPage) {
         this.addServices(this.nextPage);
@@ -62,13 +72,18 @@ export class HostServicesPage {
     alert.present();
   }
 
-  private static getCheckDate(service: {}): string {
-    if (!service['ls_last_check']){
-      return 'Not yet checked'
-    }else
-    {
-      return new Date(service['ls_last_check'] * 1000).toLocaleString() || 'Error';
+  public getHostName(): string {
+    // Return formatted host name
+    let name = this.host['name'];
+    if (this.host['alias'])
+      name = this.host['alias'];
+
+    if (name.includes('_')) {
+      let splitname = name.split('_');
+      name = splitname.join(' ');
     }
+
+    return name.charAt(0).toUpperCase() + name.slice(1)
   }
 
 }

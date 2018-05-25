@@ -1,7 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{host['name']}}</ion-title>
+    <ion-title>
+      <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+      {{getHostName()}}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +13,7 @@
 <ion-content padding>
   <ion-title>
     <ion-icon item-start style="color: #2a80b9;" name="cube" padding></ion-icon>
-    My Services:
+    Services
   </ion-title>
   <ion-list *ngFor="let service of services;">
     <ion-item-sliding #item>

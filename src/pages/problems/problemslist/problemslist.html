@@ -15,7 +15,7 @@
   <ion-list-header>{{state}} {{itemType}}s</ion-list-header>
   <div *ngIf="problems">
     <ion-list *ngFor="let item of problems;" >
-      <button ion-item>
+      <button ion-item (click)="openPage(itemType, item)">
         <ion-icon item-start [ngClass]="item['ls_state']" name="cube"></ion-icon>
         <ion-label>{{getItemName(item)}}: {{item['ls_state']}}</ion-label>
       </button>

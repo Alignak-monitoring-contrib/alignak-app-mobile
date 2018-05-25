@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>
-      <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+      <ion-icon padding item-start [ngClass]="item['ls_state']" name="list-box"></ion-icon>
       {{getHostName()}}
     </ion-title>
   </ion-navbar>
@@ -20,19 +20,19 @@
         <ion-grid>
           <ion-row>
             <ion-col><b>State</b></ion-col>
-            <ion-col>{{host['ls_state']}}</ion-col>
+            <ion-col>{{item['ls_state']}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col><b>Output</b></ion-col>
-            <ion-col>{{host['ls_output']}}</ion-col>
+            <ion-col>{{item['ls_output']}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col><b>When</b></ion-col>
             <ion-col>{{getCheckDate()}}</ion-col>
           </ion-row>
-          <ion-row>
+          <ion-row *ngIf="item['address']">
             <ion-col><b>Address</b></ion-col>
-            <ion-col>{{host['address']}}</ion-col>
+            <ion-col>{{item['address']}}</ion-col>
           </ion-row>
         </ion-grid>
       </ion-list>
@@ -44,15 +44,15 @@
         </ion-list-header>
         <ion-item>
           <ion-label>Active Checks</ion-label>
-          <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']">essai</ion-radio>
+          <ion-radio [checked]="item['active_checks_enabled']" [disabled]="!item['active_checks_enabled']">essai</ion-radio>
         </ion-item>
         <ion-item>
           <ion-label>Passive Checks</ion-label>
-          <ion-radio [checked]="host['active_checks_enabled']" [disabled]="!host['active_checks_enabled']"></ion-radio>
+          <ion-radio [checked]="item['active_checks_enabled']" [disabled]="!item['active_checks_enabled']"></ion-radio>
         </ion-item>
       </ion-list>
 
-      <ion-list>
+      <ion-list *ngIf="item['address']">
         <ion-list-header color="light" *ngIf="services.length != 0">
           <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
           Services

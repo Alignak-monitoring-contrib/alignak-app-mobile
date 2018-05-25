@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {InfiniteScroll, IonicPage, NavParams} from 'ionic-angular';
+import {InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {BackendClient} from "../../../backend/client.service";
 import {Utils} from "../../../common/utils";
+import {HostSynthesisPage, ServicePage} from "../../hostsynthesis/hostsynthesis";
 
 
 @IonicPage()
@@ -14,7 +15,7 @@ export class ProblemsListPage {
   public itemType: string;
   public problems = [];
 
-  constructor(public navParams: NavParams, public client: BackendClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     this.state = this.navParams.get('state');
     this.itemType = this.navParams.get('itemType');
     this.nextPage = this.navParams.get('itemType');
@@ -52,5 +53,13 @@ export class ProblemsListPage {
       }
       infiniteScroll.complete();
     }, 500);
+  }
+
+  public openPage(pageName: string, item: {}): void {
+    // TODO
+    if (pageName == 'host')
+      this.navCtrl.push(HostSynthesisPage, {item: item});
+    if (pageName == 'service')
+      this.navCtrl.push(ServicePage, {item: item} )
   }
 }

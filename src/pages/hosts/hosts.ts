@@ -73,7 +73,7 @@ export class HostsPage {
   }
   public displayHost(host: {}): void {
     // Push to HostSynthesis Page
-    this.navCtrl.push(HostSynthesisPage, {host: host})
+    this.navCtrl.push(HostSynthesisPage, {item: host})
   }
 
   public doInfinite(infiniteScroll: InfiniteScroll): void {

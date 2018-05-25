@@ -5,18 +5,38 @@ import {HostServicesPage} from "./hostservices/hostservices";
 import {Utils} from '../../common/utils'
 
 
+abstract class ItemPage {
+  public item: {};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
+    this.item = this.navParams.get('item');
+  }
+
+  public getCheckDate(): string {
+    // Return check date
+    return Utils.getDate(this.item)
+  }
+
+  public getHostName(): string {
+    // Return formatted host name
+    return Utils.getItemName(this.item);
+  }
+}
+
 @IonicPage()
 @Component({
   selector: 'page-hostsynthesis',
   templateUrl: 'hostsynthesis.html',
 })
-export class HostSynthesisPage {
-  private readonly host: {};
+export class HostSynthesisPage extends ItemPage {
   public services = [];
+  public item: {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    this.host = this.navParams.get('host');
-    this.client.getHostServices('service', this.navParams.get('host'))
+    super(navCtrl, navParams, client);
+    this.item = this.navParams.get('item');
+    console.log('HS item: ', this.item);
+    this.client.getHostServices('service', this.navParams.get('item'))
       .subscribe(
         function(data) {
           this.services = data['_items'];
@@ -24,19 +44,22 @@ export class HostSynthesisPage {
       );
   }
 
-  public getCheckDate(): string {
-    // Return check date
-    return Utils.getDate(this.host)
-  }
-
-  public getHostName(): string {
-    // Return formatted host name
-    return Utils.getItemName(this.host);
-  }
-
   public openServicesPage(): void {
     // Push to HostServices page
-    this.navCtrl.push(HostServicesPage, {host: this.host})
+    this.navCtrl.push(HostServicesPage, {host: this.item})
   }
 
+}
+
+@IonicPage()
+@Component({
+  selector: 'page-hostsynthesis',
+  templateUrl: 'hostsynthesis.html',
+})
+export class ServicePage extends ItemPage {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
+    super(navCtrl, navParams, client);
+    this.item = this.navParams.get('item');
+  }
 }

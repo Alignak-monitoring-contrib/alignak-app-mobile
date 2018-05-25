@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Dashboard} from "./dashboard";
 import {NgCircleProgressModule} from "ng-circle-progress";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {NgCircleProgressModule} from "ng-circle-progress";
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
       animation: true
-    })
+    }),
+    SharedModule
   ],
 })
 export class DashboardModule {}

@@ -1,18 +1,8 @@
-import {Component, Pipe, PipeTransform} from '@angular/core';
+import {Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 import {HostServicesPage} from "./hostservices/hostservices";
 
-@Pipe({name: 'getKeys'})
-export class KeysPipe implements PipeTransform {
-  transform(value, args:string[]) : any {
-    let keys = [];
-    for (let key in value) {
-      keys.push(key);
-    }
-    return keys;
-  }
-}
 
 @IonicPage()
 @Component({

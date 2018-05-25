@@ -16,11 +16,19 @@
           <ion-icon item-start style="color: #2a80b9;" name="speedometer" padding></ion-icon>
           Total items in problem
         </ion-title>
+        <ion-row style="border-top: 1px solid #cccccc">
+          <ion-col>
+            <ion-label>
+              Monitored {{livestate.total - (hostSynthesis['not_monitored'] + serviceSynthesis['not_monitored'])}}<br>
+              <ion-note>Not monitored {{hostSynthesis['not_monitored'] + serviceSynthesis['not_monitored']}}</ion-note>
+            </ion-label>
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col>
             <circle-progress
               title="Total {{livestate.percent.total}}"
-              subtitle="{{livestate.problems.total}} / {{livestate.total}}"
+              subtitle="{{livestate.problems.total}} / {{livestate.total - (hostSynthesis['not_monitored'] + serviceSynthesis['not_monitored'])}}"
               [percent]="livestate.percent.total"
               [radius]="100"
               [outerStrokeWidth]="16"
@@ -35,7 +43,7 @@
           <ion-col>
             <ion-label style="font-size: 16px">Hosts <br>in problem</ion-label>
             <circle-progress
-              subtitle="{{livestate.problems.host}} / {{hostSynthesis.total}}"
+              subtitle="{{livestate.problems.host}} / {{hostSynthesis.total - hostSynthesis['not_monitored']}}"
               [percent]="livestate.percent.host"
               [radius]="44"
               [outerStrokeWidth]="8"
@@ -48,7 +56,7 @@
           <ion-col>
             <ion-label style="font-size: 16px">Services <br>in problem</ion-label>
             <circle-progress
-              subtitle="{{livestate.problems.service}} / {{serviceSynthesis.total}}"
+              subtitle="{{livestate.problems.service}} / {{serviceSynthesis.total - serviceSynthesis['not_monitored']}}"
               [percent]="livestate.percent.service"
               [radius]="44"
               [outerStrokeWidth]="6"
@@ -77,7 +85,7 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col *ngFor="let hKey of hostKeys" col-6>
+          <ion-col *ngFor="let hKey of hostSynthesis | getKeys" col-6>
             <ion-label *ngIf="doCircle(hKey)"  style="font-size: 16px">
               {{hKey}}
             </ion-label>
@@ -114,7 +122,7 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col *ngFor="let sKey of serviceKeys" col-6>
+          <ion-col *ngFor="let sKey of serviceSynthesis | getKeys" col-6>
             <ion-label *ngIf="doCircle(sKey)" style="font-size: 16px">
               {{sKey}}
             </ion-label>

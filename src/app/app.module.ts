@@ -10,8 +10,9 @@ import { LoginPage } from '../pages/login/login';
 import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
-import {HostSynthesisPage, KeysPipe} from "../pages/hostsynthesis/hostsynthesis";
+import {HostSynthesisPage} from "../pages/hostsynthesis/hostsynthesis";
 import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,12 +22,12 @@ import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices
     BackendComponent,
     HostSynthesisPage,
     HostServicesPage,
-    KeysPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

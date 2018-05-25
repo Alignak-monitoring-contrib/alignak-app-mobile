@@ -53,8 +53,6 @@ export class Dashboard {
       not_monitored: 0,
       total: 0,
     };
-  public hostKeys = Object.keys(this.hostSynthesis);
-  public serviceKeys = Object.keys(this.serviceSynthesis);
 
   constructor(public client: BackendClient) {
     this.client.getLivesynthesis().subscribe(
@@ -123,12 +121,14 @@ export class Dashboard {
 
   protected updatePercentAndColors(): void {
     // Set percentages and colors
-    this.livestate.percent.host =
-      Dashboard.getPercent(this.livestate.problems.host, this.hostSynthesis.total);
-    this.livestate.percent.service =
-      Dashboard.getPercent(this.livestate.problems.service, this.serviceSynthesis.total);
-    this.livestate.percent.total =
-      Dashboard.getPercent(this.livestate.problems.total, this.livestate.total);
+    let realHostsTotal = this.livestate.percent.host = this.hostSynthesis.total - this.hostSynthesis['not_monitored'];
+    this.livestate.percent.host = Dashboard.getPercent(this.livestate.problems.host, realHostsTotal);
+
+    let realServicesTotal = this.serviceSynthesis.total - this.serviceSynthesis['not_monitored'];
+    this.livestate.percent.service = Dashboard.getPercent(this.livestate.problems.service, realServicesTotal);
+
+    let realItemsTotal = this.livestate.total - (this.hostSynthesis['not_monitored'] + this.serviceSynthesis['not_monitored']);
+    this.livestate.percent.total = Dashboard.getPercent(this.livestate.problems.total, realItemsTotal);
 
     Dashboard.defineColor(this.livestate.percent.total, this.colors.total);
     Dashboard.defineColor(this.livestate.percent.host, this.colors.host);

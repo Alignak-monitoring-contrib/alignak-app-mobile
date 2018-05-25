@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>
       <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      {{getHostName()}}
+      {{getItemName()}}
     </ion-title>
   </ion-navbar>
 
@@ -19,7 +19,7 @@
     <ion-item-sliding #item>
       <ion-item>
         <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
-        <ion-label>{{service['name']}}<br> {{service['ls_state']}}</ion-label>
+        <ion-label>{{getItemName(service)}}<br> {{service['ls_state']}}</ion-label>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button style="background-color: #f39c12;" (click)="addAction()">

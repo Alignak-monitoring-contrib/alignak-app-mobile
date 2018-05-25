@@ -31,16 +31,7 @@ export class HostSynthesisPage {
 
   public getHostName(): string {
     // Return formatted host name
-    let name = this.host['name'];
-    if (this.host['alias'])
-      name = this.host['alias'];
-
-    if (name.includes('_')) {
-      let splitname = name.split('_');
-      name = splitname.join(' ');
-    }
-
-    return name.charAt(0).toUpperCase() + name.slice(1)
+    return Utils.getItemName(this.host);
   }
 
   public openServicesPage(): void {

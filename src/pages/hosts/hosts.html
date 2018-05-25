@@ -22,7 +22,7 @@
   <ion-list *ngFor="let host of hosts;">
     <button ion-item (click)="displayHost(host)">
       <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      <ion-label>{{host['name']}}<br> {{host['ls_state']}}</ion-label>
+      <ion-label>{{getHostName(host)}}<br> {{host['ls_state']}}</ion-label>
     </button>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

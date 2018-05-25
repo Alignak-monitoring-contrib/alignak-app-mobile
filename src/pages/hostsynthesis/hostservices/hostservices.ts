@@ -68,18 +68,11 @@ export class HostServicesPage {
     alert.present();
   }
 
-  public getHostName(): string {
+  public getItemName(item: {}): string {
     // Return formatted host name
-    let name = this.host['name'];
-    if (this.host['alias'])
-      name = this.host['alias'];
-
-    if (name.includes('_')) {
-      let splitname = name.split('_');
-      name = splitname.join(' ');
-    }
-
-    return name.charAt(0).toUpperCase() + name.slice(1)
+    if (!item)
+      item = this.host
+    return Utils.getItemName(item)
   }
 
 }

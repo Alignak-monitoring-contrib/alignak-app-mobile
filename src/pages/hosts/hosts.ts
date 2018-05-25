@@ -3,6 +3,7 @@ import {InfiniteScroll, IonicPage, NavController} from 'ionic-angular';
 
 import {BackendClient} from "../../backend/client.service";
 import {HostSynthesisPage} from "../hostsynthesis/hostsynthesis";
+import {Utils} from "../../common/utils";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class HostsPage {
   public criteria = '';
 
   constructor(public navCtrl: NavController, public client: BackendClient) {
-    this.addHosts()
+    this.addHosts();
   }
 
   private addHosts(): void {
@@ -29,7 +30,6 @@ export class HostsPage {
         else
           this.nextPage = undefined;
       }.bind(this)
-
     )
   }
 
@@ -62,12 +62,16 @@ export class HostsPage {
     return 0;
   };
 
-  eventHandler() {
+  public eventHandler(): void {
     // Catch when user type in input
     this.hosts = this.hosts.sort(this.compare)
   }
 
-  public displayHost(host): void {
+  public getHostName(host: {}): string {
+    // Return formatted host name
+    return Utils.getItemName(host)
+  }
+  public displayHost(host: {}): void {
     // Push to HostSynthesis Page
     this.navCtrl.push(HostSynthesisPage, {host: host})
   }

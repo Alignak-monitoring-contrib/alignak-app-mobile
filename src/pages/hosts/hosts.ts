@@ -45,10 +45,19 @@ export class HostsPage {
     if (item[field] == undefined)
       field = 'ls_state';
 
-    if (item[field] == criteria || item[field].includes(criteria))
-      return -1;
-    if (!item[field].includes(criteria))
-      return 1;
+    if (typeof item[field] === "string"){
+      if (item[field] == criteria || item[field].includes(criteria))
+        return -1;
+      if (!item[field].includes(criteria))
+        return 1;
+    }
+    if (typeof item[field] === "boolean"){
+      if (item[field])
+        return -1;
+      if (!item[field])
+        return 1;
+    }
+
 
     return 0;
   };

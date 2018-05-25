@@ -12,50 +12,85 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-list-header>
-      Services problems
-    </ion-list-header>
-    <button ion-item (click)="displayProblems('WARNING', 'service')">
-      <ion-icon name="cube" item-start ngClass="WARNING"></ion-icon>
-      <ion-label>WARNING</ion-label>
-    </button>
-    <button ion-item (click)="displayProblems('CRITICAL', 'service')">
-      <ion-icon name="cube" item-start ngClass="CRITICAL"></ion-icon>
-      <ion-label>CRITICAL</ion-label>
-    </button>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Services alerts
-    </ion-list-header>
-    <button ion-item (click)="displayProblems('UNKNOWN', 'service')">
-      <ion-icon name="cube" item-start ngClass="UNKNOWN"></ion-icon>
-      <ion-label>UNKNOWN</ion-label>
-    </button>
-    <button ion-item (click)="displayProblems('UNREACHABLE', 'service')">
-      <ion-icon name="cube" item-start ngClass="UNREACHABLE"></ion-icon>
-      <ion-label>UNREACHABLE</ion-label>
-    </button>
-  </ion-list>
+  <ion-slides>
+    <ion-slide>
+      <ion-title>Hosts</ion-title>
+      <ion-list>
+        <ion-list-header>
+          Hosts in problem
+        </ion-list-header>
+        <button ion-item (click)="displayProblems('DOWN', 'host')">
+          <ion-icon name="list-box" item-start ngClass="DOWN"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(hostsDown) == true" class="DOWN" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="toDo(hostsDown) == false" style="background-color: #cccccc">ok</ion-badge>
+            DOWN
+          </ion-label>
 
-  <ion-list>
-    <ion-list-header>
-      Hosts problems
-    </ion-list-header>
-    <button ion-item (click)="displayProblems('DOWN', 'host')">
-      <ion-icon name="list-box" item-start ngClass="DOWN"></ion-icon>
-      <ion-label>DOWN</ion-label>
-    </button>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Problems alerts
-    </ion-list-header>
-    <button ion-item (click)="displayProblems('UNREACHABLE', 'host')">
-      <ion-icon name="list-box" item-start ngClass="UNREACHABLE"></ion-icon>
-      <ion-label>UNREACHABLE</ion-label>
-    </button>
-  </ion-list>
+        </button>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          Hosts in alert
+        </ion-list-header>
+        <button ion-item (click)="displayProblems('UNREACHABLE', 'host')">
+          <ion-icon name="list-box" item-start ngClass="UNREACHABLE"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(hostsUnreachable) == true" class="UNREACHABLE" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="toDo(hostsUnreachable) == false" style="background-color: #cccccc">ok</ion-badge>
+            UNREACHABLE
+          </ion-label>
+        </button>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-title>Services</ion-title>
+      <ion-list>
+        <ion-list-header>
+          Services in problem
+        </ion-list-header>
+        <button ion-item (click)="displayProblems('WARNING', 'service')">
+          <ion-icon name="cube" item-start ngClass="WARNING"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(servicesWarning)" class="WARNING" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="!toDo(servicesWarning)" style="background-color: #cccccc">ok</ion-badge>
+            WARNING
+          </ion-label>
+        </button>
+        <button ion-item (click)="displayProblems('CRITICAL', 'service')">
+          <ion-icon name="cube" item-start ngClass="CRITICAL"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(servicesCritical)" class="CRITICAL" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="!toDo(servicesCritical)" style="background-color: #cccccc">ok</ion-badge>
+            CRITICAL
+          </ion-label>
+        </button>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          Services in alert
+        </ion-list-header>
+        <button ion-item (click)="displayProblems('UNKNOWN', 'service')">
+          <ion-icon name="cube" item-start ngClass="UNKNOWN"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(servicesUnknown)" class="UNKNOWN" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="!toDo(servicesUnknown)" style="background-color: #cccccc">ok</ion-badge>
+            UNKNOWN
+          </ion-label>
+        </button>
+        <button ion-item (click)="displayProblems('UNREACHABLE', 'service')">
+          <ion-icon name="cube" item-start ngClass="UNREACHABLE"></ion-icon>
+          <ion-label>
+            <ion-badge *ngIf="toDo(servicesUnreachable)" class="UNREACHABLE" style="background-color: #ffffff">TODO</ion-badge>
+            <ion-badge *ngIf="!toDo(servicesUnreachable)" style="background-color: #cccccc">ok</ion-badge>
+            UNREACHABLE
+          </ion-label>
+        </button>
+      </ion-list>
+    </ion-slide>
+
+
+  </ion-slides>
 
 </ion-content>

@@ -33,6 +33,7 @@ export class ProblemsListPage {
           }
           else
             this.nextPage = undefined;
+          console.log(data)
         }.bind(this)
       );
   }

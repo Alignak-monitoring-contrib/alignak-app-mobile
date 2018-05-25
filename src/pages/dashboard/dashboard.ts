@@ -144,7 +144,7 @@ export class Dashboard {
         color.outerStrokeColor = WARN;
         color.innerStrokeColor = WARNING;
       } else {
-        color.innerStrokeColor = CRITICAL;
+        color.outerStrokeColor = CRITICAL;
         color.innerStrokeColor = CRITICAL;
       }
 

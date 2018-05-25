@@ -13,6 +13,7 @@ import { WrongLogin } from "../pages/badlogin/wrong";
 import {HostSynthesisPage} from "../pages/hostsynthesis/hostsynthesis";
 import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
 import {SharedModule} from "../common/shared.module";
+import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {SharedModule} from "../common/shared.module";
     BackendComponent,
     HostSynthesisPage,
     HostServicesPage,
+    ProblemsListPage
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import {SharedModule} from "../common/shared.module";
     HostSynthesisPage,
     HostServicesPage,
     WrongLogin,
+    ProblemsListPage
   ],
   providers: [
     StatusBar,

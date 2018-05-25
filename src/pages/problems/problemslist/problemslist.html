@@ -1,0 +1,24 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <img src="assets/imgs/icon.svg">
+    </button>
+    <ion-title>Problems</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list-header>Services {{state}}</ion-list-header>
+  <div *ngIf = "problems">
+    <ion-list *ngFor="let item of problems;" >
+      <button ion-item>
+        <ion-icon item-start [ngClass]="item['ls_state']" name="cube"></ion-icon>
+        <ion-label>{{itemType}} {{item['name']}}: {{item['ls_state']}}</ion-label>
+      </button>
+    </ion-list>
+  </div>
+</ion-content>

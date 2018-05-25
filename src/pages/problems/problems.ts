@@ -21,12 +21,8 @@ export class ProblemsPage {
     this.setTotalProblems();
   }
 
-  public displayProblems(state: string, itemType): void {
-    // Push to ProblemsList Page
-    this.navCtrl.push(ProblemsListPage, {state: state, itemType: itemType})
-  }
-
   private setTotalProblems(): void {
+    // TODO
     let hostStates = ['DOWN', 'UNREACHABLE'];
     for (let hostState in hostStates) {
       this.client.getProblems('host', hostStates[hostState])
@@ -59,6 +55,12 @@ export class ProblemsPage {
   }
 
   public toDo(nbProblems: number): boolean {
+    // TODO
     return (!!nbProblems);
+  }
+
+  public displayProblems(state: string, itemType): void {
+    // Push to ProblemsList Page
+    this.navCtrl.push(ProblemsListPage, {state: state, itemType: itemType})
   }
 }

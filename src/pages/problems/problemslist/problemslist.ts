@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {InfiniteScroll, IonicPage, NavParams} from 'ionic-angular';
 import {BackendClient} from "../../../backend/client.service";
+import {Utils} from "../../../common/utils";
 
 
 @IonicPage()
@@ -33,9 +34,13 @@ export class ProblemsListPage {
           }
           else
             this.nextPage = undefined;
-          console.log(data)
         }.bind(this)
       );
+  }
+
+  public getItemName(item: {}): string {
+    // Return formatted host name
+    return Utils.getItemName(item)
   }
 
   public doInfinite(infiniteScroll: InfiniteScroll): void {

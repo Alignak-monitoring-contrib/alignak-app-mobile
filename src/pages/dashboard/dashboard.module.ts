@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Dashboard} from "./dashboard";
 import {NgCircleProgressModule} from "ng-circle-progress";
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from "../../common/shared.module";
 
 @NgModule({
   declarations: [

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 import {HostServicesPage} from "./hostservices/hostservices";
+import {Utils} from '../../common/utils'
 
 
 @IonicPage()
@@ -25,11 +26,7 @@ export class HostSynthesisPage {
 
   public getCheckDate(): string {
     // Return check date
-    if (!this.host['ls_last_check']){
-      return 'Not yet checked'
-    } else {
-      return new Date(this.host['ls_last_check'] * 1000).toLocaleString() || 'Error';
-    }
+    return Utils.getDate(this.host)
   }
 
   public getHostName(): string {

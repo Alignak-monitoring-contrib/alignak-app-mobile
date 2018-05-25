@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavParams, AlertController, InfiniteScroll} from 'ionic-angular';
 import {BackendClient} from "../../../backend/client.service";
+import {Utils} from "../../../common/utils";
 
 @IonicPage()
 @Component({
@@ -33,12 +34,7 @@ export class HostServicesPage {
 
   private static getCheckDate(service: {}): string {
     // Return formatted date
-    if (!service['ls_last_check']){
-      return 'Not yet checked'
-    }else
-    {
-      return new Date(service['ls_last_check'] * 1000).toLocaleString() || 'Error';
-    }
+    return Utils.getDate(service);
   }
 
   public doInfinite(infiniteScroll: InfiniteScroll): void {

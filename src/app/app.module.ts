@@ -12,7 +12,7 @@ import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
 import {HostSynthesisPage} from "../pages/hostsynthesis/hostsynthesis";
 import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
-import {SharedModule} from "../shared/shared.module";
+import {SharedModule} from "../common/shared.module";
 
 @NgModule({
   declarations: [

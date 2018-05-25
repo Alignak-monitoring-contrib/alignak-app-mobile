@@ -20,11 +20,20 @@
 
 <ion-content padding>
   <ion-list *ngFor="let host of hosts;">
-    <button ion-item (click)="displayHost(host)">
+    <ion-item (click)="displayHost(host)">
       <ion-icon item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      <ion-label>{{getHostName(host)}}<br> {{host['ls_state']}}</ion-label>
-    </button>
+      <ion-label item-end>
+        {{getHostName(host)}}<br> {{host['ls_state']}}
+      </ion-label>
+      <ion-badge item-end style="background-color: #ffffff;" *ngIf="host['ls_acknowledged'] == true">
+        <ion-icon ngClass="ACK" name="checkbox"></ion-icon>
+      </ion-badge>
+      <ion-badge item-end style="background-color: #ffffff;" *ngIf="host['ls_downtimed'] == true">
+        <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
+      </ion-badge>
+    </ion-item>
   </ion-list>
+
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

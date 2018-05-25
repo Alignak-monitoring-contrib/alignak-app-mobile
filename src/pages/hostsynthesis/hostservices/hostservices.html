@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>
       <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      {{getItemName()}}
+      {{getItemName(host)}}
     </ion-title>
   </ion-navbar>
 
@@ -20,12 +20,18 @@
       <ion-item>
         <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
         <ion-label>{{getItemName(service)}}<br> {{service['ls_state']}}</ion-label>
+        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_acknowledged'] == true">
+          <ion-icon ngClass="ACK" name="checkbox"></ion-icon>
+        </ion-badge>
+        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_downtimed'] == true">
+          <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
+        </ion-badge>
       </ion-item>
       <ion-item-options side="left">
-        <button ion-button style="background-color: #f39c12;" (click)="addAction()">
+        <button ion-button style="background-color: #f39c12;" (click)="addAction()" [disabled]="service['ls_acknowledged']">
           <ion-icon name="checkbox"></ion-icon>
         </button>
-        <button ion-button style="background-color: #f1c40f;" (click)="addAction()">
+        <button ion-button style="background-color: #f1c40f;" (click)="addAction()" [disabled]="service['ls_downtimed']">
           <ion-icon name="medkit"></ion-icon>
         </button>
       </ion-item-options>

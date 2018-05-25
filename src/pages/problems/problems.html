@@ -19,14 +19,26 @@
     <button ion-item (click)="displayProblems('WARNING', 'service')">
       <ion-icon name="cube" item-start ngClass="WARNING"></ion-icon>
       <ion-label>WARNING</ion-label>
-      <ion-note item-end>0</ion-note>
     </button>
     <button ion-item (click)="displayProblems('CRITICAL', 'service')">
       <ion-icon name="cube" item-start ngClass="CRITICAL"></ion-icon>
       <ion-label>CRITICAL</ion-label>
-      <ion-note item-end>0</ion-note>
     </button>
   </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Services alerts
+    </ion-list-header>
+    <button ion-item (click)="displayProblems('UNKNOWN', 'service')">
+      <ion-icon name="cube" item-start ngClass="UNKNOWN"></ion-icon>
+      <ion-label>UNKNOWN</ion-label>
+    </button>
+    <button ion-item (click)="displayProblems('UNREACHABLE', 'service')">
+      <ion-icon name="cube" item-start ngClass="UNREACHABLE"></ion-icon>
+      <ion-label>UNREACHABLE</ion-label>
+    </button>
+  </ion-list>
+
   <ion-list>
     <ion-list-header>
       Hosts problems
@@ -34,7 +46,15 @@
     <button ion-item (click)="displayProblems('DOWN', 'host')">
       <ion-icon name="list-box" item-start ngClass="DOWN"></ion-icon>
       <ion-label>DOWN</ion-label>
-      <ion-note item-end>0</ion-note>
+    </button>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Problems alerts
+    </ion-list-header>
+    <button ion-item (click)="displayProblems('UNREACHABLE', 'host')">
+      <ion-icon name="list-box" item-start ngClass="UNREACHABLE"></ion-icon>
+      <ion-label>UNREACHABLE</ion-label>
     </button>
   </ion-list>
 

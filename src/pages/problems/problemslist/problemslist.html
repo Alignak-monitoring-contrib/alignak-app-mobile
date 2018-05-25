@@ -12,13 +12,16 @@
 
 
 <ion-content padding>
-  <ion-list-header>Services {{state}}</ion-list-header>
+  <ion-list-header>{{itemType}}s {{state}}</ion-list-header>
   <div *ngIf = "problems">
     <ion-list *ngFor="let item of problems;" >
       <button ion-item>
         <ion-icon item-start [ngClass]="item['ls_state']" name="cube"></ion-icon>
-        <ion-label>{{itemType}} {{item['name']}}: {{item['ls_state']}}</ion-label>
+        <ion-label>{{item['name']}}: {{item['ls_state']}}</ion-label>
       </button>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 </ion-content>

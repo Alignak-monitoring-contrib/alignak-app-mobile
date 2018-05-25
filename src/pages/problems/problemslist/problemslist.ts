@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavParams} from 'ionic-angular';
+import {InfiniteScroll, IonicPage, NavParams} from 'ionic-angular';
 import {BackendClient} from "../../../backend/client.service";
 
 
@@ -8,30 +8,43 @@ import {BackendClient} from "../../../backend/client.service";
   templateUrl: 'problemslist.html',
 })
 export class ProblemsListPage {
-  private state: string;
-  private itemType: string;
-  private problems = [];
-  private nextPage = undefined;
+  private readonly state: string;
+  private readonly nextPage = undefined;
+  public itemType: string;
+  public problems = [];
 
   constructor(public navParams: NavParams, public client: BackendClient) {
     this.state = this.navParams.get('state');
     this.itemType = this.navParams.get('itemType');
+    this.nextPage = this.navParams.get('itemType');
     this.addProblems();
-    console.log(this.state)
   }
 
-  private addProblems(){
-    this.client.getProblems(this.itemType, this.state)
+  private addProblems(): void {
+    // Add problems for current state
+    this.client.getProblems(this.nextPage, this.state)
       .subscribe(
         function(data) {
-          this.problems = this.problems.filter(
+          this.problems = this.problems.concat(data['_items'].filter(
             h => h['active_checks_enabled'] || h['passive_checks_enabled']
-          ).concat(data['_items']);
-          console.log(data);
-          if(data['_links']['next'])
-            this.nextPage = data['_links']['next']['href']
-          console.log(this.problems)
+          ));
+          if (data['_links']['next'] != undefined) {
+            this.nextPage = data['_links']['next']['href'];
+          }
+          else
+            this.nextPage = undefined;
         }.bind(this)
       );
+  }
+
+  public doInfinite(infiniteScroll: InfiniteScroll): void {
+    // Add problems when trigger infiniteScroll event
+
+    setTimeout(() => {
+      if (this.nextPage) {
+        this.addProblems();
+      }
+      infiniteScroll.complete();
+    }, 500);
   }
 }

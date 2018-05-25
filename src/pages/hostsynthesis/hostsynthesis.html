@@ -64,13 +64,5 @@
           <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
         </ion-list-header>
       </ion-list>
-      <ion-list *ngFor="let key of host | getKeys">
-        <ion-item>
-          <ion-label>
-            <ion-icon name="option" item-start style="color: #2a80b9;"></ion-icon>
-            {{key}}: {{host[key]}}
-          </ion-label>
-        </ion-item>
-      </ion-list>
 
 </ion-content>

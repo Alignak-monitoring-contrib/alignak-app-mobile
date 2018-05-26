@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavParams, AlertController, InfiniteScroll} from 'ionic-angular';
-import {BackendClient} from "../../../backend/client.service";
-import {Utils} from "../../../common/utils";
+import {BackendClient} from "../../backend/client.service";
+import {Utils} from "../../common/utils";
 
 @IonicPage()
 @Component({

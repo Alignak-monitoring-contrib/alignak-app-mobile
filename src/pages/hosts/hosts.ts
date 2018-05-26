@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {InfiniteScroll, IonicPage, NavController} from 'ionic-angular';
 
 import {BackendClient} from "../../backend/client.service";
-import {HostSynthesisPage} from "../hostsynthesis/hostsynthesis";
+import {HostPage} from "../item/item";
 import {Utils} from "../../common/utils";
 
 @IonicPage()
@@ -73,7 +73,7 @@ export class HostsPage {
   }
   public displayHost(host: {}): void {
     // Push to HostSynthesis Page
-    this.navCtrl.push(HostSynthesisPage, {item: host})
+    this.navCtrl.push(HostPage, {item: host})
   }
 
   public doInfinite(infiniteScroll: InfiniteScroll): void {

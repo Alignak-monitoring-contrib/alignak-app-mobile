@@ -10,8 +10,8 @@ import { LoginPage } from '../pages/login/login';
 import { BackendComponent } from "../backend/client.component";
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
-import {HostSynthesisPage, ServicePage} from "../pages/hostsynthesis/hostsynthesis";
-import {HostServicesPage} from "../pages/hostsynthesis/hostservices/hostservices";
+import {HostPage, ServicePage} from "../pages/item/item";
+import {HostServicesPage} from "../pages/hostservices/hostservices";
 import {SharedModule} from "../common/shared.module";
 import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
 
@@ -21,7 +21,7 @@ import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
     LoginPage,
     WrongLogin,
     BackendComponent,
-    HostSynthesisPage,
+    HostPage,
     HostServicesPage,
     ServicePage,
     ProblemsListPage
@@ -36,7 +36,7 @@ import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
   entryComponents: [
     MyApp,
     LoginPage,
-    HostSynthesisPage,
+    HostPage,
     HostServicesPage,
     ServicePage,
     WrongLogin,

@@ -29,7 +29,6 @@ export class ProblemsPage {
 
   private setTotalProblems(): void {
     // TODO
-
     for (let itemType in this.totalProblems) {
       for (let state in this.totalProblems[itemType]) {
         this.client.getProblems(itemType, state)

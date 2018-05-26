@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {InfiniteScroll, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {BackendClient} from "../../../backend/client.service";
 import {Utils} from "../../../common/utils";
-import {HostSynthesisPage, ServicePage} from "../../hostsynthesis/hostsynthesis";
+import {HostPage, ServicePage} from "../../item/item";
 
 
 @IonicPage()
@@ -44,6 +44,13 @@ export class ProblemsListPage {
     return Utils.getItemName(item)
   }
 
+  public getIconName(): string {
+    if (this.itemType == 'host')
+      return 'list-box'
+    else
+      return 'cube'
+  }
+
   public doInfinite(infiniteScroll: InfiniteScroll): void {
     // Add problems when trigger infiniteScroll event
 
@@ -58,7 +65,7 @@ export class ProblemsListPage {
   public openPage(pageName: string, item: {}): void {
     // TODO
     if (pageName == 'host')
-      this.navCtrl.push(HostSynthesisPage, {item: item});
+      this.navCtrl.push(HostPage, {item: item});
     if (pageName == 'service')
       this.navCtrl.push(ServicePage, {item: item} )
   }

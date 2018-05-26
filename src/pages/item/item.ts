@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
-import {HostServicesPage} from "./hostservices/hostservices";
+import {HostServicesPage} from "../hostservices/hostservices";
 import {Utils} from '../../common/utils'
 
 
@@ -17,8 +17,8 @@ abstract class ItemPage {
     return Utils.getDate(this.item)
   }
 
-  public getHostName(): string {
-    // Return formatted host name
+  public getItemName(): string {
+    // Return formatted item name
     return Utils.getItemName(this.item);
   }
 
@@ -26,13 +26,20 @@ abstract class ItemPage {
     // TODO
     return !this.item['host']
   }
+
+  public getIconName(): string {
+    if (this.itemIsHost())
+      return 'list-box';
+    else
+      return 'cube';
+  }
 }
 
 @Component({
-  selector: 'page-hostsynthesis',
-  templateUrl: 'hostsynthesis.html',
+  selector: 'page-item',
+  templateUrl: 'item.html',
 })
-export class HostSynthesisPage extends ItemPage {
+export class HostPage extends ItemPage {
   public services = [];
   public item: {};
 
@@ -56,8 +63,8 @@ export class HostSynthesisPage extends ItemPage {
 }
 
 @Component({
-  selector: 'page-hostsynthesis',
-  templateUrl: 'hostsynthesis.html',
+  selector: 'page-item',
+  templateUrl: 'item.html',
 })
 export class ServicePage extends ItemPage {
 

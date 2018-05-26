@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title padding>Synthesis view</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-title>
+    <ion-icon padding item-start [ngClass]="item['ls_state']" [name]="getIconName()"></ion-icon>
+    {{getItemName()}}
+  </ion-title>
+  <ion-list>
+    <ion-list-header color="light">
+      <ion-icon item-start name="information-circle" style="color: #2a80b9;"></ion-icon>
+      Global informations
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col><b>State</b></ion-col>
+        <ion-col>{{item['ls_state']}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>Output</b></ion-col>
+        <ion-col>{{item['ls_output']}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><b>When</b></ion-col>
+        <ion-col>{{getCheckDate()}}</ion-col>
+      </ion-row>
+      <ion-row *ngIf="itemIsHost()">
+        <ion-col><b>Address</b></ion-col>
+        <ion-col>{{item['address']}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list *ngIf="itemIsHost()">
+    <ion-list-header color="light">
+      <ion-icon item-start name="switch" style="color: #2a80b9;"></ion-icon>
+      Options
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Active Checks</ion-label>
+      <ion-radio [checked]="item['active_checks_enabled']" [disabled]="!item['active_checks_enabled']">essai</ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Passive Checks</ion-label>
+      <ion-radio [checked]="item['active_checks_enabled']" [disabled]="!item['active_checks_enabled']"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="itemIsHost()">
+    <ion-list-header color="light" *ngIf="services.length != 0">
+      <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
+      Services
+      <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
+    </ion-list-header>
+    <ion-list-header color="light" *ngIf="services.length == 0">
+      <ion-icon name="cube" item-start style="color: #cccccc;"></ion-icon>
+      No services
+      <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
+    </ion-list-header>
+  </ion-list>
+
+</ion-content>

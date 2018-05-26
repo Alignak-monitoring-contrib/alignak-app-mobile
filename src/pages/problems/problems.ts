@@ -28,9 +28,9 @@ export class ProblemsPage {
       this.client.getProblems('host', hostStates[hostState])
         .subscribe(
           function (data) {
-            if ('DOWN' === hostStates[hostState])
+            if ('DOWN' == hostStates[hostState])
               this.hostsDown = data['_meta']['total'];
-            if ('UNREACHABLE' === hostStates[hostState])
+            if ('UNREACHABLE' == hostStates[hostState])
               this.hostsUnreachable= data['_meta']['total'];
           }.bind(this)
         )
@@ -41,13 +41,13 @@ export class ProblemsPage {
       this.client.getProblems('service', serviceStates[serviceState])
         .subscribe(
           function (data) {
-            if ('WARNING' === serviceStates[serviceState])
+            if ('WARNING' == serviceStates[serviceState])
               this.servicesWarning = data['_meta']['total'];
-            if ('CRITICAL' === serviceStates[serviceState])
+            if ('CRITICAL' == serviceStates[serviceState])
               this.servicesCritical = data['_meta']['total'];
-            if ('UNREACHABLE' === serviceStates[serviceState])
+            if ('UNREACHABLE' == serviceStates[serviceState])
               this.servicesUnreachable = data['_meta']['total'];
-            if ('UNKNOWN' === serviceStates[serviceState])
+            if ('UNKNOWN' == serviceStates[serviceState])
               this.servicesUnknown = data['_meta']['total'];
           }.bind(this)
         )

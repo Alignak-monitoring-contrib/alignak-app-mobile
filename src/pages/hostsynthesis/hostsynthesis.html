@@ -30,14 +30,14 @@
             <ion-col><b>When</b></ion-col>
             <ion-col>{{getCheckDate()}}</ion-col>
           </ion-row>
-          <ion-row *ngIf="item['address']">
+          <ion-row *ngIf="itemIsHost()">
             <ion-col><b>Address</b></ion-col>
             <ion-col>{{item['address']}}</ion-col>
           </ion-row>
         </ion-grid>
       </ion-list>
 
-      <ion-list>
+      <ion-list *ngIf="itemIsHost()">
         <ion-list-header color="light">
           <ion-icon item-start name="switch" style="color: #2a80b9;"></ion-icon>
           Options
@@ -52,7 +52,7 @@
         </ion-item>
       </ion-list>
 
-      <ion-list *ngIf="item['address']">
+      <ion-list *ngIf="itemIsHost()">
         <ion-list-header color="light" *ngIf="services.length != 0">
           <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
           Services

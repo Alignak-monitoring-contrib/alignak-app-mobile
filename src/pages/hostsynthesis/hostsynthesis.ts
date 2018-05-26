@@ -5,11 +5,11 @@ import {HostServicesPage} from "./hostservices/hostservices";
 import {Utils} from '../../common/utils'
 
 
+@IonicPage()
 abstract class ItemPage {
   public item: {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    this.item = this.navParams.get('item');
+  protected constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
   }
 
   public getCheckDate(): string {
@@ -21,9 +21,13 @@ abstract class ItemPage {
     // Return formatted host name
     return Utils.getItemName(this.item);
   }
+
+  public itemIsHost(): boolean {
+    // TODO
+    return !this.item['host']
+  }
 }
 
-@IonicPage()
 @Component({
   selector: 'page-hostsynthesis',
   templateUrl: 'hostsynthesis.html',
@@ -51,7 +55,6 @@ export class HostSynthesisPage extends ItemPage {
 
 }
 
-@IonicPage()
 @Component({
   selector: 'page-hostsynthesis',
   templateUrl: 'hostsynthesis.html',

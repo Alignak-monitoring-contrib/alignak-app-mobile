@@ -9,6 +9,7 @@
 
 
 <ion-content padding>
+<!--Title-->
   <ion-title>
     <ion-icon padding item-start [ngClass]="item['ls_state']" [name]="getIconName()"></ion-icon>
     {{getItemName()}}
@@ -19,6 +20,7 @@
       <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
     </ion-badge>
   </ion-title>
+<!--Global infos-->
   <ion-list>
     <ion-list-header color="light">
       <ion-icon item-start name="information-circle" style="color: #2a80b9;"></ion-icon>
@@ -43,7 +45,7 @@
       </ion-row>
     </ion-grid>
   </ion-list>
-
+<!--Options-->
   <ion-list *ngIf="itemIsHost()">
     <ion-list-header color="light">
       <ion-icon item-start name="switch" style="color: #2a80b9;"></ion-icon>
@@ -58,7 +60,7 @@
       <ion-radio [checked]="item['active_checks_enabled']" [disabled]="!item['active_checks_enabled']"></ion-radio>
     </ion-item>
   </ion-list>
-
+<!--Services (only hosts)-->
   <ion-list *ngIf="itemIsHost()">
     <ion-list-header color="light" *ngIf="services.length != 0">
       <ion-icon name="cube" item-start style="color: #2a80b9;"></ion-icon>
@@ -69,6 +71,23 @@
       <ion-icon name="cube" item-start style="color: #cccccc;"></ion-icon>
       No services
       <button ion-button outline item-end (click)="openServicesPage()" [disabled]="services.length == 0">View</button>
+    </ion-list-header>
+  </ion-list>
+<!--Customs-->
+  <ion-list *ngIf="haveCustoms()">
+    <ion-list-header color="light">
+      <ion-icon name="settings" item-start style="color: #2a80b9;"></ion-icon>
+      Customs
+    </ion-list-header>
+    <ion-item *ngFor="let custom of item['customs'] | getKeys">
+      <ion-badge class="custom">{{custom}}</ion-badge>
+       {{item['customs'][custom]}}
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="!haveCustoms()">
+    <ion-list-header color="light">
+      <ion-icon name="settings" item-start style="color: #cccccc;"></ion-icon>
+      No Customs
     </ion-list-header>
   </ion-list>
 

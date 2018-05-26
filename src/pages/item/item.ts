@@ -33,6 +33,11 @@ abstract class ItemPage {
     else
       return 'cube';
   }
+
+  public haveCustoms(): boolean {
+    // TODO
+    return !(Object.keys(this.item['customs']).length === 0);
+  }
 }
 
 @Component({

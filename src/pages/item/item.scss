@@ -1,6 +1,19 @@
 page-item {
+  .custom {
+    color: #3a8abe;
+    background-color: #ffffff;
+  }
+
+  expandable {
+
+    .expand-wrapper {
+      transition: 0.2s linear;
+    }
+
+    .collapsed {
+      height: 0 !important;
+    }
+  }
 }
 
-ion-list-header {
-  background-color: #ccc;
-}
+

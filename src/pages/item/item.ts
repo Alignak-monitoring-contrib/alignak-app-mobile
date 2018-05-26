@@ -8,6 +8,7 @@ import {Utils} from '../../common/utils'
 @IonicPage()
 abstract class ItemPage {
   public item: {};
+  public shownGroup;
 
   protected constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
   }
@@ -38,6 +39,18 @@ abstract class ItemPage {
     // TODO
     return !(Object.keys(this.item['customs']).length === 0);
   }
+
+  public toggleGroup(group) {
+    // TODO
+    if (this.isGroupShown(group)) {
+      this.shownGroup = null;
+    } else {
+      this.shownGroup = group;
+    }
+  };
+  public isGroupShown(group) {
+    return this.shownGroup === group;
+  };
 }
 
 @Component({
@@ -51,6 +64,7 @@ export class HostPage extends ItemPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     super(navCtrl, navParams, client);
     this.item = this.navParams.get('item');
+    this.shownGroup = null;
     this.client.getHostServices('service', this.navParams.get('item'))
       .subscribe(
         function(data) {
@@ -62,6 +76,7 @@ export class HostPage extends ItemPage {
   public openServicesPage(): void {
     // Push to HostServices page
     this.navCtrl.push(HostServicesPage, {host: this.item})
+    this.shownGroup = null;
   }
 
 }

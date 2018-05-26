@@ -75,14 +75,24 @@
   </ion-list>
 <!--Customs-->
   <ion-list *ngIf="haveCustoms()">
-    <ion-list-header color="light">
+    <ion-list-header
+      color="light"
+      class="item-stable"
+      (click)="toggleGroup(item['customs'])"
+      [ngClass]="{active: isGroupShown(item['customs'])}">
       <ion-icon name="settings" item-start style="color: #2a80b9;"></ion-icon>
       Customs
+      <ion-icon name="arrow-dropdown" item-end style="color: #2a80b9;"></ion-icon>
     </ion-list-header>
-    <ion-item *ngFor="let custom of item['customs'] | getKeys">
-      <ion-badge class="custom">{{custom}}</ion-badge>
-       {{item['customs'][custom]}}
-    </ion-item>
+    <div *ngFor="let custom of item['customs'] | getKeys">
+      <ion-item *ngIf="isGroupShown(item['customs'])"
+        class="item-accordion"
+      >
+        <ion-badge class="custom">{{custom}}</ion-badge>
+        {{item['customs'][custom]}}
+      </ion-item>
+    </div>
+
   </ion-list>
   <ion-list *ngIf="!haveCustoms()">
     <ion-list-header color="light">

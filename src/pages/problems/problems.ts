@@ -10,12 +10,18 @@ import {BackendClient} from "../../backend/client.service";
   templateUrl: 'problems.html',
 })
 export class ProblemsPage {
-  public hostsDown = 0;
-  public hostsUnreachable = 0;
-  public servicesWarning= 0;
-  public servicesCritical = 0;
-  public servicesUnreachable = 0;
-  public servicesUnknown = 0;
+  public totalProblems = {
+    host: {
+      DOWN: 0,
+      UNREACHABLE: 0
+    },
+    service: {
+      WARNING: 0,
+      CRITICAL: 0,
+      UNKNOWN: 0,
+      UNREACHABLE: 0,
+    }
+  };
 
   constructor(public navCtrl: NavController, public client: BackendClient) {
     this.setTotalProblems();
@@ -23,34 +29,16 @@ export class ProblemsPage {
 
   private setTotalProblems(): void {
     // TODO
-    let hostStates = ['DOWN', 'UNREACHABLE'];
-    for (let hostState in hostStates) {
-      this.client.getProblems('host', hostStates[hostState])
-        .subscribe(
-          function (data) {
-            if ('DOWN' == hostStates[hostState])
-              this.hostsDown = data['_meta']['total'];
-            if ('UNREACHABLE' == hostStates[hostState])
-              this.hostsUnreachable= data['_meta']['total'];
-          }.bind(this)
-        )
-    }
 
-    let serviceStates = ['WARNING', 'CRITICAL', 'UNREACHABLE', 'UNKNOWN'];
-    for (let serviceState in serviceStates) {
-      this.client.getProblems('service', serviceStates[serviceState])
-        .subscribe(
-          function (data) {
-            if ('WARNING' == serviceStates[serviceState])
-              this.servicesWarning = data['_meta']['total'];
-            if ('CRITICAL' == serviceStates[serviceState])
-              this.servicesCritical = data['_meta']['total'];
-            if ('UNREACHABLE' == serviceStates[serviceState])
-              this.servicesUnreachable = data['_meta']['total'];
-            if ('UNKNOWN' == serviceStates[serviceState])
-              this.servicesUnknown = data['_meta']['total'];
-          }.bind(this)
-        )
+    for (let itemType in this.totalProblems) {
+      for (let state in this.totalProblems[itemType]) {
+        this.client.getProblems(itemType, state)
+          .subscribe(
+            function (data) {
+              this.totalProblems[itemType][state] = data['_meta']['total'];
+            }.bind(this)
+          )
+      }
     }
   }
 

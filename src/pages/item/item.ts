@@ -46,7 +46,6 @@ export class HostPage extends ItemPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     super(navCtrl, navParams, client);
     this.item = this.navParams.get('item');
-    console.log('HS item: ', this.item);
     this.client.getHostServices('service', this.navParams.get('item'))
       .subscribe(
         function(data) {

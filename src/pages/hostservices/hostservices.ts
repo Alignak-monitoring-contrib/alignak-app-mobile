@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavParams, AlertController, InfiniteScroll} from 'ionic-angular';
+import {IonicPage, NavParams, AlertController, InfiniteScroll, NavController} from 'ionic-angular';
 import {BackendClient} from "../../backend/client.service";
 import {Utils} from "../../common/utils";
+import {ServicePage} from "../item/item";
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ export class HostServicesPage {
   public readonly services = [];
   public readonly host = {};
 
-  constructor(public alertCtrl: AlertController, public navParams: NavParams, public client: BackendClient) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+              public navParams: NavParams, public client: BackendClient) {
     this.host = navParams.get('host');
     this.addServices('service');
   }
@@ -75,4 +77,8 @@ export class HostServicesPage {
     return Utils.getItemName(item)
   }
 
+  public openPage(item: {}): void {
+    // TODO
+    this.navCtrl.push(ServicePage, {item})
+  }
 }

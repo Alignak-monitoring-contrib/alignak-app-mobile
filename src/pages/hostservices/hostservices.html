@@ -2,9 +2,9 @@
 
   <ion-navbar>
     <ion-title>
-      <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
-      {{getItemName(host)}}
+      Host services
     </ion-title>
+
   </ion-navbar>
 
 </ion-header>
@@ -12,18 +12,18 @@
 
 <ion-content padding>
   <ion-title>
-    <ion-icon item-start style="color: #2a80b9;" name="cube" padding></ion-icon>
-    Services
+    <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+    {{getItemName(host)}}
   </ion-title>
   <ion-list *ngFor="let service of services;">
     <ion-item-sliding #item>
-      <ion-item>
+      <ion-item (click)="openPage(service)">
         <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
         <ion-label>{{getItemName(service)}}<br> {{service['ls_state']}}</ion-label>
-        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_acknowledged'] == true">
+        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_acknowledged']">
           <ion-icon ngClass="ACK" name="checkbox"></ion-icon>
         </ion-badge>
-        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_downtimed'] == true">
+        <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_downtimed']">
           <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
         </ion-badge>
       </ion-item>

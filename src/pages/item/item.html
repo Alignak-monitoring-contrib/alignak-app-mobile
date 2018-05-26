@@ -12,6 +12,12 @@
   <ion-title>
     <ion-icon padding item-start [ngClass]="item['ls_state']" [name]="getIconName()"></ion-icon>
     {{getItemName()}}
+    <ion-badge item-end style="background-color: #ffffff;" *ngIf="item['ls_acknowledged'] == true">
+      <ion-icon ngClass="ACK" name="checkbox"></ion-icon>
+    </ion-badge>
+    <ion-badge item-end style="background-color: #ffffff;" *ngIf="item['ls_downtimed'] == true">
+      <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
+    </ion-badge>
   </ion-title>
   <ion-list>
     <ion-list-header color="light">

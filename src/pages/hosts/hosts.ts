@@ -11,16 +11,26 @@ import {Utils} from "../../common/utils";
   templateUrl: 'hosts.html',
 })
 
+/**
+ * Class who display hosts list
+ */
 export class HostsPage {
   public hosts = [];
   public colors = {up: 'up', unreachable: 'unreachable', down: 'down' };
   public nextPage = 'host';
   public criteria = '';
 
+  /**
+   * @param {NavController} navCtrl - navigator controller
+   * @param {BackendClient} client - backend client to get data
+   */
   constructor(public navCtrl: NavController, public client: BackendClient) {
     this.addHosts();
   }
 
+  /**
+   * Add hosts to current host list (GET request on next page endpoint)
+   */
   private addHosts(): void {
     this.client.getHosts(this.nextPage).subscribe(
       function(data) {
@@ -33,8 +43,12 @@ export class HostsPage {
     )
   }
 
-  public compare = (item): number =>  {
-    // Compare item criteria for a given value or not
+  /**
+   * Compare function to filter hosts for current criteria
+   * @param {Object} item - given item to filter
+   * @returns {number} index number
+   */
+  public compare = (item: Object): number =>  {
     let field = 'ls_state';
     let criteria = this.criteria;
     if (this.criteria.includes(':')) {
@@ -58,27 +72,39 @@ export class HostsPage {
         return 1;
     }
 
-
     return 0;
   };
 
+  /**
+   * Event handler for key press in input
+   */
   public eventHandler(): void {
-    // Catch when user type in input
     this.hosts = this.hosts.sort(this.compare)
   }
 
+  /**
+   * Return formated host name
+   * @param {Object} host - host item data
+   * @returns {string} host name
+   */
   public getHostName(host: {}): string {
     // Return formatted host name
     return Utils.getItemName(host)
   }
-  public displayHost(host: {}): void {
-    // Push to HostSynthesis Page
+
+  /**
+   * Push to {@link HostPage} with given host data
+   * @param {Object} host - host item data
+   */
+  public displayHost(host: Object): void {
     this.navCtrl.push(HostPage, {item: host})
   }
 
+  /**
+   * Do infinite scroll, add host if {@link nextPage}
+   * @param {InfiniteScroll} infiniteScroll - infinite scroll object
+   */
   public doInfinite(infiniteScroll: InfiniteScroll): void {
-    // Add host when trigger infiniteScroll event
-
     setTimeout(() => {
       if (this.nextPage) {
         this.addHosts();

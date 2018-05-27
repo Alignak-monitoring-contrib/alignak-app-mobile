@@ -9,12 +9,20 @@ import {HostPage, ServicePage} from "../../item/item";
 @Component({
   templateUrl: 'problemslist.html',
 })
+/**
+ * Class who manage a list of problem items
+ */
 export class ProblemsListPage {
   private readonly state: string;
   private readonly nextPage = undefined;
   public itemType: string;
   public problems = [];
 
+  /**
+   * @param {NavController} navCtrl - navigator controller
+   * @param {NavParams} navParams - navigator parameters
+   * @param {BackendClient} client - backend client for requests
+   */
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     this.state = this.navParams.get('state');
     this.itemType = this.navParams.get('itemType');
@@ -22,8 +30,10 @@ export class ProblemsListPage {
     this.addProblems();
   }
 
+  /**
+   * Add problems for current state (when {@link nextPage})
+   */
   private addProblems(): void {
-    // Add problems for current state
     this.client.getProblems(this.nextPage, this.state)
       .subscribe(
         function(data) {
@@ -39,21 +49,31 @@ export class ProblemsListPage {
       );
   }
 
-  public getItemName(item: {}): string {
-    // Return formatted host name
+  /**
+   * Return formated host name
+   * @param {Object} item - backend item data
+   * @returns {string} host name
+   */
+  public getItemName(item: Object): string {
     return Utils.getItemName(item)
   }
 
+  /**
+   * Return ion name for current {@link itemType}
+   * @returns {string} icon name
+   */
   public getIconName(): string {
     if (this.itemType == 'host')
-      return 'list-box'
+      return 'list-box';
     else
       return 'cube'
   }
 
+  /**
+   * Do infinite scroll and add problems to problems list
+   * @param {InfiniteScroll} infiniteScroll - infinite scroll Object
+   */
   public doInfinite(infiniteScroll: InfiniteScroll): void {
-    // Add problems when trigger infiniteScroll event
-
     setTimeout(() => {
       if (this.nextPage) {
         this.addProblems();
@@ -62,8 +82,12 @@ export class ProblemsListPage {
     }, 500);
   }
 
-  public openPage(pageName: string, item: {}): void {
-    // TODO
+  /**
+   * Push to given page name with given item data
+   * @param {string} pageName - name of page to push
+   * @param {Object} item - backend item data
+   */
+  public openPage(pageName: string, item: Object): void {
     if (pageName == 'host')
       this.navCtrl.push(HostPage, {item: item});
     if (pageName == 'service')

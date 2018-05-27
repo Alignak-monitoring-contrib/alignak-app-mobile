@@ -1,11 +1,12 @@
-language: android
-sudo: required
-jdk:
-    - oraclejdk8
+language: node_js
+sudo: false
+node_js:
+  - "7.4.0"
+
 addons:
-    chrome: stable
     apt:
       update: true
+    chrome: stable
 env:
     global:
       - ANDROID_TOOLS=${ANDROID_HOME}/tools
@@ -16,14 +17,6 @@ before_install:
     - node --version
     - # start your web application and listen on `localhost`
     - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-android:
-    components:
-      - tools
-
-licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
 
 install:
     - npm install
@@ -33,7 +26,7 @@ script:
   - npm run lint
   - npm run build
   - npm run test-ci
-  - ionic cordova platform add android
-  - ionic cordova build android
-  - grep -r -i --include \*.apk .
+  #  - ionic cordova platform add android
+  #  - ionic cordova build android
+  #  - grep -r -i --include \*.apk .
 

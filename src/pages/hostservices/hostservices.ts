@@ -9,19 +9,31 @@ import {ServicePage} from "../item/item";
   selector: 'page-hostservices',
   templateUrl: 'hostservices.html',
 })
+/**
+ * Class who manage host services data
+ */
 export class HostServicesPage {
   private nextPage = 'service';
   public readonly services = [];
   public readonly host = {};
 
+  /**
+   * @param {NavController} navCtrl - navigator controller
+   * @param {AlertController} alertCtrl - alert controller (to display popups)
+   * @param {NavParams} navParams - navigator parameter to get host data
+   * @param {BackendClient} client - client for backend requests
+   */
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
               public navParams: NavParams, public client: BackendClient) {
     this.host = navParams.get('host');
     this.addServices('service');
   }
 
+  /**
+   * Add services to services list (when {@link nextPage})
+   * @param {string} endpoint - endpoint of request
+   */
   private addServices(endpoint: string): void {
-    // Add services to list (next page)
     this.client.getHostServices(endpoint, this.host)
       .subscribe(
         function(data) {
@@ -34,13 +46,20 @@ export class HostServicesPage {
       );
   }
 
-  private static getCheckDate(service: {}): string {
-    // Return formatted date
+  /**
+   * Return the formated check date of item
+   * @param {Object} service - service item data
+   * @returns {string} - formated date
+   */
+  private static getCheckDate(service: Object): string {
     return Utils.getDate(service);
   }
 
+  /**
+   * Do infinite scroll and add services
+   * @param {InfiniteScroll} infiniteScroll - infiniteScroll object
+   */
   public doInfinite(infiniteScroll: InfiniteScroll): void {
-    // Add services when trigger infiniteScroll event
     setTimeout(() => {
       if (this.nextPage) {
         this.addServices(this.nextPage);
@@ -50,8 +69,11 @@ export class HostServicesPage {
     }, 500);
   }
 
-  public displayInfo(service: {}): void {
-    // Display output of given service
+  /**
+   * Display an alert with output of given service
+   * @param {Object} service - service item data
+   */
+  public displayInfo(service: Object): void {
     let alert = this.alertCtrl.create({
       title: 'Service ' + service['name'],
       subTitle: 'My output',
@@ -61,6 +83,9 @@ export class HostServicesPage {
     alert.present();
   }
 
+  /**
+   * TODO: not implemented
+   */
   public addAction(): void {
     let alert = this.alertCtrl.create({
       title: 'Please be patient :)',
@@ -70,15 +95,22 @@ export class HostServicesPage {
     alert.present();
   }
 
-  public getItemName(item: {}): string {
-    // Return formatted host name
+  /**
+   * Return formated item name for host or service
+   * @param {Object} item - item backend data
+   * @returns {string} formated name
+   */
+  public getItemName(item: Object): string {
     if (!item)
-      item = this.host
+      item = this.host;
     return Utils.getItemName(item)
   }
 
-  public openPage(item: {}): void {
-    // TODO
+  /**
+   * Push to {@link ServicePage} with given item data
+   * @param {Object} item - item backend data
+   */
+  public openPage(item: Object): void {
     this.navCtrl.push(ServicePage, {item})
   }
 }

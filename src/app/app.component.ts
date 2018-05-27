@@ -10,16 +10,28 @@ import {BackendClient} from "../backend/client.service";
   templateUrl: 'app.html',
   providers: [BackendClient]
 })
+/**
+ * Main class of Alignak App Mobile
+ */
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = LoginPage;
 
+  /**
+   * @param {Platform} platform - platform Object
+   * @param {StatusBar} statusBar - status bar Object
+   * @param {SplashScreen} splashScreen - splash screen Object
+   * @param {BackendClient} backend - backend client
+   */
   constructor(public platform: Platform, public statusBar: StatusBar,
               public splashScreen: SplashScreen, public backend: BackendClient) {
     this.initializeApp()
 
   }
 
+  /**
+   * Initialize application
+   */
   private initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -29,16 +41,20 @@ export class MyApp {
     });
   }
 
-  public openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+  /**
+   * Set as root the given page and reset content nav (to avoid get back button)
+   * @param {string} page
+   */
+  public openPage(page: string) {
     this.nav.setRoot(page);
   }
 
+  /**
+   * Log out of backend, reset token
+   */
   public logOut(): void {
     this.backend.token = '';
     this.nav.setRoot(this.rootPage);
   }
 
 }
-

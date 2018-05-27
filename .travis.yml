@@ -25,6 +25,7 @@ install:
 script:
   - npm run lint
   - npm run build
+  - npm run test -- --single-run
   - ionic cordova platform add android
   - ionic cordova build android
   - grep -r -i --include \*.apk .

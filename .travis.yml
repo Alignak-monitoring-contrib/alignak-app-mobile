@@ -1,5 +1,5 @@
 language: node_js
-sudo: false
+sudo: required
 node_js:
   - "7.4.0"
 
@@ -7,14 +7,11 @@ addons:
     apt:
       update: true
     chrome: stable
-env:
-    global:
-      - ANDROID_TOOLS=${ANDROID_HOME}/tools
+before_script:
+    - "sudo chown root /opt/google/chrome/chrome-sandbox"
+    - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 before_install:
-    - nvm install 6
-    # ensure at least gradle 3.3 is in place.
-    - node --version
     - # start your web application and listen on `localhost`
     - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 
 import { BackendClient} from "../../backend/client.service";
 import { WrongLogin } from "../badlogin/wrong";
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'login.html'

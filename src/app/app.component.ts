@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { LoginPage } from '../pages/login/login';
 import {BackendClient} from "../backend/client.service";
 
 @Component({
@@ -15,7 +14,7 @@ import {BackendClient} from "../backend/client.service";
  */
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;
+  rootPage:any = 'LoginPage';
 
   /**
    * @param {Platform} platform - platform Object

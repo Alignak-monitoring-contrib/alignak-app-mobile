@@ -5,50 +5,79 @@ import {HostServicesPage} from "../hostservices/hostservices";
 import {Utils} from '../../common/utils'
 
 
+/**
+ * Classe who display an item
+ */
+
 @IonicPage()
 abstract class ItemPage {
   public item: {};
-  public shownGroup;
+  protected shownGroup;
 
-  protected constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
+  /**
+   * @param navCtrl - navigator controller
+   * @param navParams - navigator parameters to get item
+   */
+  protected constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.shownGroup = null;
+    this.item = this.navParams.get('item');
   }
 
-  public getCheckDate(): string {
-    // Return check date
+  /**
+   * Return formatted check date of item
+   * @returns {string}
+   */
+  protected getCheckDate(): string {
     return Utils.getDate(this.item)
   }
 
-  public getItemName(): string {
-    // Return formatted item name
+  /**
+   * Return formatted item name
+   * @returns {string}
+   */
+  protected getItemName(): string {
     return Utils.getItemName(this.item);
   }
 
-  public itemIsHost(): boolean {
-    // TODO
+  /**
+   * Return if item is an host or not
+   * @returns {boolean}
+   */
+  protected itemIsHost(): boolean {
     return !this.item['host']
   }
 
-  public getIconName(): string {
+  /**
+   * Return icon name (host or service)
+   * @returns {string}
+   */
+  protected getIconName(): string {
     if (this.itemIsHost())
       return 'list-box';
     else
       return 'cube';
   }
 
-  public haveCustoms(): boolean {
-    // TODO
+  /**
+   * Return if item has customs or not
+   * @returns {boolean}
+   */
+  protected haveCustoms(): boolean {
     return !(Object.keys(this.item['customs']).length === 0);
   }
 
-  public toggleGroup(group) {
-    // TODO
-    if (this.isGroupShown(group)) {
+  /**
+   * Fill group for items if customs are shown or not
+   * @param customs - customs
+   */
+  protected toggleGroup(customs: Object) {
+    if (this.isGroupShown(customs)) {
       this.shownGroup = null;
     } else {
-      this.shownGroup = group;
+      this.shownGroup = customs;
     }
   };
-  public isGroupShown(group) {
+  protected isGroupShown(group) {
     return this.shownGroup === group;
   };
 }
@@ -57,14 +86,23 @@ abstract class ItemPage {
   selector: 'page-item',
   templateUrl: 'item.html',
 })
+/**
+ * @extends ItemPage
+ */
 export class HostPage extends ItemPage {
   public services = [];
   public item: {};
 
+  /**
+   * Display host
+   * @param navCtrl
+   * @param navParams
+   * @param client - client for backend to get services for host
+   */
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    super(navCtrl, navParams, client);
-    this.item = this.navParams.get('item');
-    this.shownGroup = null;
+    super(navCtrl, navParams);
+
+    // Get services for host
     this.client.getHostServices('service', this.navParams.get('item'))
       .subscribe(
         function(data) {
@@ -73,10 +111,11 @@ export class HostPage extends ItemPage {
       );
   }
 
+  /**
+   * Push to {@link HostServicesPage}
+   */
   public openServicesPage(): void {
-    // Push to HostServices page
     this.navCtrl.push(HostServicesPage, {host: this.item})
-    this.shownGroup = null;
   }
 
 }
@@ -85,10 +124,17 @@ export class HostPage extends ItemPage {
   selector: 'page-item',
   templateUrl: 'item.html',
 })
+/**
+ * @extends ItemPage
+ */
 export class ServicePage extends ItemPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    super(navCtrl, navParams, client);
-    this.item = this.navParams.get('item');
+  /**
+   * Display service
+   * @param navCtrl - navigator controller
+   * @param navParams - navigator parameters to get item
+   */
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    super(navCtrl, navParams);
   }
 }

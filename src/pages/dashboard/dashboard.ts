@@ -2,17 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
 import { BackendClient } from "../../backend/client.service";
+import {Utils, OK, WARN, WARNING, CRITICAL} from "../../common/utils";
 
-
-const OK   = '#27ae60';
-const UNREACHABLE= '#9b59b6';
-const WARNING = '#fdb83a';
-const WARN = '#e67e22';
-const CRITICAL = '#e74c3c';
-const UNKNOWN = '#2a80b9';
-const ACKNOWLEDGED = '#f39c12';
-const IN_DOWNTIME = '#f1c40f';
-const FLAPPING = '#f1b3f0';
 
 @IonicPage()
 @Component({
@@ -20,6 +11,9 @@ const FLAPPING = '#f1b3f0';
   templateUrl: 'dashboard.html',
   providers: [BackendClient]
 })
+/**
+ * Class who display dashboards
+ */
 export class Dashboard {
   private livestate = {
     total: 0,
@@ -54,6 +48,9 @@ export class Dashboard {
       total: 0,
     };
 
+  /**
+   * @param {BackendClient} client - client to get backend data
+   */
   constructor(public client: BackendClient) {
     this.client.getLivesynthesis().subscribe(
       function (data) {
@@ -64,7 +61,11 @@ export class Dashboard {
     )
   }
 
-  protected manageData(data: {}): void {
+  /**
+   * Manage data from request
+   * @param data - data received by backend: {_items:..., _meta:...}
+   */
+  protected manageData(data: Object): void {
     // Manage data from backend request
     for (let i = 0; i < data['_items'].length; i++) {
       // Current synthesis data
@@ -119,6 +120,9 @@ export class Dashboard {
 
   }
 
+  /**
+   * Update percentages and colors for dashboards
+   */
   protected updatePercentAndColors(): void {
     // Set percentages and colors
     let realHostsTotal = this.livestate.percent.host = this.hostSynthesis.total - this.hostSynthesis['not_monitored'];
@@ -130,31 +134,47 @@ export class Dashboard {
     let realItemsTotal = this.livestate.total - (this.hostSynthesis['not_monitored'] + this.serviceSynthesis['not_monitored']);
     this.livestate.percent.total = Dashboard.getPercent(this.livestate.problems.total, realItemsTotal);
 
-    Dashboard.defineColor(this.livestate.percent.total, this.colors.total);
-    Dashboard.defineColor(this.livestate.percent.host, this.colors.host);
-    Dashboard.defineColor(this.livestate.percent.service, this.colors.service);
+    Dashboard.setMainDashboardColor(this.livestate.percent.total, this.colors.total);
+    Dashboard.setMainDashboardColor(this.livestate.percent.host, this.colors.host);
+    Dashboard.setMainDashboardColor(this.livestate.percent.service, this.colors.service);
   }
 
-  private static defineColor(percent, color): void {
-    // Help function to define colors
+  /**
+   * Define color for main dashboard
+   * @param percent - value of percentage
+   * @param color - corresponding values of color
+   */
+  private static setMainDashboardColor(percent: number, color: Object): void {
     if (percent == 0) {
-        color.outerStrokeColor = OK;
-        color.innerStrokeColor = OK;
+        color['outerStrokeColor'] = OK;
+        color['innerStrokeColor'] = OK;
       } else if (percent <= 50) {
-        color.outerStrokeColor = WARN;
-        color.innerStrokeColor = WARNING;
+        color['outerStrokeColor'] = WARN;
+        color['innerStrokeColor'] = WARNING;
       } else {
-        color.outerStrokeColor = CRITICAL;
-        color.innerStrokeColor = CRITICAL;
+        color['outerStrokeColor'] = CRITICAL;
+        color['innerStrokeColor'] = CRITICAL;
       }
 
   }
 
-  private static getPercent(value, total): number {
+  /**
+   * Return percentage for given value and total
+   * @param value - number of items
+   * @param total - total of items
+   * @returns {number} percentage
+   */
+  private static getPercent(value: number, total: number): number {
     // Return percentage for value and total
     return +((value / total) * 100).toFixed(2) | 0
   }
 
+  /**
+   * Return percentage from item type for value
+   * @param {number} value - number of item for item type
+   * @param {string} itemType -
+   * @returns {number}
+   */
   public getPercentFromItemType(value: number, itemType: string): number {
     // Return percentage for given value and total
     let total = 0;
@@ -170,8 +190,13 @@ export class Dashboard {
 
   }
 
-  public getSubtitleFromItem(itemKey, itemType): string {
-    // Return subtitle for given key for item type
+  /**
+   * Return formatted subtitle for numbers of data corresponding to item key
+   * @param {string} itemKey - item key of data
+   * @param {string} itemType - item type host or service
+   * @returns {string} formatted subtitle
+   */
+  public getSubtitleFromItem(itemKey: string, itemType: string): string {
     let data = {};
     if (itemType == 'host')
       data = this.hostSynthesis;
@@ -181,35 +206,22 @@ export class Dashboard {
     return data[itemKey] + ' / ' + (data['total'] - data['not_monitored'])
   }
 
-  public getColorFromKey(key: string, value: 0): string {
-    // Return color from key and value
-    let color = '#000000';
-
-    if (value == 0)
-      return '#f4f4f4';
-
-    if (key == 'ok' || key == 'up')
-      color = OK;
-    else if (key == 'warning')
-      color = WARN;
-    else if (key == 'down' || key == 'critical')
-      color = CRITICAL;
-    else if (key == 'unreachable')
-      color = UNREACHABLE;
-    else if (key == 'unknown')
-      color = UNKNOWN;
-    else if (key == 'acknowledged')
-      color = ACKNOWLEDGED;
-    else if (key == 'in_downtime')
-      color = IN_DOWNTIME;
-    else if (key == 'flapping')
-      color = FLAPPING;
-
-    return color
+  /**
+   * Return corresponding color for given key and value
+   * @param {string} key - the key of synthesis
+   * @param {number} value - value of associated key
+   * @returns {string} color value
+   */
+  public getColorFromKey(key: string, value: number){
+    return Utils.getColor(key, value)
   }
 
+  /**
+   * define if circle should be created or not for dashboard
+   * @param {string} key - current key for dashboard
+   * @returns {boolean} if circle should be created
+   */
   public doCircle(key: string): boolean {
-    // Define if circle should be added or not
     return key != 'not_monitored' && key != 'total';
   }
 }

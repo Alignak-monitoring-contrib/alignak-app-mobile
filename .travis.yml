@@ -1,0 +1,31 @@
+language: android
+sudo: false
+jdk:
+    - oraclejdk8
+env:
+    global:
+      - ANDROID_TOOLS=${ANDROID_HOME}/tools
+before_install:
+    - nvm install 6
+    # ensure at least gradle 3.3 is in place.
+    - node --version
+android:
+    components:
+      - tools
+
+licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+
+install:
+    - npm install
+    - npm install -g ionic cordova
+
+script:
+  - npm run lint
+  - npm run build
+  - ionic cordova platform add android
+  - ionic cordova build android
+  - grep -r -i --include \*.apk .
+

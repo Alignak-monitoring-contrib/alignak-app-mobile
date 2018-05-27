@@ -6,6 +6,9 @@ Alignak App Mobile
 
 *Alignak application for mobiles (Android, iOS)*
 
+.. image:: https://travis-ci.org/Alignak-monitoring-contrib/alignak-app-mobile.svg?branch=develop
+    :target: https://travis-ci.org/Alignak-monitoring-contrib/alignak-app-mobile
+    :alt: Develop branch build status
 
 .. image:: https://img.shields.io/badge/IRC-%23alignak-1e72ff.svg?style=flat
     :target: http://webchat.freenode.net/?channels=%23alignak

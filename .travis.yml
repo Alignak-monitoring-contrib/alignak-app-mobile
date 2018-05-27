@@ -21,6 +21,7 @@ script:
   - npm run lint
   - npm run build
   - npm run test-ci
+  - npm run coveralls
   #  - ionic cordova platform add android
   #  - ionic cordova build android
   #  - grep -r -i --include \*.apk .

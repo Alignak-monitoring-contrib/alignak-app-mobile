@@ -1,6 +1,6 @@
 {
-  "name": "alignak-android",
-  "version": "0.0.1",
+  "name": "alignak-mobile",
+  "version": "0.1.0-dev",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -12,7 +12,7 @@
     "ionic:serve": "ionic-app-scripts serve",
     "test": "karma start ./test-config/karma.conf.js",
     "test-ci": "karma start ./test-config/karma.conf.js --single-run",
-    "test-coverage": "karma start ./test-config/karma.conf.js --coverage",
+    "coveralls": "cat ./coverage/lcov.info | karma start ./test-config/karma.conf.js --coverage --single-run",
     "e2e": "npm run e2e-update && npm run e2e-test",
     "e2e-test": "protractor ./test-config/protractor.conf.js",
     "e2e-update": "webdriver-manager update --standalone false --gecko false"
@@ -53,6 +53,7 @@
     "@types/jasmine": "^2.8.7",
     "@types/node": "^10.1.2",
     "angular2-template-loader": "^0.6.2",
+    "coveralls": "^2.11.12",
     "html-loader": "^0.5.5",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine": "^3.1.0",

@@ -10,6 +10,10 @@ Alignak App Mobile
     :target: https://travis-ci.org/Alignak-monitoring-contrib/alignak-app-mobile
     :alt: Develop branch build status
 
+.. image:: https://coveralls.io/repos/github/Alignak-monitoring-contrib/alignak-app-mobile/badge.svg?branch=develop
+    :target: https://coveralls.io/github/Alignak-monitoring-contrib/alignak-app-mobile?branch=develop
+    :alt: Development code coverage
+
 .. image:: https://img.shields.io/badge/IRC-%23alignak-1e72ff.svg?style=flat
     :target: http://webchat.freenode.net/?channels=%23alignak
     :alt: Join the chat #alignak on freenode.net

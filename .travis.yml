@@ -26,3 +26,5 @@ script:
   #  - ionic cordova build android
   #  - grep -r -i --include \*.apk .
 
+after_script:
+  - npm install coveralls@2 && cat ./coverage/lcov.info | coveralls

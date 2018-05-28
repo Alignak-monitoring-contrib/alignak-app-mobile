@@ -1,7 +1,5 @@
-import { async, inject, TestBed } from '@angular/core/testing';
-import { IonicModule, Platform } from 'ionic-angular';
-import { HttpTestingController } from '@angular/common/http/testing';
-import { PlatformMock, StatusBarMock, SplashScreenMock, LoginPageMock} from '../../test-config/mocks-ionic';
+import { async, TestBed } from '@angular/core/testing';
+import {IonicModule} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,45 +10,44 @@ import {BackendClient} from "../backend/client.service";
 import {LoginPage} from "../pages/login/login";
 
 
-describe('MyApp Component', () => {
+describe('TEST MyApp Component', () => {
   let fixture;
   let component;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MyApp, LoginPage],
+      declarations: [MyApp],
       imports: [
         IonicModule.forRoot(MyApp),
       ],
       providers: [
-        { provide: StatusBar, useClass: StatusBarMock },
-        { provide: SplashScreen, useClass: SplashScreenMock },
-        { provide: Platform, useClass: PlatformMock },
-        { provide: BackendClient },
-        { provide: HttpClient},
-        { provide: HttpTestingController},
-        { provide: LoginPage, useClass: LoginPageMock},
+        {provide: BackendClient},
+        {provide: HttpClient},
+        {provide: StatusBar},
+        {provide: SplashScreen}
       ],
-    })
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MyApp);
     component = fixture.componentInstance;
+    spyOn(component.nav, 'setRoot');
   });
 
-  it('Initialize MyApp', async(inject([HttpTestingController],
-    (httpClient: HttpTestingController) => {
+  it('Initialize MyApp',
+    () => {
     expect(component instanceof MyApp).toBe(true);
-  })));
+  });
 
   it('RootPage is equal to LoginPage', () => {
     expect(component.rootPage).toBe('LoginPage');
   });
 
-  it('Log Out reset token', () => {
+  it('Log Out reset token',() => {
     component.logOut();
     expect(component.backend.token).toEqual('');
+    expect(component.nav.setRoot).toHaveBeenCalledWith('LoginPage');
   });
 
 

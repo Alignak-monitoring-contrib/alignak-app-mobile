@@ -1,19 +1,28 @@
-import { async, inject, TestBed } from '@angular/core/testing';
-import { HttpTestingController } from '@angular/common/http/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {HttpClient, HttpHandler} from "@angular/common/http";
 
 import {BackendClient} from "./client.service";
-import {MyApp} from "../app/app.component";
-
 
 describe('BackendClient Service', () => {
+  let client: BackendClient;
 
-  let service: BackendClient;
-  let httpHandler: HttpHandler;
-  beforeEach(() => { service = new BackendClient(new HttpClient(httpHandler)); });
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      providers: [BackendClient, HttpClient, HttpHandler],
+    });
+
+  }));
+
+  beforeEach(() => {
+    localStorage.setItem('url', '');
+    localStorage.setItem('token', '');
+    client = TestBed.get(BackendClient);
+  });
 
   it('Init BackendClient', () => {
-    expect(service instanceof BackendClient).toBe(true);
+    expect(client.token).toEqual('');
+    expect(client.url).toEqual('');
+    expect(client.http instanceof HttpClient).toBe(true);
   });
 
 });

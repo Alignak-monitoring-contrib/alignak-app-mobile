@@ -20,8 +20,6 @@ export class BackendClient {
    */
   constructor(http: HttpClient) {
     this.http = http;
-    this.token = localStorage.getItem('token');
-    this.url = localStorage.getItem('url');
     this.updateData()
   }
 

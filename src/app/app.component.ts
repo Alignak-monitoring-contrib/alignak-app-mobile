@@ -14,7 +14,7 @@ import {BackendClient} from "../backend/client.service";
  */
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = 'LoginPage';
+  public rootPage:any = 'LoginPage';
 
   /**
    * @param {Platform} platform - platform Object

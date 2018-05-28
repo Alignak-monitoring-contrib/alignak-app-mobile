@@ -50,5 +50,9 @@ describe('TEST MyApp Component', () => {
     expect(component.nav.setRoot).toHaveBeenCalledWith('LoginPage');
   });
 
+  it('openPage open right page', () => {
+    component.openPage('Dashboard');
+    expect(component.nav.setRoot).toHaveBeenCalledWith('Dashboard');
+  });
 
 });

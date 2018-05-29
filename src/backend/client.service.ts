@@ -13,13 +13,11 @@ const BACKEND_PAGINATION_LIMIT = 25;
 export class BackendClient {
   token: string;
   url: string;
-  http: HttpClient;
 
   /**
    * @param {HttpClient} http - http client for requests
    */
-  constructor(http: HttpClient) {
-    this.http = http;
+  constructor(public http: HttpClient) {
     this.updateData()
   }
 

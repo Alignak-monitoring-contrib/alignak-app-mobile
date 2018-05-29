@@ -1,5 +1,5 @@
 import {TestBed, getTestBed} from '@angular/core/testing';
-import {HttpClient} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import {BackendClient} from "./client.service";
@@ -49,5 +49,25 @@ describe('BackendClient Service', () => {
     expect(req.request.url).toBe(`${service.url}/login`);
     expect(req.request.body).toEqual({username: 'admin', password: 'admin'});
     req.flush(dummyToken);
-  })
+  });
+
+  it('Get Livesynthesis from Backend', () => {
+    const dummySynthesis = [
+      {_items: 'live synth'}
+    ];
+    const dummyHeaders = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', 'my-long-token');
+
+    service.getLivesynthesis().subscribe(
+      livesynth => {
+        expect(livesynth.length).toBe(1);
+      });
+
+    const req = httpMock.expectOne(`${service.url}/livesynthesis`);
+    expect(req.request.method).toBe("GET");
+    expect(req.request.url).toBe(`${service.url}/livesynthesis`);
+    expect(req.request.headers).toEqual(dummyHeaders);
+    req.flush(dummySynthesis);
+  });
 });

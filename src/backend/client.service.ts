@@ -33,7 +33,7 @@ export class BackendClient {
    * GET http function
    * @param {string} endpoint - endpoint of request
    * @param {HttpParams} params - http parameters of request
-   * @param {HttpHeaders} headers - htt headers of request
+   * @param {HttpHeaders} headers - http headers of request
    * @returns {Observable<Object>} - observable object
    */
   private get(endpoint: string, params?: HttpParams, headers?: HttpHeaders): Observable<Object> {
@@ -62,7 +62,7 @@ export class BackendClient {
    * Post on "login" endpoint
    * @param {string} username - username of backend
    * @param {string} password - password of backend
-   * @returns {Observable<Object>} - observable object
+   * @returns {Observable<any>} - observable object
    */
   public login(username: string, password: string): Observable<any> {
     let body = {
@@ -74,18 +74,18 @@ export class BackendClient {
 
   /**
    * Return livesynthesis data
-   * @returns {Observable<Object>} - observable object
+   * @returns {Observable<any>} - observable object
    */
-  public getLivesynthesis(): Observable<Object> {
+  public getLivesynthesis(): Observable<any> {
     return this.get('livesynthesis')
   }
 
   /**
    * Return host data for given endpoint
    * @param {string} endpoint - endpoint of request, default is "host"
-   * @returns {Observable<Object>} - observable object
+   * @returns {Observable<any>} - observable object
    */
-  public getHosts(endpoint = 'host'): Observable<Object> {
+  public getHosts(endpoint = 'host'): Observable<any> {
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
@@ -98,9 +98,9 @@ export class BackendClient {
    * Return list of service for given host
    * @param {string} endpoint - endpoint of request
    * @param {Object} host - host item data
-   * @returns {Observable<Object>} - observable object
+   * @returns {Observable<any>} - observable object
    */
-  public getHostServices(endpoint: string, host: Object): Observable<Object> {
+  public getHostServices(endpoint: string, host: Object): Observable<any> {
     let params = new HttpParams()
       .set('where', JSON.stringify({'_is_template': false, 'host': host['_id']}))
       .set('max_results', JSON.stringify(BACKEND_PAGINATION_LIMIT
@@ -113,9 +113,9 @@ export class BackendClient {
    * Return item in problems for corresponding state
    * @param {string} endpoint - endpoint for request ("host" or "service")
    * @param {string} state - state to get
-   * @returns {Observable<Object>} - observable object
+   * @returns {Observable<any>} - observable object
    */
-  public getProblems(endpoint: string, state: string): Observable<Object> {
+  public getProblems(endpoint: string, state: string): Observable<any> {
     let params = new HttpParams()
       .set('where', JSON.stringify({
         '_is_template': false,

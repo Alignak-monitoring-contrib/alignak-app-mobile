@@ -1,5 +1,5 @@
 import {TestBed, getTestBed} from '@angular/core/testing';
-import {HttpHeaders} from "@angular/common/http";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import {BackendClient} from "./client.service";
@@ -32,7 +32,6 @@ describe('BackendClient Service', () => {
     expect(service.url).toEqual('http://demo.alignak.net:5000');
   });
 
-  // This test fails and expect is not take in account
   it('Login to Backend', () => {
     const dummyToken = [
       { token: 'my-received-token' }
@@ -70,4 +69,71 @@ describe('BackendClient Service', () => {
     expect(req.request.headers).toEqual(dummyHeaders);
     req.flush(dummySynthesis);
   });
+
+  it('Get Hosts from Backend', () => {
+    const dummyHosts = [
+      {_items: 'Hosts Items'}
+    ];
+    const dummyParams = new HttpParams()
+      .set('where', JSON.stringify({'_is_template': false}))
+      .set('max_results', JSON.stringify(25));
+
+    service.getHosts().subscribe(
+      hosts => {
+        expect(hosts.length).toBe(1);
+      });
+
+    const req = httpMock.expectOne(req => req.method === 'GET' && req.url === `${service.url}/host`);
+    expect(req.request.params.get('where')).toEqual(dummyParams.get('where'));
+    expect(req.request.params.get('max_results')).toEqual(dummyParams.get('max_results'));
+    req.flush(dummyHosts);
+  });
+
+  it('Get Host Services', () => {
+    const dummyHostServices = [{
+      _items: 'Host Services Items'
+    }];
+    const dummyHost = {
+      _id: 'host-id'
+    };
+    const dummyParams = new HttpParams()
+      .set('where', JSON.stringify({'_is_template': false, 'host': dummyHost['_id']}))
+      .set('max_results', JSON.stringify(25));
+
+    service.getHostServices('service', dummyHost).subscribe(
+      hostservices => {
+        expect(hostservices.length).toBe(1);
+      },
+    );
+
+    const req = httpMock.expectOne(req => req.method === 'GET' && req.url === `${service.url}/service`);
+    expect(req.request.url).toEqual(`${service.url}/service`);
+    expect(req.request.params.get('where')).toEqual(dummyParams.get('where'));
+    expect(req.request.params.get('max_results')).toEqual(dummyParams.get('max_results'));
+    req.flush(dummyHostServices);
+  });
+
+  it('Get Items in Problem', () => {
+    const dummyProblems = [{
+      _items: 'WARNING Problems'
+    }];
+    const dummyParams = new HttpParams()
+      .set('where', JSON.stringify({
+        '_is_template': false,
+        'ls_state': 'WARNING',
+        'ls_acknowledged': false,
+        'ls_downtimed': false
+      }));
+
+    service.getProblems('service', 'WARNING').subscribe(
+      problems => {
+        expect(problems.length).toBe(1)
+      }
+    );
+
+    const req = httpMock.expectOne(req => req.method === 'GET' && req.url === `${service.url}/service`);
+    expect(req.request.url).toEqual(`${service.url}/service`);
+    expect(req.request.params.get('where')).toEqual(dummyParams.get('where'));
+    req.flush(dummyProblems);
+  })
 });

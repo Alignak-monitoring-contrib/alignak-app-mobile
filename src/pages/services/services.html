@@ -1,0 +1,44 @@
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <img src="assets/imgs/icon.svg">
+    </button>
+    <ion-title>Services</ion-title>
+  </ion-navbar>
+  <ion-item>
+    <ion-label item-start color="primary">Filter</ion-label>
+    <ion-input
+      type="text"
+      placeholder="You can use field:value to filter items..."
+      [(ngModel)]="criteria"
+      (keypress)="eventHandler()"
+    ></ion-input>
+  </ion-item>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-title>
+    <ion-icon padding item-start [ngClass]="host['ls_state']" name="list-box"></ion-icon>
+    {{getItemName(host)}}
+  </ion-title>
+  <ion-list *ngFor="let service of services;">
+    <ion-item (click)="displayService(service)">
+      <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
+      <ion-label item-end>
+        {{getItemName(service)}}<br> {{service['ls_state']}}
+      </ion-label>
+      <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_acknowledged'] == true">
+        <ion-icon ngClass="ACK" name="checkbox"></ion-icon>
+      </ion-badge>
+      <ion-badge item-end style="background-color: #ffffff;" *ngIf="service['ls_downtimed'] == true">
+        <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

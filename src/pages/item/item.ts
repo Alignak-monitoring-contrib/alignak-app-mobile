@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import {BackendClient} from "../../backend/client.service";
-import {HostServicesPage} from "../hostservices/hostservices";
 import {Utils} from '../../common/utils'
+import {ServicesPage} from "../services/services";
 
 
 /**
@@ -112,10 +113,10 @@ export class HostPage extends ItemPage {
   }
 
   /**
-   * Push to {@link HostServicesPage}
+   * Push to {@link ServicesPage}
    */
   public openServicesPage(): void {
-    this.navCtrl.push(HostServicesPage, {host: this.item})
+    this.navCtrl.push(ServicesPage, {host: this.item})
   }
 
 }

@@ -9,16 +9,16 @@ import { MyApp } from './app.component';
 import { BackendClient } from "../backend/client.service";
 import { WrongLogin } from "../pages/badlogin/wrong";
 import {HostPage, ServicePage} from "../pages/item/item";
-import {HostServicesPage} from "../pages/hostservices/hostservices";
 import {SharedModule} from "../common/shared.module";
 import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
+import {ServicesPage} from "../pages/services/services";
 
 @NgModule({
   declarations: [
     MyApp,
     WrongLogin,
     HostPage,
-    HostServicesPage,
+    ServicesPage,
     ServicePage,
     ProblemsListPage
   ],
@@ -32,7 +32,7 @@ import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
   entryComponents: [
     MyApp,
     HostPage,
-    HostServicesPage,
+    ServicesPage,
     ServicePage,
     WrongLogin,
     ProblemsListPage

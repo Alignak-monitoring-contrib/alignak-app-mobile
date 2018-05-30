@@ -62,9 +62,6 @@ export class ServicesPage {
     if (item[field] == undefined)
       field = 'ls_state';
 
-    console.log(item['name']);
-    console.log('Field: ', field);
-    console.log('Critr: ', criteria);
     if (typeof item[field] === "string"){
       if (item[field] == criteria || item[field].includes(criteria))
         return -1;

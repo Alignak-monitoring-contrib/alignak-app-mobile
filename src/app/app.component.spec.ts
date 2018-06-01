@@ -10,7 +10,7 @@ import {BackendClient} from "../backend/client.service";
 import {LoginPage} from "../pages/login/login";
 
 
-describe('TEST MyApp Component', () => {
+describe('MyApp: ', () => {
   let fixture;
   let component;
 
@@ -26,7 +26,7 @@ describe('TEST MyApp Component', () => {
         {provide: StatusBar},
         {provide: SplashScreen}
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

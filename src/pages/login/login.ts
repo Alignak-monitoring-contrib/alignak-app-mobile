@@ -3,7 +3,7 @@ import {IonicPage, NavController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 
 import { BackendClient} from "../../backend/client.service";
-import { WrongLogin } from "../badlogin/wrong";
+import { ErrorPage } from "../error/error";
 
 @IonicPage()
 @Component({
@@ -49,7 +49,7 @@ export class LoginPage {
           this.navCtrl.setRoot('Dashboard');
         }.bind(this),
           err => this.navCtrl.push(
-            WrongLogin, {error: err.message || "Can't join the server."}
+            ErrorPage, {error: err.message || "Can't join the server."}
             )
       );
     }

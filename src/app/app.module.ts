@@ -7,7 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from './app.component';
 import { BackendClient } from "../backend/client.service";
-import { WrongLogin } from "../pages/badlogin/wrong";
+import { ErrorPage } from "../pages/error/error";
 import {HostPage, ServicePage} from "../pages/item/item";
 import {SharedModule} from "../common/shared.module";
 import {ProblemsListPage} from "../pages/problems/problemslist/problemslist";
@@ -16,7 +16,7 @@ import {ServicesPage} from "../pages/services/services";
 @NgModule({
   declarations: [
     MyApp,
-    WrongLogin,
+    ErrorPage,
     HostPage,
     ServicesPage,
     ServicePage,
@@ -34,7 +34,7 @@ import {ServicesPage} from "../pages/services/services";
     HostPage,
     ServicesPage,
     ServicePage,
-    WrongLogin,
+    ErrorPage,
     ProblemsListPage
   ],
   providers: [

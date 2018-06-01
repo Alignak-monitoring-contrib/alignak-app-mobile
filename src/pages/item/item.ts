@@ -13,14 +13,14 @@ import {ServicesPage} from "../services/services";
 @IonicPage()
 abstract class ItemPage {
   public item: {};
-  protected shownGroup;
+  protected _shownGroup;
 
   /**
    * @param navCtrl - navigator controller
    * @param navParams - navigator parameters to get item
    */
   protected constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.shownGroup = null;
+    this._shownGroup = null;
     this.item = this.navParams.get('item');
   }
 
@@ -44,7 +44,7 @@ abstract class ItemPage {
    * Return if item is an host or not
    * @returns {boolean}
    */
-  protected itemIsHost(): boolean {
+  public itemIsHost(): boolean {
     return !this.item['host']
   }
 
@@ -52,7 +52,7 @@ abstract class ItemPage {
    * Return icon name (host or service)
    * @returns {string}
    */
-  protected getIconName(): string {
+  public getIconName(): string {
     if (this.itemIsHost())
       return 'list-box';
     else
@@ -63,23 +63,29 @@ abstract class ItemPage {
    * Return if item has customs or not
    * @returns {boolean}
    */
-  protected haveCustoms(): boolean {
+  public haveCustoms(): boolean {
     return !(Object.keys(this.item['customs']).length === 0);
   }
+
+  /**
+   * Accesor for shownGroup
+   * @returns {Object}
+   */
+  public get shownGroup(): Object { return this._shownGroup; }
 
   /**
    * Fill group for items if customs are shown or not
    * @param customs - customs
    */
-  protected toggleGroup(customs: Object) {
+  public toggleGroup(customs: Object) {
     if (this.isGroupShown(customs)) {
-      this.shownGroup = null;
+      this._shownGroup = null;
     } else {
-      this.shownGroup = customs;
+      this._shownGroup = customs;
     }
   };
-  protected isGroupShown(group) {
-    return this.shownGroup === group;
+  public isGroupShown(group) {
+    return this._shownGroup === group;
   };
 }
 

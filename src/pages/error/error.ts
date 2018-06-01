@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavParams} from 'ionic-angular';
 
 @Component({
   templateUrl: 'error.html'
@@ -7,7 +7,7 @@ import {NavController, NavParams} from 'ionic-angular';
 
 export class ErrorPage {
   error: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navParams: NavParams) {
     this.error = navParams.get('error');
   }
 }

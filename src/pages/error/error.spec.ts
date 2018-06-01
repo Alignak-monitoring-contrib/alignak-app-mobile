@@ -1,13 +1,13 @@
 import { async, TestBed } from '@angular/core/testing';
-import {IonicModule, NavController, NavParams} from 'ionic-angular';
+import {IonicModule, NavParams} from 'ionic-angular';
 
 import {ErrorPage} from "./error";
 
 
-describe('WrongPage: ', () => {
+describe('ErrorPage: ', () => {
   let fixture;
-  let wrongLogin;
-  const data = {error: 'Login Error'};
+  let errorPage;
+  const data = {error: 'Raising Error'};
   const navParams = new NavParams(data);
 
   beforeEach(async(() => {
@@ -18,17 +18,16 @@ describe('WrongPage: ', () => {
       ],
       providers: [
         {provide: NavParams, useValue: navParams},
-        {provide: NavController},
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ErrorPage);
-    wrongLogin = fixture.componentInstance;
+    errorPage = fixture.componentInstance;
   });
 
   it('Initialize ErrorPage', () => {
-    expect(wrongLogin.error).toEqual('Login Error')
+    expect(errorPage.error).toEqual('Raising Error')
   });
 });

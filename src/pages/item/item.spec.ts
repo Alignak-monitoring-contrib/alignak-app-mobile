@@ -1,4 +1,4 @@
-import {async, getTestBed, TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import { NavController, NavParams} from 'ionic-angular';
 
 import {HostPage} from './item'
@@ -19,10 +19,8 @@ class MockNavParams{
   }
 }
 
-describe('HostPage: ', () => {
+describe('ItemPage: ', () => {
   let fixture;
-  let injector;
-  let navParams;
   let hostPage: HostPage;
 
   beforeEach(async(() => {
@@ -39,11 +37,9 @@ describe('HostPage: ', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HostPage);
     hostPage = fixture.componentInstance;
-    injector = getTestBed();
-    navParams = injector.get(NavParams);
   });
 
-  it('Initialize HostPage get Parameters',
+  it('Initialize HostPage and get Parameters',
     () => {
       expect(hostPage['shownGroup']).toBe(null);
       expect(hostPage.item['ls_state']).toEqual( 'DOWN')

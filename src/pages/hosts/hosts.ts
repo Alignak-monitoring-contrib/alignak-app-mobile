@@ -50,25 +50,28 @@ export class HostsPage {
    */
   public compare = (item: Object): number =>  {
     let field = 'ls_state';
-    let criteria = this.criteria;
+    let criteria;
     if (this.criteria.includes(':')) {
       field = this.criteria.split(':', 2)[0];
       criteria = this.criteria.split(':', 2)[1];
-    }
-    // To prevent wrong input field
-    if (item[field] == undefined)
-      field = 'ls_state';
+    } else
+      criteria = this.criteria;
+
+    if (criteria === '' || item[field] === undefined)
+      return 0;
 
     if (typeof item[field] === "string"){
-      if (item[field] == criteria || item[field].includes(criteria))
+      if (item[field] == criteria)
         return -1;
-      if (!item[field].includes(criteria))
+      if (item[field].indexOf(criteria) !== -1)
+        return -1;
+      else
         return 1;
     }
     if (typeof item[field] === "boolean"){
-      if (item[field])
+      if (item[field] == (criteria == 'true'))
         return -1;
-      if (!item[field])
+      else
         return 1;
     }
 

@@ -1,5 +1,3 @@
-import {TestBed, getTestBed} from '@angular/core/testing';
-
 import {Utils} from "./utils";
 
 describe('Utils: ', () => {

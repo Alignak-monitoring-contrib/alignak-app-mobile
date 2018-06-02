@@ -43,6 +43,7 @@
           <ion-col>
             <ion-label style="font-size: 16px">Hosts <br>in problem</ion-label>
             <circle-progress
+              title="{{livestate.percent.host}}"
               subtitle="{{livestate.problems.host}} / {{hostSynthesis.total - hostSynthesis['not_monitored']}}"
               [percent]="livestate.percent.host"
               [radius]="44"
@@ -56,6 +57,7 @@
           <ion-col>
             <ion-label style="font-size: 16px">Services <br>in problem</ion-label>
             <circle-progress
+              title="{{livestate.percent.service}}"
               subtitle="{{livestate.problems.service}} / {{serviceSynthesis.total - serviceSynthesis['not_monitored']}}"
               [percent]="livestate.percent.service"
               [radius]="44"
@@ -91,6 +93,7 @@
             </ion-label>
             <circle-progress
               *ngIf="doCircle(hKey)"
+              title="{{getPercentFromItemType(hostSynthesis[hKey], 'host')}}"
               [titleColor]="getColorFromKey(hKey, hostSynthesis[hKey])"
               [subtitle]="getSubtitleFromItem(hKey, 'host')"
               subtitleColor="#00000"
@@ -128,6 +131,7 @@
             </ion-label>
             <circle-progress
               *ngIf="doCircle(sKey)"
+              title="{{getPercentFromItemType(serviceSynthesis[sKey], 'service')}}"
               [titleColor]="getColorFromKey(sKey, serviceSynthesis[sKey])"
               [subtitle]="getSubtitleFromItem(sKey, 'service')"
               subtitleColor="#00000"

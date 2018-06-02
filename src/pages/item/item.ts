@@ -68,7 +68,7 @@ abstract class ItemPage {
   }
 
   /**
-   * Accesor for shownGroup
+   * Accessor for shownGroup
    * @returns {Object}
    */
   public get shownGroup(): Object { return this._shownGroup; }

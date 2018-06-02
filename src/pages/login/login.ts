@@ -46,7 +46,7 @@ export class LoginPage {
           localStorage.setItem("token", data['token']);
 
           this.navCtrl.setRoot(LoginPage);
-          this.navCtrl.setRoot('Dashboard');
+          this.navCtrl.setRoot('DashboardPage');
         }.bind(this),
           err => this.navCtrl.push(
             ErrorPage, {error: err.message || "Can't join the server."}

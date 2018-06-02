@@ -62,5 +62,9 @@ describe('HostsPage: ', () => {
       // Field name: 'ls_downtimed' is 'true'
       hostPage.criteria = 'ls_downtimed:true';
       expect(hostPage.compare(itemTest)).toEqual(-1);
+
+      // Field does not exists
+      hostPage.criteria = 'wrong:field';
+      expect(hostPage.compare(itemTest)).toEqual(0);
     });
 });

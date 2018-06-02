@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Dashboard} from "./dashboard";
+import { DashboardPage} from "./dashboard";
 import {NgCircleProgressModule} from "ng-circle-progress";
 import {SharedModule} from "../../common/shared.module";
 
 @NgModule({
   declarations: [
-    Dashboard,
+    DashboardPage,
   ],
   imports: [
-    IonicPageModule.forChild(Dashboard),
+    IonicPageModule.forChild(DashboardPage),
     NgCircleProgressModule.forRoot({
       radius: 100,
       outerStrokeWidth: 16,

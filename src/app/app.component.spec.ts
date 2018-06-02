@@ -51,8 +51,8 @@ describe('MyApp: ', () => {
   });
 
   it('openPage open right page', () => {
-    component.openPage('Dashboard');
-    expect(component.nav.setRoot).toHaveBeenCalledWith('Dashboard');
+    component.openPage('DashboardPage');
+    expect(component.nav.setRoot).toHaveBeenCalledWith('DashboardPage');
   });
 
 });

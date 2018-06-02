@@ -2,11 +2,11 @@ export const OK   = '#27ae60';
 export const WARNING = '#fdb83a';
 export const WARN = '#e67e22';
 export const CRITICAL = '#e74c3c';
-const UNREACHABLE= '#9b59b6';
-const UNKNOWN = '#2a80b9';
-const ACKNOWLEDGED = '#f39c12';
-const IN_DOWNTIME = '#f1c40f';
-const FLAPPING = '#f1b3f0';
+export const UNREACHABLE= '#9b59b6';
+export const UNKNOWN = '#2a80b9';
+export const ACKNOWLEDGED = '#f39c12';
+export const IN_DOWNTIME = '#f1c40f';
+export const FLAPPING = '#f1b3f0';
 
 /**
  * Class who provide utils functions

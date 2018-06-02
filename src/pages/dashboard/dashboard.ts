@@ -12,20 +12,20 @@ import {Utils, OK, WARN, WARNING, CRITICAL} from "../../common/utils";
   providers: [BackendClient]
 })
 /**
- * Class who display dashboards
+ * Class who display dashboards for: total, hosts and services
  */
-export class Dashboard {
-  private livestate = {
+export class DashboardPage {
+  public livestate = {
     total: 0,
-    problems: {host: 0, service: 0, total: 0},
+    problems: {host: 0.0, service: 0.0, total: 0.0},
     percent: {host: 0.0, service: 0.0, total: 0.0}
   };
-  private colors = {
+  public colors = {
     host: {outerStrokeColor: OK, innerStrokeColor: OK},
     service: {outerStrokeColor: OK, innerStrokeColor: OK},
     total: {outerStrokeColor: OK, innerStrokeColor: OK},
   };
-  private hostSynthesis = {
+  public hostSynthesis = {
       up: 0,
       unreachable: 0,
       down: 0,
@@ -35,7 +35,7 @@ export class Dashboard {
       not_monitored: 0,
       total: 0,
     };
-  private serviceSynthesis = {
+  public serviceSynthesis = {
       ok: 0,
       unreachable: 0,
       warning: 0,
@@ -62,11 +62,10 @@ export class Dashboard {
   }
 
   /**
-   * Manage data from request
+   * Manage data from backend request
    * @param data - data received by backend: {_items:..., _meta:...}
    */
   protected manageData(data: Object): void {
-    // Manage data from backend request
     for (let i = 0; i < data['_items'].length; i++) {
       // Current synthesis data
       let livesynth = data['_items'][i];
@@ -123,20 +122,19 @@ export class Dashboard {
   /**
    * Update percentages and colors for dashboards
    */
-  protected updatePercentAndColors(): void {
-    // Set percentages and colors
-    let realHostsTotal = this.livestate.percent.host = this.hostSynthesis.total - this.hostSynthesis['not_monitored'];
-    this.livestate.percent.host = Dashboard.getPercent(this.livestate.problems.host, realHostsTotal);
+  public updatePercentAndColors(): void {
+    let realHostsTotal = this.hostSynthesis['total'] - this.hostSynthesis['not_monitored'];
+    this.livestate.percent.host = DashboardPage.getPercent(this.livestate.problems.host, realHostsTotal);
 
-    let realServicesTotal = this.serviceSynthesis.total - this.serviceSynthesis['not_monitored'];
-    this.livestate.percent.service = Dashboard.getPercent(this.livestate.problems.service, realServicesTotal);
+    let realServicesTotal = this.serviceSynthesis['total'] - this.serviceSynthesis['not_monitored'];
+    this.livestate.percent.service = DashboardPage.getPercent(this.livestate.problems.service, realServicesTotal);
 
-    let realItemsTotal = this.livestate.total - (this.hostSynthesis['not_monitored'] + this.serviceSynthesis['not_monitored']);
-    this.livestate.percent.total = Dashboard.getPercent(this.livestate.problems.total, realItemsTotal);
+    let realItemsTotal = this.livestate['total'] - (this.hostSynthesis['not_monitored'] + this.serviceSynthesis['not_monitored']);
+    this.livestate.percent.total = DashboardPage.getPercent(this.livestate.problems.total, realItemsTotal);
 
-    Dashboard.setMainDashboardColor(this.livestate.percent.total, this.colors.total);
-    Dashboard.setMainDashboardColor(this.livestate.percent.host, this.colors.host);
-    Dashboard.setMainDashboardColor(this.livestate.percent.service, this.colors.service);
+    DashboardPage.setMainDashboardColor(this.livestate.percent.total, this.colors.total);
+    DashboardPage.setMainDashboardColor(this.livestate.percent.host, this.colors.host);
+    DashboardPage.setMainDashboardColor(this.livestate.percent.service, this.colors.service);
   }
 
   /**
@@ -144,7 +142,7 @@ export class Dashboard {
    * @param percent - value of percentage
    * @param color - corresponding values of color
    */
-  private static setMainDashboardColor(percent: number, color: Object): void {
+  public static setMainDashboardColor(percent: number, color: Object): void {
     if (percent == 0) {
         color['outerStrokeColor'] = OK;
         color['innerStrokeColor'] = OK;
@@ -164,9 +162,11 @@ export class Dashboard {
    * @param total - total of items
    * @returns {number} percentage
    */
-  private static getPercent(value: number, total: number): number {
-    // Return percentage for value and total
-    return +((value / total) * 100).toFixed(2) | 0
+  public static getPercent(value: number, total: number): number {
+    let result = (value / total) * 100;
+    if(!result || result === Infinity)
+      return 0.0;
+    return Math.ceil(result * 10) / 10;
   }
 
   /**
@@ -176,7 +176,6 @@ export class Dashboard {
    * @returns {number}
    */
   public getPercentFromItemType(value: number, itemType: string): number {
-    // Return percentage for given value and total
     let total = 0;
     if(!value)
       value = 0;
@@ -186,7 +185,7 @@ export class Dashboard {
     else if (itemType == 'service')
       total = this.serviceSynthesis['total'] - this.serviceSynthesis['not_monitored'];
 
-    return Dashboard.getPercent(value, total);
+    return DashboardPage.getPercent(value, total);
 
   }
 
@@ -203,6 +202,8 @@ export class Dashboard {
     else if (itemType == 'service')
       data = this.serviceSynthesis;
 
+    if (data[itemKey] === undefined)
+      return 'ERR: [' + itemKey + '] not in [' + itemType + '] itemType';
     return data[itemKey] + ' / ' + (data['total'] - data['not_monitored'])
   }
 

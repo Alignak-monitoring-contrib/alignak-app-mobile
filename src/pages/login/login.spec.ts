@@ -1,9 +1,9 @@
 import {async, TestBed} from '@angular/core/testing';
 import {IonicModule, NavController} from 'ionic-angular';
-
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {LoginPage} from "./login";
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+
+import {LoginPage} from "./login";
 
 
 describe('LoginPage: ', () => {
@@ -29,6 +29,15 @@ describe('LoginPage: ', () => {
   it('Initialize Login Page', () => {
     expect(loginPage.backend_url).toBe('http://demo.alignak.net:5000');
     expect(loginPage.username).toBe('admin');
+  });
+
+  it('Event Handler Call doLogin()', () => {
+    spyOn(loginPage, 'doLogin');
+    loginPage.eventHandler(8);
+    expect(loginPage.doLogin).not.toHaveBeenCalled();
+
+    loginPage.eventHandler(13);
+    expect(loginPage.doLogin).toHaveBeenCalled();
   });
 
 });

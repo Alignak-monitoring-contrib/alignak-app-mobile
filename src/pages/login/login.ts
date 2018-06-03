@@ -14,9 +14,9 @@ import { ErrorPage } from "../error/error";
  * Class who manage user login (Homepage of application)
  */
 export class LoginPage {
-  private readonly backend_url: string;
-  private readonly username: string;
-  private readonly password: string;
+  private readonly _backend_url: string;
+  private readonly _username: string;
+  private _password: string;
 
   /**
    * @param {NavController} navCtrl - navigator controller
@@ -25,22 +25,32 @@ export class LoginPage {
   constructor(public navCtrl: NavController, private http: HttpClient
   ) {
     if (localStorage.getItem('url')) {
-      this.backend_url = localStorage.getItem('url')
+      this._backend_url = localStorage.getItem('url')
     }
     if (localStorage.getItem('username')) {
-      this.username = localStorage.getItem('username')
+      this._username = localStorage.getItem('username')
     }
   }
+
+  /**
+   * @returns {string} _backend_url
+   */
+  public get backend_url(): string {return this._backend_url}
+
+  /**
+   * @returns {string} _username
+   */
+  public get username(): string {return this._username}
 
   /**
    * Login to backend with current url, username and password
    */
   public doLogin(): void {
-    localStorage.setItem("url", this.backend_url);
-    localStorage.setItem('username', this.username);
+    localStorage.setItem("url", this._backend_url);
+    localStorage.setItem('username', this._username);
 
     let client = new BackendClient(this.http);
-    client.login(this.username, this.password)
+    client.login(this._username, this._password)
       .subscribe(
         function(data) {
           localStorage.setItem("token", data['token']);
@@ -59,7 +69,6 @@ export class LoginPage {
    * @param {number} keyCode - key code of type event
    */
   public eventHandler(keyCode: number): void {
-    // Catch when user type ENTER in "this.password"
     if (keyCode === 13){
       this.doLogin()
     }

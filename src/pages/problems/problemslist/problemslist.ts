@@ -13,8 +13,8 @@ import {HostPage, ServicePage} from "../../item/item";
  * Class who manage a list of problem items
  */
 export class ProblemsListPage {
-  private readonly state: string;
-  private readonly nextPage = undefined;
+  private readonly _state: string;
+  private readonly _nextPage = undefined;
   public itemType: string;
   public problems = [];
 
@@ -24,27 +24,37 @@ export class ProblemsListPage {
    * @param {BackendClient} client - backend client for requests
    */
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    this.state = this.navParams.get('state');
+    this._state = this.navParams.get('state');
+    this._nextPage = this.navParams.get('itemType');
     this.itemType = this.navParams.get('itemType');
-    this.nextPage = this.navParams.get('itemType');
     this.addProblems();
   }
 
   /**
-   * Add problems for current state (when {@link nextPage})
+   * @returns {string} _state
+   */
+  public get state(): string {return this._state};
+
+  /**
+   * @returns {string} _nextPage
+   */
+  public get nextPage(): string {return this._nextPage};
+
+  /**
+   * Add problems for current state (when {@link _nextPage})
    */
   private addProblems(): void {
-    this.client.getProblems(this.nextPage, this.state)
+    this.client.getProblems(this._nextPage, this._state)
       .subscribe(
         function(data) {
           this.problems = this.problems.concat(data['_items'].filter(
             h => h['active_checks_enabled'] || h['passive_checks_enabled']
           ));
           if (data['_links']['next'] != undefined) {
-            this.nextPage = data['_links']['next']['href'];
+            this._nextPage = data['_links']['next']['href'];
           }
           else
-            this.nextPage = undefined;
+            this._nextPage = undefined;
         }.bind(this)
       );
   }
@@ -75,7 +85,7 @@ export class ProblemsListPage {
    */
   public doInfinite(infiniteScroll: InfiniteScroll): void {
     setTimeout(() => {
-      if (this.nextPage) {
+      if (this._nextPage) {
         this.addProblems();
       }
       infiniteScroll.complete();

@@ -15,7 +15,7 @@ import {Utils} from "../../common/utils";
  * Class who display services
  */
 export class ServicesPage {
-  private host: Object;
+  private readonly _host: Object;
   public services = [];
   public colors = {up: 'up', unreachable: 'unreachable', down: 'down' };
   public nextPage = 'service';
@@ -27,15 +27,20 @@ export class ServicesPage {
    * @param {BackendClient} client - backend client to get data
    */
   constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
-    this.host = navParams.get('host');
+    this._host = navParams.get('host');
     this.addServices();
   }
+
+  /**
+   * @returns {Object} _host
+   */
+  public get host(): Object {return this._host};
 
   /**
    * Add services to current services list (GET request on next page endpoint)
    */
   private addServices(): void {
-    this.client.getHostServices(this.nextPage, this.host).subscribe(
+    this.client.getHostServices(this.nextPage, this._host).subscribe(
       function(data) {
         this.services = this.services.concat(data['_items']);
         if (data['_links']['next'] != undefined)
@@ -53,25 +58,28 @@ export class ServicesPage {
    */
   public compare = (item: Object): number =>  {
     let field = 'ls_state';
-    let criteria = this.criteria;
+    let criteria;
     if (this.criteria.includes(':')) {
       field = this.criteria.split(':', 2)[0];
       criteria = this.criteria.split(':', 2)[1];
-    }
-    // To prevent wrong input field
-    if (item[field] == undefined)
-      field = 'ls_state';
+    } else
+      criteria = this.criteria;
+
+    if (criteria === '' || item[field] === undefined)
+      return 0;
 
     if (typeof item[field] === "string"){
-      if (item[field] == criteria || item[field].includes(criteria))
+      if (item[field] == criteria)
         return -1;
-      if (!item[field].includes(criteria))
+      if (item[field].indexOf(criteria) !== -1)
+        return -1;
+      else
         return 1;
     }
     if (typeof item[field] === "boolean"){
-      if (item[field])
+      if (item[field] == (criteria == 'true'))
         return -1;
-      if (!item[field])
+      else
         return 1;
     }
 
@@ -82,7 +90,7 @@ export class ServicesPage {
    * Event handler for key press in input
    */
   public eventHandler(): void {
-    this.services = this.services.sort(this.compare)
+    this.services = this.services.sort(this.compare) || []
   }
 
   /**
@@ -90,7 +98,7 @@ export class ServicesPage {
    * @param {Object} service - service item data
    * @returns {string} service name
    */
-  public getItemName(service: {}): string {
+  public getItemName(service: Object): string {
     return Utils.getItemName(service)
   }
 

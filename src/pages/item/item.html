@@ -29,7 +29,7 @@
     <ion-grid>
       <ion-row>
         <ion-col><b>State</b></ion-col>
-        <ion-col>{{item['ls_state']}}</ion-col>
+        <ion-col [ngClass]="item['ls_state']">{{item['ls_state']}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col><b>Output</b></ion-col>

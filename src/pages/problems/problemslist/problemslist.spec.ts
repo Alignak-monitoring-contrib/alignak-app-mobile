@@ -27,7 +27,7 @@ class MockNavParams{
   }
 }
 
-describe('ProblemsPage: ', () => {
+describe('ProblemsListPage: ', () => {
   let fixture;
   let injector;
   let navCtrl;
@@ -71,7 +71,7 @@ describe('ProblemsPage: ', () => {
     expect(problemsListPage.getIconName()).toEqual('cube')
   });
 
-  it('Open Page for Wanted Item', () => {
+  it('Open Page Call NavCtrl "push()" on Wanted Page', () => {
     spyOn(navCtrl, 'push');
 
     problemsListPage.openPage('host', {name: 'an_host'});

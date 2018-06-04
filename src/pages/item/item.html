@@ -20,6 +20,7 @@
       <ion-icon ngClass="DOWNTIME" name="medkit"></ion-icon>
     </ion-badge>
   </ion-title>
+  <ion-label *ngIf="!itemIsHost()">Attached to {{hostname}}</ion-label>
 <!--Global infos-->
   <ion-list>
     <ion-list-header color="light">

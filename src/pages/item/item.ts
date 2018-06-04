@@ -135,13 +135,22 @@ export class HostPage extends ItemPage {
  * @extends ItemPage
  */
 export class ServicePage extends ItemPage {
-
+  public hostname: string;
   /**
    * Display service
    * @param navCtrl - navigator controller
    * @param navParams - navigator parameters to get item
+   * @param client - client for backend to get services for host
    */
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public client: BackendClient) {
     super(navCtrl, navParams);
+
+    this.getAttachedHost()
+  }
+
+  private getAttachedHost() {
+    this.client.getHosts('host/' + this.item['host']).subscribe(
+      data => {this.hostname = Utils.getItemName(data)}
+    )
   }
 }

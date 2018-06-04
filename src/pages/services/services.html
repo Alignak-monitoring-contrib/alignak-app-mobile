@@ -25,7 +25,7 @@
   </ion-title>
   <ion-list *ngFor="let service of services;">
     <ion-item (click)="displayService(service)">
-      <ion-icon item-start [ngClass]="service['ls_state']" name="list-box"></ion-icon>
+      <ion-icon item-start [ngClass]="service['ls_state']" name="cube"></ion-icon>
       <ion-label item-end>
         {{getItemName(service)}}<br> {{service['ls_state']}}
       </ion-label>
